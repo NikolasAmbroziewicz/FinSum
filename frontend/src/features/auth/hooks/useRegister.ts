@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
+import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 
 import { useLocalStorage } from 'src/hooks/useLocalStorage';
 
-import { signUp } from 'src/features/auth/api/user';
+import { signUp } from 'src/features/auth/api/authApi';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   registerSchema,
@@ -14,13 +14,13 @@ import {
 
 export const useRegister = () => {
   const { setToLocalStorage } = useLocalStorage();
-  const router = useRouter();
+  const navigation = useNavigate();
   const [registerError, setRegisterError] = useState<string>();
 
   const { mutate } = useMutation('registerUser', signUp, {
     onSuccess: (data) => {
       setToLocalStorage('user', data);
-      router.push('/dashboard');
+      navigation('/dashboard');
     },
     onError(error: any) {
       if (error.response?.data.message) {

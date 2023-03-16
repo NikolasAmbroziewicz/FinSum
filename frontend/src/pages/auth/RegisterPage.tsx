@@ -15,7 +15,7 @@ import FeatureList from 'src/features/auth/components/FeatureList';
 import FormElement from 'src/features/auth/components/FormElement';
 import MainLogo from 'src/images/MainLogo.svg';
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const { isTabletScreen } = useScreen();
   const { errors, handleFormSubmit, handleSubmit, register, registerError } =
     useRegister();

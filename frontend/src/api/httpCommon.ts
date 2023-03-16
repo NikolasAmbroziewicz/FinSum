@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useLocalStorage } from 'src/hooks/useLocalStorage';
 
 export default axios.create({
-  baseURL: process.env.BACKEND_HOST,
+  baseURL: import.meta.env.BACKEND_HOST,
   headers: {
     'Content-Type': 'application/json'
   }

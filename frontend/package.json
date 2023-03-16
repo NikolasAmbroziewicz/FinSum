@@ -26,6 +26,7 @@
     "react-router-dom": "^6.9.0",
     "redux": "^4.2.1",
     "sort-by": "^1.2.0",
+    "vite-tsconfig-paths": "^4.0.5",
     "zod": "^3.21.4"
   },
   "devDependencies": {
