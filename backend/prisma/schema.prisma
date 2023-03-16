@@ -1,0 +1,113 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  id       Int    @id @default(autoincrement())
+  name     String @db.VarChar(50)
+  surname  String @db.VarChar(50)
+  email    String @unique @db.VarChar(50)
+  password String @db.VarChar(256)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  account        account[]
+  icome          income[]
+  metal          metal[]
+  bond           bond[]
+  stock          stock[]
+  cryptocurrency cryptocurrency[]
+}
+model income {
+  id       Int      @id @default(autoincrement())
+  name     String   @db.VarChar(50)
+  amount   Decimal  @db.Decimal()
+  currency String   @db.VarChar(10)
+  user     user     @relation(fields: [id], references: [id])
+  date DateTime @db.Timestamp() @default(now())
+}
+
+model account {
+  id       Int       @id @default(autoincrement())
+  currency String    @db.VarChar(20)
+  amount   Decimal   @db.Decimal()
+  user     user      @relation(fields: [id], references: [id])
+  expense  expense[]
+}
+
+model expense {
+  id          Int      @id @default(autoincrement())
+  amount      Decimal  @db.Decimal()
+  title       String   @db.VarChar(50)
+  description String   @db.VarChar()
+  date        DateTime @db.Timestamp() @default(now())
+  account     account  @relation(fields: [id], references: [id])
+}
+
+model metal {
+  id          Int      @id @default(autoincrement())
+  metal_name  String   @db.VarChar(50)
+  coin_name   String   @db.VarChar(50)
+  unit        String   @db.VarChar(10)
+  amount      Int
+  price_buy   Decimal  @db.Decimal()
+  price_sold  Decimal  @db.Decimal()
+  date_bought DateTime @db.Timestamp() @default(now())
+  date_sold   DateTime @db.Timestamp()
+  user        user     @relation(fields: [id], references: [id])
+}
+
+model bond {
+  id                 Int      @id @default(autoincrement())
+  country            String   @db.VarChar(50)
+  percent            Decimal  @db.Decimal()
+  amount             Int      @db.Integer
+  price_each         Decimal  @db.Decimal()
+  date_bought        DateTime @db.Timestamp() @default(now())
+  date_sold          DateTime @db.Timestamp()
+  redemption_penalty Int      @db.Integer
+  time_interest      Int      @db.Integer
+  user               user     @relation(fields: [id], references: [id])
+}
+
+model stock {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(20)
+  amount      Int      @db.Integer
+  ticker      String   @db.VarChar(10)
+  price_buy   Int      @db.Integer
+  price_sold  Int      @db.Integer
+  date_bought DateTime @db.Timestamp() @default(now())
+  date_sold   DateTime @db.Timestamp()
+  user        user     @relation(fields: [user_id], references: [id])
+  user_id     Int
+  broker      broker   @relation(fields: [broker_id], references: [id])
+  broker_id   Int
+}
+
+model broker {
+  id    Int     @id @default(autoincrement())
+  stock stock[]
+}
+
+model cryptocurrency {
+  id           Int      @id @default(autoincrement())
+  name         String   @db.VarChar(40)
+  ticker       String   @db.VarChar(20)
+  price_bought Decimal  @db.Decimal()
+  price_sold   Decimal  @db.Decimal()
+  date_bought  DateTime @db.Timestamp() @default(now())
+  date_sold    DateTime @db.Timestamp()
+  stock_name   String   @db.VarChar(40)
+
+  user user @relation(fields: [id], references: [id])
+}
