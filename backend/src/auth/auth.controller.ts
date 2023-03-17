@@ -6,16 +6,18 @@ import {
   UseGuards
 } from '@nestjs/common'
 
-import { RefreshTokenGuards } from '../common/guards/refreshToken.guards';
+import { AuthService } from './auth.service'
+
 import { PublicRoute } from '../common/decorators/publicRoute.decorators'
 import { GetCurrentUser } from './decorators/getCurrentUser.decorator';
-import { AuthService } from './auth.service'
+
+import { RefreshTokenGuards } from '../common/guards/refreshToken.guards';
 
 import { SignInDto, SingUpDto } from './auth.dto';
 import { Tokens, UserWithTokens } from './auth.type';
 
 @PublicRoute()
-@Controller('Auth')
+@Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
