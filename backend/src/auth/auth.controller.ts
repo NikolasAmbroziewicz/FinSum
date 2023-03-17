@@ -7,7 +7,7 @@ import {
 import { PublicRoute } from '../common/decorators/publicRoute.decorators'
 import { AuthService } from './auth.service'
 
-import { SignInDto } from './auth.dto';
+import { SignInDto, SingUpDto } from './auth.dto';
 import { Tokens } from './auth.type';
 
 @PublicRoute()
@@ -18,5 +18,11 @@ export class AuthController {
   @Post('v1/signup')
   signUp (@Body() data: SignInDto): Promise<Tokens> {
     return this.authService.signUp(data)
+  }
+
+
+  @Post('v1/signin')
+  signIn (@Body() data: SingUpDto): Promise<Tokens>  {
+    return this.authService.signIn(data)
   }
 }

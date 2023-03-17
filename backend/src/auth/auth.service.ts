@@ -4,7 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../prisma/prisma.service';
 import { TokensService } from '../tokens/tokens.service'
 
-import { SignInDto } from './auth.dto';
+import { SignInDto, SingUpDto } from './auth.dto';
 import { Tokens } from './auth.type';
 
 import * as bcrypt from 'bcrypt'
@@ -41,7 +41,34 @@ export class AuthService {
     }
   }
 
+  async signIn (data: SingUpDto): Promise<Tokens> {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email: data.email
+      }
+    })
+
+    if (!user) {
+      throw new ForbiddenException("User doesn't exist")
+    }
+
+    const isValidPassword = await this.comparePassword(data.password, user.password)
+    
+    if (!isValidPassword) {
+      throw new ForbiddenException("Incorrect Email or Password")
+    }
+
+    return {
+      accessToken: this.tokensService.createAccessToken(user.id, user.email, this.configService.get<string>('ACCESS_TOKEN_TIME_TO_LIVE')),
+      refreshToken: this.tokensService.createRefreshToken(user.id, user.email, this.configService.get<string>('REFRESH_TOKEN_TIME_TO_LIVE'))
+    }
+  }
+
   private hashData(password: string) {
     return bcrypt.hash(password, 12);
+  }
+
+  private comparePassword(password: string, hashedPassword: string) {
+    return bcrypt.compare(password, hashedPassword)
   }
 }
