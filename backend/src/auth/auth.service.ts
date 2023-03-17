@@ -5,7 +5,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { TokensService } from '../tokens/tokens.service'
 
 import { SignInDto, SingUpDto } from './auth.dto';
-import { Tokens } from './auth.type';
+import { Tokens, UserWithTokens } from './auth.type';
 
 import * as bcrypt from 'bcrypt'
 
@@ -61,6 +61,32 @@ export class AuthService {
     return {
       accessToken: this.tokensService.createAccessToken(user.id, user.email, this.configService.get<string>('ACCESS_TOKEN_TIME_TO_LIVE')),
       refreshToken: this.tokensService.createRefreshToken(user.id, user.email, this.configService.get<string>('REFRESH_TOKEN_TIME_TO_LIVE'))
+    }
+  }
+
+  async refreshTokens (tokens: UserWithTokens): Promise<Tokens> {
+    const { accessToken, refreshToken, email, id } = tokens
+
+    if (!accessToken) {
+      throw new ForbiddenException("Unauthorized")
+    }
+    const { valid, expired }  = this.tokensService.verifyJWT(accessToken)
+
+    if (valid && !expired) {
+      return {
+        accessToken,
+        refreshToken
+      }
+    } else if (!valid && expired) {
+      return {
+        accessToken: null,
+        refreshToken: null
+      }
+    } else if (valid && expired) {
+      return {
+        accessToken: this.tokensService.createAccessToken(id, email, this.configService.get<string>('ACCESS_TOKEN_TIME_TO_LIVE')),
+        refreshToken
+      }
     }
   }
 
