@@ -13,11 +13,11 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
+    "test": "jest --config ./jest.json --setupFiles dotenv/config",
+    "test:watch": "jest --watch ./jest.json --setupFiles dotenv/config",
+    "test:cov": "jest --coverage ./jest.json --setupFiles dotenv/config",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./jest.e2e.json"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
@@ -50,7 +50,7 @@
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "jest": "29.3.1",
+    "jest": "^29.5.0",
     "prettier": "^2.3.2",
     "prisma": "^4.8.0",
     "source-map-support": "^0.5.20",
