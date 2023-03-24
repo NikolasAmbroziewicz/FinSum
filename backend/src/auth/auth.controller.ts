@@ -14,7 +14,7 @@ import { GetCurrentUser } from './decorators/getCurrentUser.decorator';
 import { RefreshTokenGuards } from '../common/guards/refreshToken.guards';
 
 import { SignInDto, SingUpDto } from './auth.dto';
-import { Tokens, UserWithTokens } from './auth.type';
+import { Tokens, UserWithTokens, UserResponsePayload } from './auth.type';
 
 @PublicRoute()
 @Controller('auth')
@@ -22,13 +22,13 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('v1/signup')
-  signUp (@Body() data: SignInDto): Promise<Tokens> {
+  signUp (@Body() data: SignInDto): Promise<UserResponsePayload> {
     return this.authService.signUp(data)
   }
 
 
   @Post('v1/signin')
-  signIn (@Body() data: SingUpDto): Promise<Tokens>  {
+  signIn (@Body() data: SingUpDto): Promise<UserResponsePayload>  {
     return this.authService.signIn(data)
   }
 
