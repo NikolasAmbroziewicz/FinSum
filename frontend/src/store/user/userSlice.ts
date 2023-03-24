@@ -38,6 +38,15 @@ export const signUpUser = createAsyncThunk('user/register', async (data: registe
   return res
 })
 
+export const signInUser = createAsyncThunk('user/login', async (data: loginSchemaType) => {
+  const { setToLocalStorage } = useLocalStorage()
+
+  const res: UserStore = await singIn(data)
+  setToLocalStorage('user', res.tokens)
+
+  return res
+})
+
 const userSlice = createSlice({
   name: 'user',
   initialState: initialState,
@@ -50,6 +59,10 @@ const userSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(signUpUser.fulfilled, (state, action) => {
+        state.tokens = action.payload.tokens
+        state.user = action.payload.user
+      })
+      .addCase(signInUser.fulfilled, (state, action) => {
         state.tokens = action.payload.tokens
         state.user = action.payload.user
       })

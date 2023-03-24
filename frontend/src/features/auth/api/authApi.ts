@@ -1,4 +1,5 @@
 import apiBase, { authHeader } from 'src/api/httpCommon';
+
 import {
   loginSchemaType,
   registerSchemaType
@@ -13,8 +14,7 @@ export const singIn = async (data: loginSchemaType) => {
 };
 
 export const refreshToken = async () => {
-  return apiBase
-    .get('/auth/v1/refresh_tokens', {
+  return apiBase.get('/auth/v1/refresh_tokens', {
       headers: {
         ...authHeader()
       }
