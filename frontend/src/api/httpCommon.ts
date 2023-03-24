@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useLocalStorage } from 'src/hooks/useLocalStorage';
+import { Tokens } from 'src/store/user/userSlice';
 
 export default axios.create({
   baseURL: import.meta.env.VITE_BACKEND_HOST,
@@ -8,11 +8,7 @@ export default axios.create({
   }
 });
 
-export const authHeader = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { getFromLocalStorage } = useLocalStorage();
-  const tokens = getFromLocalStorage('user');
-
+export const authHeader = (tokens: Tokens) => {
   return {
     Authorization: `Bearer ${tokens.accessToken}`,
     'x-refresh-token': tokens.refreshToken

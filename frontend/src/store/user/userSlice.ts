@@ -7,7 +7,7 @@ import {
   registerSchemaType
 } from 'src/features/auth/validators';
 
-type Store = {
+export type Tokens = {
   refreshToken?: string,
   accessToken?: string,
 }
@@ -18,7 +18,7 @@ interface UserStore {
     name: string
     surname: string
   },
-  tokens: Store, 
+  tokens: Tokens, 
 }
 
 const initialState: UserStore = {
@@ -43,6 +43,15 @@ export const signInUser = createAsyncThunk('user/login', async (data: loginSchem
 
   const res: UserStore = await singIn(data)
   setToLocalStorage('user', res.tokens)
+
+  return res
+})
+
+export const refreshTokens = createAsyncThunk('user/refreshTokens', async () => {
+  const { getFromLocalStorage } = useLocalStorage()
+  const tokens: Tokens = getFromLocalStorage('user')
+
+  const res: Tokens = await refreshToken(tokens)
 
   return res
 })
