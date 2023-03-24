@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useMutation } from 'react-query';
 
-import { useLocalStorage } from 'src/hooks/useLocalStorage';
+import { AppDispatch } from 'src/store/main';
+import { useDispatch } from 'react-redux';
+import { signUpUser } from 'src/store/user/userSlice'
 
-import { signUp } from 'src/features/auth/api/authApi';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   registerSchema,
@@ -13,25 +13,10 @@ import {
 } from 'src/features/auth/validators';
 
 export const useRegister = () => {
-  const { setToLocalStorage } = useLocalStorage();
   const navigation = useNavigate();
-  const [registerError, setRegisterError] = useState<string>();
+  const dispatch = useDispatch<AppDispatch>()
 
-  const { mutate } = useMutation('registerUser', signUp, {
-    onSuccess: (data) => {
-      setToLocalStorage('user', data);
-      navigation('/dashboard');
-    },
-    onError(error: any) {
-      if (error.response?.data.message) {
-        setRegisterError(error.response.data.message);
-      } else {
-        setRegisterError(
-          'Upps Something went Wrong! Try Again Later or Check your internet Connection.'
-        );
-      }
-    }
-  });
+  const [registerError, setRegisterError] = useState<string>();
 
   const {
     register,
@@ -41,8 +26,19 @@ export const useRegister = () => {
     resolver: zodResolver(registerSchema)
   });
 
-  const handleFormSubmit = (values: registerSchemaType) => {
-    mutate(values);
+  const handleFormSubmit = async (values: registerSchemaType) => {
+    try {
+      await dispatch(signUpUser(values)).unwrap()
+      navigation('/dashboard')
+    } catch (error: any) {
+      if (error.response?.data.message) {
+        setRegisterError(error.response.data.message);
+      } else {
+        setRegisterError(
+          'Upps Something went Wrong! Try Again Later or Check your internet Connection.'
+        );
+      }
+    }
   };
 
   return {
