@@ -13,6 +13,7 @@ export type Tokens = {
 }
 
 interface UserStore {
+  isAuthenticated: boolean,
   user?: {
     email: string
     name: string
@@ -22,6 +23,7 @@ interface UserStore {
 }
 
 const initialState: UserStore = {
+  isAuthenticated: false,
   user: undefined,
   tokens: {
     refreshToken: undefined,
@@ -51,9 +53,15 @@ export const refreshTokens = createAsyncThunk('user/refreshTokens', async () => 
   const { getFromLocalStorage } = useLocalStorage()
   const tokens: Tokens = getFromLocalStorage('user')
 
-  const res: Tokens = await refreshToken(tokens)
+  const res = await refreshToken(tokens)
 
-  return res
+  console.log('TOKENS')
+
+  return {
+    tokens: {
+      ...res
+    }
+  }
 })
 
 const userSlice = createSlice({
@@ -68,12 +76,18 @@ const userSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(signUpUser.fulfilled, (state, action) => {
+        state.isAuthenticated = true
         state.tokens = action.payload.tokens
         state.user = action.payload.user
       })
       .addCase(signInUser.fulfilled, (state, action) => {
+        state.isAuthenticated = true
         state.tokens = action.payload.tokens
         state.user = action.payload.user
+      })
+      .addCase(refreshTokens.fulfilled, (state, action) => {
+        state.isAuthenticated = true
+        state.tokens = action.payload.tokens
       })
   }
 })
@@ -83,5 +97,7 @@ export const { logOut } = userSlice.actions
 export const selectCurrentTokens = (state: UserStore) => state.tokens
 
 export const selectCurrentUser = (state: UserStore) => state.user
+
+export const selectUserAuthenticated = (state: UserStore) => state.isAuthenticated
 
 export default userSlice.reducer
