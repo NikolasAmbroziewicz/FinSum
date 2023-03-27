@@ -9,12 +9,12 @@ import App from './App';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ReactQueryWrapper>
-        <Provider store={store}>
+    <Provider store={store}>
+      <BrowserRouter>
+        <ReactQueryWrapper>
           <App />
-        </Provider>
       </ReactQueryWrapper>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );

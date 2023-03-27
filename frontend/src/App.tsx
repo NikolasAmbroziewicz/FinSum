@@ -8,12 +8,13 @@ import RegisterPage from './pages/auth/RegisterPage';
 
 import NotFoundPage from './pages/404/NotFound';
 import PrivateRoutes from './pages/utils/ProtectedRoutes';
+import ProtectedAuthRoutes from './pages/utils/ProtectedAuthRotes';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="auth/">
+      <Route element={<ProtectedAuthRoutes />} path="auth/">
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
       </Route>
