@@ -5,7 +5,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { TokensService } from '../tokens/tokens.service'
 
 import { SignInDto, SingUpDto } from './auth.dto';
-import { Tokens, UserWithTokens } from './auth.type';
+import { Tokens, UserWithTokens, UserResponsePayload } from './auth.type';
 
 import * as bcrypt from 'bcrypt'
 
@@ -17,7 +17,7 @@ export class AuthService {
     private configService: ConfigService
     ) {}
 
-  async signUp (data: SignInDto): Promise<Tokens> {
+  async signUp (data: SignInDto): Promise<UserResponsePayload> {
     try {
       const hash = await this.hashData(data.password)
 
@@ -31,8 +31,15 @@ export class AuthService {
       })
 
       return {
-        accessToken: this.tokensService.createAccessToken(newUser.id, newUser.email, this.configService.get<string>('ACCESS_TOKEN_TIME_TO_LIVE')),
-        refreshToken: this.tokensService.createRefreshToken(newUser.id, newUser.email, this.configService.get<string>('REFRESH_TOKEN_TIME_TO_LIVE'))
+        user: {
+          name: newUser.name,
+          surname: newUser.surname,
+          email: newUser.email,
+        },
+        tokens: {
+          accessToken: this.tokensService.createAccessToken(newUser.id, newUser.email, this.configService.get<string>('ACCESS_TOKEN_TIME_TO_LIVE')),
+          refreshToken: this.tokensService.createRefreshToken(newUser.id, newUser.email, this.configService.get<string>('REFRESH_TOKEN_TIME_TO_LIVE'))
+        }
       }
     } catch (e: any) {
       if (e.code === 'P2002') {
@@ -41,7 +48,7 @@ export class AuthService {
     }
   }
 
-  async signIn (data: SingUpDto): Promise<Tokens> {
+  async signIn (data: SingUpDto): Promise<UserResponsePayload> {
     const user = await this.prisma.user.findUnique({
       where: {
         email: data.email
@@ -59,8 +66,15 @@ export class AuthService {
     }
 
     return {
-      accessToken: this.tokensService.createAccessToken(user.id, user.email, this.configService.get<string>('ACCESS_TOKEN_TIME_TO_LIVE')),
-      refreshToken: this.tokensService.createRefreshToken(user.id, user.email, this.configService.get<string>('REFRESH_TOKEN_TIME_TO_LIVE'))
+      user: {
+        name: user.name,
+        surname: user.surname,
+        email: user.email,
+      },
+      tokens: {
+        accessToken: this.tokensService.createAccessToken(user.id, user.email, this.configService.get<string>('ACCESS_TOKEN_TIME_TO_LIVE')),
+        refreshToken: this.tokensService.createRefreshToken(user.id, user.email, this.configService.get<string>('REFRESH_TOKEN_TIME_TO_LIVE'))
+      }
     }
   }
 

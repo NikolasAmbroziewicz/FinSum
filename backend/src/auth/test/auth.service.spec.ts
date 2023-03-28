@@ -70,8 +70,15 @@ describe('AuthService > methods > signUp', () => {
     const serviceMethod = await service.signUp(userRegister)
 
     expect(serviceMethod).toEqual({
-      accessToken: expect.any(String),
-      refreshToken: expect.any(String)
+      user: {
+        name: expect.any(String),
+        surname: expect.any(String),
+        email: expect.any(String),
+      },
+      tokens: {
+        accessToken: expect.any(String),
+        refreshToken: expect.any(String)
+      }
     })
   })
 })
@@ -86,8 +93,15 @@ describe('AuthService > methods > signIn', () => {
     const serviceMethod = await service.signIn(userLogin)
 
     expect(serviceMethod).toEqual({
-      accessToken: expect.any(String),
-      refreshToken: expect.any(String)
+      user: {
+        name: expect.any(String),
+        surname: expect.any(String),
+        email: expect.any(String),
+      },
+      tokens: {
+        accessToken: expect.any(String),
+        refreshToken: expect.any(String)
+      }
     })
   })
 
