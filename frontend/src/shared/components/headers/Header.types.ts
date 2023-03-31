@@ -5,5 +5,5 @@ export enum VariantColor {
 
 export interface IHeaderProp {
   children: JSX.Element | string;
-  variant: VariantColor;
+  variant?: VariantColor;
 }

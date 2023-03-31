@@ -50,7 +50,7 @@ export default function LoginPage() {
         <BaseButton type="submit">Submit</BaseButton>
         <Link
           className="text-center text-sm text-stone-600"
-          to="/auth/register"
+          to="/register"
         >
           Do not You Have account? Register Here!
         </Link>
