@@ -107,7 +107,7 @@ export default function RegisterPage() {
             />
           </FormElement>
           <BaseButton type="submit">Submit</BaseButton>
-          <Link className="text-center text-sm text-stone-600" to="/auth/login">
+          <Link className="text-center text-sm text-stone-600" to="/login">
             Do You Have account? Log In Here!
           </Link>
         </form>

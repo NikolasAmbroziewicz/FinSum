@@ -1,6 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
 
-import HomePage from './pages/home/HomePage';
 import DashboardPage from './pages/dashboard/DashboardPage';
 
 import LoginPage from './pages/auth/LoginPage';
@@ -13,10 +12,9 @@ import ProtectedAuthRoutes from './pages/utils/ProtectedAuthRotes';
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route element={<ProtectedAuthRoutes />} path="auth/">
-        <Route path="login" element={<LoginPage />} />
-        <Route path="register" element={<RegisterPage />} />
+      <Route element={<ProtectedAuthRoutes />}>
+        <Route path="/" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
       </Route>
       <Route element={<PrivateRoutes />}>
         <Route path="/dashboard" element={<DashboardPage />} />
