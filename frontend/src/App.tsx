@@ -9,6 +9,8 @@ import NotFoundPage from './pages/404/NotFound';
 import PrivateRoutes from './pages/utils/ProtectedRoutes';
 import ProtectedAuthRoutes from './pages/utils/ProtectedAuthRotes';
 
+import BaseNavLayout from './shared/Layouts/BaseNavLayout';
+
 function App() {
   return (
     <Routes>
@@ -17,7 +19,11 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
       </Route>
       <Route element={<PrivateRoutes />}>
-        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/dashboard" element={
+          <BaseNavLayout>
+            <DashboardPage />
+          </BaseNavLayout>
+        } />
       </Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

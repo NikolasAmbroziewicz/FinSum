@@ -55,8 +55,6 @@ export const refreshTokens = createAsyncThunk('user/refreshTokens', async () => 
 
   const res = await refreshToken(tokens)
 
-  console.log('TOKENS')
-
   return {
     tokens: {
       ...res
