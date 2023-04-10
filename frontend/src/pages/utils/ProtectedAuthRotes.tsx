@@ -10,7 +10,7 @@ const ProtectedAuthRoutes = () => {
   const navigate = useNavigate()
 
   const onPreviousNavigation = () => {
-    navigate(-1)
+    navigate('dashboard')
     return null
   }
 
