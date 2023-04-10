@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import { AppDispatch } from 'src/store/main'
@@ -6,6 +7,7 @@ import { refreshTokens } from 'src/store/user/userSlice'
 
 export const useProtectedRoutes  = () => {
   const dispatch = useDispatch<AppDispatch>()
+  const location = useLocation()
   
   const [isAuthenticated, setIsAutheticated] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -23,7 +25,7 @@ export const useProtectedRoutes  = () => {
 
   useEffect(() => {
     authUser()
-  }, [dispatch])
+  }, [location.pathname])
 
   return {
     authUser,
