@@ -6,9 +6,9 @@ interface IBaseNavLayout {
 
 const BaseNavLayout: React.FC<IBaseNavLayout> = ({ children }) => {
   return (
-    <div>
+    <div className="flex w-screen h-screen">
       <GlobalNavigation />
-      <div>
+      <div className="overflow-scroll">
         {children}
       </div>
     </div>
