@@ -4,16 +4,16 @@ import { useNavigate } from 'react-router-dom';
 
 import { AppDispatch } from 'src/store/main';
 import { useDispatch } from 'react-redux';
-import { signInUser } from 'src/store/user/userSlice'
+import { signInUser } from 'src/store/user/userSlice';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema, loginSchemaType } from 'src/features/auth/validators';
 
 export const useLogin = () => {
-  const naviagtion = useNavigate()
-  const dispatch = useDispatch<AppDispatch>()
+  const naviagtion = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
-  const [loginError, setLoginError] = useState<string>()
+  const [loginError, setLoginError] = useState<string>();
 
   const {
     register,
@@ -25,8 +25,8 @@ export const useLogin = () => {
 
   const handleFormSubmit = async (values: loginSchemaType) => {
     try {
-      await dispatch(signInUser(values)).unwrap()
-      naviagtion('/dashboard')
+      await dispatch(signInUser(values)).unwrap();
+      naviagtion('/dashboard');
     } catch (error: any) {
       if (error.response?.data.message) {
         setLoginError(error.response.data.message);

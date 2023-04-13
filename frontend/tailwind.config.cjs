@@ -12,6 +12,11 @@ module.exports = {
       lg: '1200px',
       xl: '1536px',
     },
+    extend: {
+      fontFamily: {
+        'sans': ['Roboto', 'Helvetica', 'Arial', 'sans-serif']
+      }
+    }
   },
   plugins: [],
 }

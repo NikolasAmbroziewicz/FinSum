@@ -16,7 +16,8 @@ export const singIn = async (data: loginSchemaType) => {
 };
 
 export const refreshToken = async (tokens: Tokens) => {
-  return apiBase.get('/auth/v1/refresh_tokens', {
+  return apiBase
+    .get('/auth/v1/refresh_tokens', {
       headers: {
         ...authHeader(tokens)
       }
