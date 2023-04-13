@@ -1,9 +1,5 @@
 const MonthFinance = () => {
-  return (
-    <div>
-      Month Finance
-    </div>
-  )
-}
+  return <div>Month Finance</div>;
+};
 
-export default MonthFinance
+export default MonthFinance;

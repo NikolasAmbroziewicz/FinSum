@@ -1,9 +1,5 @@
 const StocksPage = () => {
-  return (
-    <div>
-      Stocks Page
-    </div>
-  )
-}
+  return <div>Stocks Page</div>;
+};
 
-export default StocksPage
+export default StocksPage;

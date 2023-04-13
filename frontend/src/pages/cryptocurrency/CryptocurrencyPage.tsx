@@ -1,9 +1,5 @@
-const CryptocurrencyPage  = () => {
-  return (
-    <div>
-      Crypto
-    </div>
-  )
-}
+const CryptocurrencyPage = () => {
+  return <div>Crypto</div>;
+};
 
-export default CryptocurrencyPage
+export default CryptocurrencyPage;

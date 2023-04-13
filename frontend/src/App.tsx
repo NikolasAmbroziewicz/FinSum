@@ -23,34 +23,41 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
       </Route>
       <Route element={<PrivateRoutes />}>
-        <Route path="/dashboard" element={
-          <BaseNavLayout>
-            <DashboardPage />
-          </BaseNavLayout>
-        } />
-        <Route 
-          path="/stock" element={
+        <Route
+          path="/dashboard"
+          element={
+            <BaseNavLayout>
+              <DashboardPage />
+            </BaseNavLayout>
+          }
+        />
+        <Route
+          path="/stock"
+          element={
             <BaseNavLayout>
               <StocksPage />
             </BaseNavLayout>
           }
         />
         <Route
-          path="/cryptocurrency" element={
+          path="/cryptocurrency"
+          element={
             <BaseNavLayout>
               <CryptocurrencyPage />
             </BaseNavLayout>
           }
         />
-        <Route 
-          path='/metals' element={
+        <Route
+          path="/metals"
+          element={
             <BaseNavLayout>
               <MetalsPage />
             </BaseNavLayout>
           }
         />
-        <Route 
-          path="month-finance" element={
+        <Route
+          path="month-finance"
+          element={
             <BaseNavLayout>
               <MonthFinance />
             </BaseNavLayout>

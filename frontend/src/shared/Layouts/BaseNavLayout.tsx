@@ -1,18 +1,23 @@
-import GlobalNavigation from "../components/naviagation/GlobalNavigation"
+import GlobalNavigation from '../components/naviagation/GlobalNavigation';
+import { useScreen } from 'src/hooks/useScreen';
 
 interface IBaseNavLayout {
-  children: JSX.Element
+  children: JSX.Element;
 }
 
 const BaseNavLayout: React.FC<IBaseNavLayout> = ({ children }) => {
-  return (
-    <div className="flex w-screen h-screen">
-      <GlobalNavigation />
-      <div className="overflow-scroll">
-        {children}
-      </div>
-    </div>
-  )
-}
+  const { isMobileScreen } = useScreen();
 
-export default BaseNavLayout
+  return (
+    <div
+      className={`flex ${
+        isMobileScreen() ? 'flex-col' : 'flex-row'
+      }  w-screen h-screen`}
+    >
+      <GlobalNavigation />
+      <div className="overflow-scroll">{children}</div>
+    </div>
+  );
+};
+
+export default BaseNavLayout;

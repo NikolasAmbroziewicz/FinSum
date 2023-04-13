@@ -48,10 +48,7 @@ export default function LoginPage() {
           />
         </FormElement>
         <BaseButton type="submit">Submit</BaseButton>
-        <Link
-          className="text-center text-sm text-stone-600"
-          to="/"
-        >
+        <Link className="text-center text-sm text-stone-600" to="/">
           Do not You Have account? Register Here!
         </Link>
       </form>

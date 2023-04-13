@@ -1,9 +1,5 @@
 const MetalsPage = () => {
-  return (
-    <div>
-      Metals Page
-    </div>
-  )
-}
+  return <div>Metals Page</div>;
+};
 
-export default MetalsPage
+export default MetalsPage;
