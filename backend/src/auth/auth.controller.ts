@@ -9,8 +9,7 @@ import {
 import { AuthService } from './auth.service'
 
 import { PublicRoute } from '../common/decorators/publicRoute.decorators'
-import { GetCurrentUser } from './decorators/getCurrentUser.decorator';
-
+import { GetCurrentUser } from '../common/decorators/getCurrentUser.decorator';
 import { RefreshTokenGuards } from '../common/guards/refreshToken.guards';
 
 import { SignInDto, SingUpDto } from './auth.dto';

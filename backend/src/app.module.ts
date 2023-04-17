@@ -7,13 +7,16 @@ import { AuthModule } from './auth/auth.module';
 
 import { AccessTokenGuards } from './common/guards/accessToken.guards';
 import { TokensModule } from './tokens/tokens.module';
+import { IncomeModule } from './income/income.module';
 
 
 @Module({
   imports: [
-    ConfigModule.forRoot({isGlobal: true}),
+    ConfigModule.forRoot({isGlobal: true}), 
     AuthModule, 
-    PrismaModule, TokensModule
+    PrismaModule, 
+    TokensModule, 
+    IncomeModule
   ],
   providers: [
     {
