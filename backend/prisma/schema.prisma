@@ -23,9 +23,8 @@ model user {
   account        account[]
   icome          income[]
   metal          metal[]
-  bond           bond[]
-  stock          stock[]
-  cryptocurrency cryptocurrency[]
+  stock_wallet   stock_wallet[]
+  cryptocurrency_wallet cryptocurrency_wallet[]
 }
 model income {
   id       Int      @id @default(autoincrement())
@@ -39,9 +38,10 @@ model income {
 model account {
   id       Int       @id @default(autoincrement())
   currency String    @db.VarChar(20)
-  amount   Decimal   @db.Decimal()
   user     user      @relation(fields: [id], references: [id])
   expense  expense[]
+  cash cash[]
+  name String    @db.VarChar(50)
 }
 
 model expense {
@@ -49,6 +49,14 @@ model expense {
   amount      Decimal  @db.Decimal()
   title       String   @db.VarChar(50)
   description String   @db.VarChar()
+  date        DateTime @db.Timestamp() @default(now())
+  account     account  @relation(fields: [id], references: [id])
+}
+
+model cash {
+  id          Int      @id @default(autoincrement())
+  amount      Decimal  @db.Decimal()
+  currency    String   @db.VarChar()
   date        DateTime @db.Timestamp() @default(now())
   account     account  @relation(fields: [id], references: [id])
 }
@@ -66,6 +74,14 @@ model metal {
   user        user     @relation(fields: [id], references: [id])
 }
 
+model stock_wallet {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(50)
+  user user @relation(fields: [id], references: [id])
+  bound bond[]
+  stock stock[]
+}
+
 model bond {
   id                 Int      @id @default(autoincrement())
   country            String   @db.VarChar(50)
@@ -76,7 +92,7 @@ model bond {
   date_sold          DateTime @db.Timestamp()
   redemption_penalty Int      @db.Integer
   time_interest      Int      @db.Integer
-  user               user     @relation(fields: [id], references: [id])
+  stock_wallet stock_wallet @relation(fields: [id], references: [id])
 }
 
 model stock {
@@ -88,20 +104,19 @@ model stock {
   price_sold  Int      @db.Integer
   date_bought DateTime @db.Timestamp() @default(now())
   date_sold   DateTime @db.Timestamp()
-  user        user     @relation(fields: [user_id], references: [id])
-  user_id     Int
-  broker      broker   @relation(fields: [broker_id], references: [id])
-  broker_id   Int
+  stock_wallet stock_wallet @relation(fields: [id], references: [id])
 }
+model cryptocurrency_wallet {
+  id Int @id @default(autoincrement())
+  user user @relation(fields: [id], references: [id])
 
-model broker {
-  id    Int     @id @default(autoincrement())
-  stock stock[]
+  cryptocurrency cryptocurrency[]
 }
 
 model cryptocurrency {
   id           Int      @id @default(autoincrement())
   name         String   @db.VarChar(40)
+  amount        Decimal @db.Decimal()
   ticker       String   @db.VarChar(20)
   price_bought Decimal  @db.Decimal()
   price_sold   Decimal  @db.Decimal()
@@ -109,5 +124,5 @@ model cryptocurrency {
   date_sold    DateTime @db.Timestamp()
   stock_name   String   @db.VarChar(40)
 
-  user user @relation(fields: [id], references: [id])
+  cryptocurrency_wallet cryptocurrency_wallet @relation(fields: [id], references: [id])
 }
