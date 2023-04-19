@@ -31,17 +31,22 @@ model income {
   name     String   @db.VarChar(50)
   amount   Decimal  @db.Decimal()
   currency String   @db.VarChar(10)
-  user     user     @relation(fields: [id], references: [id])
   date DateTime @db.Timestamp() @default(now())
+
+  user     user     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id Int  @db.Integer
 }
 
 model account {
   id       Int       @id @default(autoincrement())
   currency String    @db.VarChar(20)
-  user     user      @relation(fields: [id], references: [id])
+  name String    @db.VarChar(50)
+
   expense  expense[]
   cash cash[]
-  name String    @db.VarChar(50)
+
+  user     user      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id Int @db.Integer
 }
 
 model expense {
@@ -50,7 +55,9 @@ model expense {
   title       String   @db.VarChar(50)
   description String   @db.VarChar()
   date        DateTime @db.Timestamp() @default(now())
-  account     account  @relation(fields: [id], references: [id])
+
+  account     account  @relation(fields: [account_id], references: [id], onDelete: Cascade)
+  account_id Int @db.Integer
 }
 
 model cash {
@@ -58,7 +65,9 @@ model cash {
   amount      Decimal  @db.Decimal()
   currency    String   @db.VarChar()
   date        DateTime @db.Timestamp() @default(now())
-  account     account  @relation(fields: [id], references: [id])
+  
+  account     account  @relation(fields: [account_id], references: [id], onDelete: Cascade)
+  account_id  Int @db.Integer
 }
 
 model metal {
@@ -71,15 +80,19 @@ model metal {
   price_sold  Decimal  @db.Decimal()
   date_bought DateTime @db.Timestamp() @default(now())
   date_sold   DateTime @db.Timestamp()
-  user        user     @relation(fields: [id], references: [id])
+
+  user        user     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id Int @db.Integer
 }
 
 model stock_wallet {
   id Int @id @default(autoincrement())
   name String @db.VarChar(50)
-  user user @relation(fields: [id], references: [id])
+
   bound bond[]
   stock stock[]
+  user user @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id Int @db.Integer
 }
 
 model bond {
@@ -92,7 +105,9 @@ model bond {
   date_sold          DateTime @db.Timestamp()
   redemption_penalty Int      @db.Integer
   time_interest      Int      @db.Integer
-  stock_wallet stock_wallet @relation(fields: [id], references: [id])
+
+  stock_wallet stock_wallet @relation(fields: [stock_wallet_id], references: [id], onDelete: Cascade)
+  stock_wallet_id Int @db.Integer
 }
 
 model stock {
@@ -104,11 +119,16 @@ model stock {
   price_sold  Int      @db.Integer
   date_bought DateTime @db.Timestamp() @default(now())
   date_sold   DateTime @db.Timestamp()
-  stock_wallet stock_wallet @relation(fields: [id], references: [id])
+
+  stock_wallet stock_wallet @relation(fields: [stock_wallet_id], references: [id], onDelete: Cascade)
+  stock_wallet_id Int  @db.Integer
 }
 model cryptocurrency_wallet {
   id Int @id @default(autoincrement())
-  user user @relation(fields: [id], references: [id])
+  name String
+
+  user user @relation(fields: [user_id], references: [id])
+  user_id Int
 
   cryptocurrency cryptocurrency[]
 }
@@ -124,5 +144,6 @@ model cryptocurrency {
   date_sold    DateTime @db.Timestamp()
   stock_name   String   @db.VarChar(40)
 
-  cryptocurrency_wallet cryptocurrency_wallet @relation(fields: [id], references: [id])
+  cryptocurrency_wallet cryptocurrency_wallet @relation(fields: [cryptocurrency_wallet_id], references: [id], onDelete: Cascade)
+  cryptocurrency_wallet_id Int @db.Integer()
 }
