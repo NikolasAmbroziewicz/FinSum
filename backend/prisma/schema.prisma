@@ -72,7 +72,7 @@ model cash {
 
 model metal {
   id          Int      @id @default(autoincrement())
-  metal_name  String   @db.VarChar(50)
+  metal_type  String   @db.VarChar(50)
   coin_name   String   @db.VarChar(50)
   unit        String   @db.VarChar(10)
   amount      Int
