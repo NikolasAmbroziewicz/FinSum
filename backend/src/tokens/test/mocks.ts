@@ -1,4 +1,4 @@
 export const userData = {
   id: 1,
-  email: 'niko@test.com'
-}
+  email: 'niko@test.com',
+};
