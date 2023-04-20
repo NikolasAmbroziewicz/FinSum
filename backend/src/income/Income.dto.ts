@@ -1,9 +1,12 @@
-import {} from 'class-validator'
+import { IsDecimal, IsNumber, IsOptional, IsString } from 'class-validator';
 
-export class AddIcomeDto {
+export class IcomeDto {
+  @IsNumber()
+  value: number;
 
-}
+  @IsString()
+  name: string;
 
-export class EditIncomeDto {
-
+  @IsString()
+  currency: string;
 }
