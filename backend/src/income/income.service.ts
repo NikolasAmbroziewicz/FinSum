@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ForbiddenException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
 import { PrismaService } from '../prisma/prisma.service';
@@ -51,7 +51,7 @@ export class IncomeService {
         },
       },
     });
-    console.log('income', income)
+
     return income;
   }
 
@@ -69,28 +69,36 @@ export class IncomeService {
     } catch (e: any) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2025') {
-          throw 'Not Found';
+          throw new ForbiddenException('Income does not exist');
         }
       }
     }
   }
 
   async editIncome(income: IcomeDto, id: number): Promise<IncomeResponse> {
-    const { value, name, currency } = income;
+    try {
+      const { value, name, currency } = income;
 
-    const updatedIncome = await this.prisma.income.update({
-      data: {
-        amount: value,
-        name: name,
-        currency: currency,
-      },
-      where: {
-        id: id,
-      },
-    });
+      const updatedIncome = await this.prisma.income.update({
+        data: {
+          amount: value,
+          name: name,
+          currency: currency,
+        },
+        where: {
+          id: id,
+        },
+      });
 
-    return {
-      ...updatedIncome,
-    };
+      return {
+        ...updatedIncome,
+      };
+    } catch (e: any) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        if (e.code === 'P2025') {
+          throw new ForbiddenException('Income does not exist');
+        }
+      }
+    }
   }
 }
