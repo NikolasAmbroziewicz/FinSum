@@ -1,12 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import { 
-  sign,
-  verify
-} from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 
-import { tokenValidationType } from './types'
+import { tokenValidationType } from './types';
 
 @Injectable()
 export class TokensService {
@@ -17,64 +14,55 @@ export class TokensService {
     expiresIn?: string | number,
   ) {
     if (typeof payload === 'number') {
-      payload = payload.toString()
+      payload = payload.toString();
     }
 
-    return sign(
-      payload,
-      this.configService.get<string>('PRIVATE_KEY'),
-      {
-        expiresIn: expiresIn,
-        algorithm: 'RS256'
-      }
-    )
+    return sign(payload, this.configService.get<string>('PRIVATE_KEY'), {
+      expiresIn: expiresIn,
+      algorithm: 'RS256',
+    });
   }
 
-  verifyJWT(
-    token: string,
-  ): tokenValidationType {
+  verifyJWT(token: string): tokenValidationType {
     try {
-      verify(
-        token,
-        this.configService.get<string>('PUBLIC_KEY')
-      );
+      verify(token, this.configService.get<string>('PUBLIC_KEY'));
 
       return {
         valid: true,
         expired: false,
-      }
+      };
     } catch (error: any) {
-      if(error.message === 'jwt expired') {
+      if (error.message === 'jwt expired') {
         return {
           valid: true,
           expired: error.message === 'jwt expired',
-        }
+        };
       } else {
         return {
           valid: false,
-          expired: true
-        }
+          expired: true,
+        };
       }
     }
   }
 
   createAccessToken(userId: number, email: string, timeToLive: string) {
     return this.signJWT(
-    {
-      userId,
-      email
-    },
-    timeToLive
-    )
+      {
+        userId,
+        email,
+      },
+      timeToLive,
+    );
   }
 
   createRefreshToken(userId: number, email: string, timeToLive: string) {
     return this.signJWT(
-    {
-      userId,
-      email
-    },
-    timeToLive
-    )
+      {
+        userId,
+        email,
+      },
+      timeToLive,
+    );
   }
 }

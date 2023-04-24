@@ -1,4 +1,4 @@
 export type tokenValidationType = {
-  valid: boolean,
-  expired: boolean,
-}
+  valid: boolean;
+  expired: boolean;
+};

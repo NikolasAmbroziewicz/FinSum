@@ -23,25 +23,30 @@ model user {
   account        account[]
   icome          income[]
   metal          metal[]
-  bond           bond[]
-  stock          stock[]
-  cryptocurrency cryptocurrency[]
+  stock_wallet   stock_wallet[]
+  cryptocurrency_wallet cryptocurrency_wallet[]
 }
 model income {
   id       Int      @id @default(autoincrement())
   name     String   @db.VarChar(50)
   amount   Decimal  @db.Decimal()
   currency String   @db.VarChar(10)
-  user     user     @relation(fields: [id], references: [id])
   date DateTime @db.Timestamp() @default(now())
+
+  user     user     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id Int  @db.Integer
 }
 
 model account {
   id       Int       @id @default(autoincrement())
   currency String    @db.VarChar(20)
-  amount   Decimal   @db.Decimal()
-  user     user      @relation(fields: [id], references: [id])
+  name String    @db.VarChar(50)
+
   expense  expense[]
+  cash cash[]
+
+  user     user      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id Int @db.Integer
 }
 
 model expense {
@@ -50,12 +55,24 @@ model expense {
   title       String   @db.VarChar(50)
   description String   @db.VarChar()
   date        DateTime @db.Timestamp() @default(now())
-  account     account  @relation(fields: [id], references: [id])
+
+  account     account  @relation(fields: [account_id], references: [id], onDelete: Cascade)
+  account_id Int @db.Integer
+}
+
+model cash {
+  id          Int      @id @default(autoincrement())
+  amount      Decimal  @db.Decimal()
+  currency    String   @db.VarChar()
+  date        DateTime @db.Timestamp() @default(now())
+  
+  account     account  @relation(fields: [account_id], references: [id], onDelete: Cascade)
+  account_id  Int @db.Integer
 }
 
 model metal {
   id          Int      @id @default(autoincrement())
-  metal_name  String   @db.VarChar(50)
+  metal_type  String   @db.VarChar(50)
   coin_name   String   @db.VarChar(50)
   unit        String   @db.VarChar(10)
   amount      Int
@@ -63,7 +80,19 @@ model metal {
   price_sold  Decimal  @db.Decimal()
   date_bought DateTime @db.Timestamp() @default(now())
   date_sold   DateTime @db.Timestamp()
-  user        user     @relation(fields: [id], references: [id])
+
+  user        user     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id Int @db.Integer
+}
+
+model stock_wallet {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(50)
+
+  bound bond[]
+  stock stock[]
+  user user @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id Int @db.Integer
 }
 
 model bond {
@@ -76,7 +105,9 @@ model bond {
   date_sold          DateTime @db.Timestamp()
   redemption_penalty Int      @db.Integer
   time_interest      Int      @db.Integer
-  user               user     @relation(fields: [id], references: [id])
+
+  stock_wallet stock_wallet @relation(fields: [stock_wallet_id], references: [id], onDelete: Cascade)
+  stock_wallet_id Int @db.Integer
 }
 
 model stock {
@@ -88,20 +119,24 @@ model stock {
   price_sold  Int      @db.Integer
   date_bought DateTime @db.Timestamp() @default(now())
   date_sold   DateTime @db.Timestamp()
-  user        user     @relation(fields: [user_id], references: [id])
-  user_id     Int
-  broker      broker   @relation(fields: [broker_id], references: [id])
-  broker_id   Int
-}
 
-model broker {
-  id    Int     @id @default(autoincrement())
-  stock stock[]
+  stock_wallet stock_wallet @relation(fields: [stock_wallet_id], references: [id], onDelete: Cascade)
+  stock_wallet_id Int  @db.Integer
+}
+model cryptocurrency_wallet {
+  id Int @id @default(autoincrement())
+  name String
+
+  user user @relation(fields: [user_id], references: [id])
+  user_id Int
+
+  cryptocurrency cryptocurrency[]
 }
 
 model cryptocurrency {
   id           Int      @id @default(autoincrement())
   name         String   @db.VarChar(40)
+  amount        Decimal @db.Decimal()
   ticker       String   @db.VarChar(20)
   price_bought Decimal  @db.Decimal()
   price_sold   Decimal  @db.Decimal()
@@ -109,5 +144,6 @@ model cryptocurrency {
   date_sold    DateTime @db.Timestamp()
   stock_name   String   @db.VarChar(40)
 
-  user user @relation(fields: [id], references: [id])
+  cryptocurrency_wallet cryptocurrency_wallet @relation(fields: [cryptocurrency_wallet_id], references: [id], onDelete: Cascade)
+  cryptocurrency_wallet_id Int @db.Integer()
 }

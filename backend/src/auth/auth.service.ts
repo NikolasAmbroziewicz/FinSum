@@ -1,34 +1,34 @@
-import { Injectable, ForbiddenException } from '@nestjs/common'
+import { Injectable, ForbiddenException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import { PrismaService } from '../prisma/prisma.service';
-import { TokensService } from '../tokens/tokens.service'
+import { TokensService } from '../tokens/tokens.service';
 
 import { SignInDto, SingUpDto } from './auth.dto';
 import { Tokens, UserWithTokens, UserResponsePayload } from './auth.type';
 
-import * as bcrypt from 'bcrypt'
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
   constructor(
     private prisma: PrismaService,
     private tokensService: TokensService,
-    private configService: ConfigService
-    ) {}
+    private configService: ConfigService,
+  ) {}
 
-  async signUp (data: SignInDto): Promise<UserResponsePayload> {
+  async signUp(data: SignInDto): Promise<UserResponsePayload> {
     try {
-      const hash = await this.hashData(data.password)
+      const hash = await this.hashData(data.password);
 
       const newUser = await this.prisma.user.create({
         data: {
           email: data.email,
           password: hash,
           name: data.name,
-          surname: data.surname
-        }
-      })
+          surname: data.surname,
+        },
+      });
 
       return {
         user: {
@@ -37,32 +37,43 @@ export class AuthService {
           email: newUser.email,
         },
         tokens: {
-          accessToken: this.tokensService.createAccessToken(newUser.id, newUser.email, this.configService.get<string>('ACCESS_TOKEN_TIME_TO_LIVE')),
-          refreshToken: this.tokensService.createRefreshToken(newUser.id, newUser.email, this.configService.get<string>('REFRESH_TOKEN_TIME_TO_LIVE'))
-        }
-      }
+          accessToken: this.tokensService.createAccessToken(
+            newUser.id,
+            newUser.email,
+            this.configService.get<string>('ACCESS_TOKEN_TIME_TO_LIVE'),
+          ),
+          refreshToken: this.tokensService.createRefreshToken(
+            newUser.id,
+            newUser.email,
+            this.configService.get<string>('REFRESH_TOKEN_TIME_TO_LIVE'),
+          ),
+        },
+      };
     } catch (e: any) {
       if (e.code === 'P2002') {
-        throw new ForbiddenException("Email Exist")
+        throw new ForbiddenException('Email Exist');
       }
     }
   }
 
-  async signIn (data: SingUpDto): Promise<UserResponsePayload> {
+  async signIn(data: SingUpDto): Promise<UserResponsePayload> {
     const user = await this.prisma.user.findUnique({
       where: {
-        email: data.email
-      }
-    })
+        email: data.email,
+      },
+    });
 
     if (!user) {
-      throw new ForbiddenException("User doesn't exist")
+      throw new ForbiddenException("User doesn't exist");
     }
 
-    const isValidPassword = await this.comparePassword(data.password, user.password)
-    
+    const isValidPassword = await this.comparePassword(
+      data.password,
+      user.password,
+    );
+
     if (!isValidPassword) {
-      throw new ForbiddenException("Incorrect Email or Password")
+      throw new ForbiddenException('Incorrect Email or Password');
     }
 
     return {
@@ -72,35 +83,47 @@ export class AuthService {
         email: user.email,
       },
       tokens: {
-        accessToken: this.tokensService.createAccessToken(user.id, user.email, this.configService.get<string>('ACCESS_TOKEN_TIME_TO_LIVE')),
-        refreshToken: this.tokensService.createRefreshToken(user.id, user.email, this.configService.get<string>('REFRESH_TOKEN_TIME_TO_LIVE'))
-      }
-    }
+        accessToken: this.tokensService.createAccessToken(
+          user.id,
+          user.email,
+          this.configService.get<string>('ACCESS_TOKEN_TIME_TO_LIVE'),
+        ),
+        refreshToken: this.tokensService.createRefreshToken(
+          user.id,
+          user.email,
+          this.configService.get<string>('REFRESH_TOKEN_TIME_TO_LIVE'),
+        ),
+      },
+    };
   }
 
-  async refreshTokens (tokens: UserWithTokens): Promise<Tokens> {
-    const { accessToken, refreshToken, email, id } = tokens
+  async refreshTokens(tokens: UserWithTokens): Promise<Tokens> {
+    const { accessToken, refreshToken, email, id } = tokens;
 
     if (!accessToken) {
-      throw new ForbiddenException("Unauthorized")
+      throw new ForbiddenException('Unauthorized');
     }
-    const { valid, expired }  = this.tokensService.verifyJWT(accessToken)
+    const { valid, expired } = this.tokensService.verifyJWT(accessToken);
 
     if (valid && !expired) {
       return {
         accessToken,
-        refreshToken
-      }
+        refreshToken,
+      };
     } else if (!valid && expired) {
       return {
         accessToken: null,
-        refreshToken: null
-      }
+        refreshToken: null,
+      };
     } else if (valid && expired) {
       return {
-        accessToken: this.tokensService.createAccessToken(id, email, this.configService.get<string>('ACCESS_TOKEN_TIME_TO_LIVE')),
-        refreshToken
-      }
+        accessToken: this.tokensService.createAccessToken(
+          id,
+          email,
+          this.configService.get<string>('ACCESS_TOKEN_TIME_TO_LIVE'),
+        ),
+        refreshToken,
+      };
     }
   }
 
@@ -109,6 +132,6 @@ export class AuthService {
   }
 
   private comparePassword(password: string, hashedPassword: string) {
-    return bcrypt.compare(password, hashedPassword)
+    return bcrypt.compare(password, hashedPassword);
   }
 }
