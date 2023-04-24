@@ -40,7 +40,7 @@ export class IncomeService {
     };
   }
 
-  async getIcome(user: UserWithTokens): Promise<IncomeResponse[]> {
+  async getIncome(user: UserWithTokens): Promise<IncomeResponse[]> {
     const { id, email } = user;
 
     const income = await this.prisma.income.findMany({

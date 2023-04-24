@@ -8,7 +8,7 @@ import {
   Query,
 } from '@nestjs/common';
 
-import { GetCurrentUser } from 'src/common/decorators/getCurrentUser.decorator';
+import { GetCurrentUser } from '../common/decorators/getCurrentUser.decorator';
 import { IncomeService } from './income.service';
 
 import { IcomeDto } from './income.dto';
@@ -29,7 +29,7 @@ export class IncomeController {
 
   @Get('v1/get-income')
   getIncome(@GetCurrentUser() user: UserWithTokens): Promise<IncomeResponse[]> {
-    return this.financeService.getIcome(user);
+    return this.financeService.getIncome(user);
   }
 
   @Delete('v1/delete-income')

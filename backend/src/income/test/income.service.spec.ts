@@ -56,13 +56,13 @@ describe('IncomeService > methods > addIncome', () => {
 
 describe('IncomeService > methods > getIncome', () => {
   it ('Should be defined', () => {
-    expect(service.getIcome).toBeDefined()
+    expect(service.getIncome).toBeDefined()
   })
 
   it('Should return List of Incomes for specyfic user', async () => {
     findManyIncomeMock.mockResolvedValue([addedIncome, addedIncome])
 
-    const serviceMethod = await service.getIcome(userWithToken)
+    const serviceMethod = await service.getIncome(userWithToken)
 
     expect(serviceMethod).toEqual([addedIncome, addedIncome])
   })
