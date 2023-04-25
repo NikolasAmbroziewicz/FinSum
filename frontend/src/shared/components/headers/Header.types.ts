@@ -1,9 +1,16 @@
-export enum VariantColor {
+export enum Variant {
   'dark',
   'light'
 }
 
+export enum Position {
+  'left',
+  'right',
+  'center'
+}
+
 export interface IHeaderProp {
   children: JSX.Element | string;
-  variant?: VariantColor;
+  variant?: Variant;
+  position?: Position
 }

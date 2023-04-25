@@ -1,11 +1,12 @@
-import { IHeaderProp, VariantColor } from './Header.types';
+import { IHeaderProp, Variant, Position } from './Header.types';
 
 const H4: React.FC<IHeaderProp> = ({
   children,
-  variant = VariantColor.dark
+  variant = Variant.dark,
+  position = Position.center
 }) => {
   const textColor = () => {
-    return variant === VariantColor.dark ? 'text-gray-600' : 'text-stone-50';
+    return variant === Variant.dark ? 'text-gray-600' : 'text-stone-50';
   };
   return <h4 className={`text-center ${textColor()} text-sm`}>{children}</h4>;
 };
