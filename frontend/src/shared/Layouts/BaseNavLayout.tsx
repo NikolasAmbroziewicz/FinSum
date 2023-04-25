@@ -1,5 +1,5 @@
 import GlobalNavigation from '../components/naviagation/GlobalNavigation';
-import { useScreen } from 'src/hooks/useScreen';
+import { useScreen } from 'src/shared/hooks/useScreen';
 
 interface IBaseNavLayout {
   children: JSX.Element;
@@ -15,7 +15,7 @@ const BaseNavLayout: React.FC<IBaseNavLayout> = ({ children }) => {
       }  w-screen h-screen`}
     >
       <GlobalNavigation />
-      <div className="overflow-scroll">{children}</div>
+      <div className="overflow-scroll m-6 w-full">{children}</div>
     </div>
   );
 };

@@ -10,10 +10,12 @@ import PrivateRoutes from './pages/utils/ProtectedRoutes';
 import ProtectedAuthRoutes from './pages/utils/ProtectedAuthRotes';
 
 import MonthFinance from './pages/monthfinance/MonthFinance';
-import BaseNavLayout from './shared/Layouts/BaseNavLayout';
 import StocksPage from './pages/stocks/StocksPage';
 import CryptocurrencyPage from './pages/cryptocurrency/CryptocurrencyPage';
 import MetalsPage from './pages/metals/MetalsPage';
+import IncomePage from './pages/income/IncomePage';
+
+import BaseNavLayout from './shared/layouts/BaseNavLayout';
 
 function App() {
   return (
@@ -60,6 +62,14 @@ function App() {
           element={
             <BaseNavLayout>
               <MonthFinance />
+            </BaseNavLayout>
+          }
+        />
+        <Route 
+          path="income"
+          element={
+            <BaseNavLayout>
+              <IncomePage />
             </BaseNavLayout>
           }
         />

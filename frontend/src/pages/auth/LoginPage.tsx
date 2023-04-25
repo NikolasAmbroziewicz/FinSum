@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { VariantColor } from 'src/shared/components/headers/Header.types';
+import { Variant } from 'src/shared/components/headers/Header.types';
 
 import FormElement from 'src/features/auth/components/FormElement';
 import MainLogo from 'src/images/MainLogo.svg';
@@ -20,7 +20,7 @@ export default function LoginPage() {
       <Link to="/" className="flex justify-center">
         <img src={MainLogo} alt="Main Logo" className="self-center mb-7 mt-7" />
       </Link>
-      <H1 variant={VariantColor.dark}>Sign Up</H1>
+      <H1 variant={Variant.dark}>Sign Up</H1>
       {loginError && (
         <span className="text-red-500 text-md mt-1 text-center">
           {loginError}

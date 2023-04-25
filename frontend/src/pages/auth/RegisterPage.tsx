@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { useScreen } from 'src/hooks/useScreen';
+import { useScreen } from 'src/shared/hooks/useScreen';
 import { useRegister } from 'src/features/auth/hooks/useRegister';
 
 import BaseButton from 'src/shared/components/button/base/BaseButton';
@@ -10,7 +10,7 @@ import H4 from 'src/shared/components/headers/H4';
 import BaseInput from 'src/shared/components/input/base/BaseInput';
 import PasswordInput from 'src/shared/components/input/password/PasswordInput';
 
-import { VariantColor } from 'src/shared/components/headers/Header.types';
+import { Variant } from 'src/shared/components/headers/Header.types';
 import FeatureList from 'src/features/auth/components/FeatureList';
 import FormElement from 'src/features/auth/components/FormElement';
 import MainLogo from 'src/images/MainLogo.svg';
@@ -31,12 +31,12 @@ export default function RegisterPage() {
               className="self-center mb-7 mt-7"
             />
           </Link>
-          <H1 variant={VariantColor.light}>
+          <H1 variant={Variant.light}>
             Add Your Financial Assets into One App, and Track them in One App
           </H1>
           <FeatureList />
-          <H3 variant={VariantColor.light}>And So much More!</H3>
-          <H4 variant={VariantColor.light}>Just Join Us!</H4>
+          <H3 variant={Variant.light}>And So much More!</H3>
+          <H4 variant={Variant.light}>Just Join Us!</H4>
         </div>
       )}
       <div className="flex flex-col justify-center items-center h-screen md:w-3/5 w-screen">
@@ -58,7 +58,7 @@ export default function RegisterPage() {
               {registerError}
             </span>
           )}
-          {isTabletScreen() && <H1 variant={VariantColor.dark}>Sign In</H1>}
+          {isTabletScreen() && <H1 variant={Variant.dark}>Sign In</H1>}
           <FormElement value="Name" error={errors.name?.message}>
             <BaseInput
               id="Name"
