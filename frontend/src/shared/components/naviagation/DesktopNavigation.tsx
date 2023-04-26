@@ -3,7 +3,7 @@ import { NavData } from './GlobalNavigation';
 
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 
-import MainLogo from 'src/images/MainLogo.svg';
+import MainLogo from 'src/shared/images/MainLogo.svg';
 
 interface IDesktopNavigation {
   activeRoute: (path: string) => string;

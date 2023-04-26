@@ -13,7 +13,7 @@ import PasswordInput from 'src/shared/components/input/password/PasswordInput';
 import { Variant } from 'src/shared/components/headers/Header.types';
 import FeatureList from 'src/features/auth/components/FeatureList';
 import FormElement from 'src/features/auth/components/FormElement';
-import MainLogo from 'src/images/MainLogo.svg';
+import MainLogo from 'src/shared/images/MainLogo.svg';
 
 export default function RegisterPage() {
   const { isTabletScreen } = useScreen();

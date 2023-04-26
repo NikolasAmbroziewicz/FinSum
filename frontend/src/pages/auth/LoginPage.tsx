@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Variant } from 'src/shared/components/headers/Header.types';
 
 import FormElement from 'src/features/auth/components/FormElement';
-import MainLogo from 'src/images/MainLogo.svg';
+import MainLogo from 'src/shared/images/MainLogo.svg';
 import BaseButton from 'src/shared/components/button/base/BaseButton';
 import H1 from 'src/shared/components/headers/H1';
 import BaseInput from 'src/shared/components/input/base/BaseInput';

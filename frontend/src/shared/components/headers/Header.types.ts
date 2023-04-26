@@ -12,5 +12,6 @@ export enum Position {
 export interface IHeaderProp {
   children: JSX.Element | string;
   variant?: Variant;
-  position?: Position
+  position?: Position,
+  styles?: string
 }
