@@ -20,7 +20,7 @@ const H4: React.FC<IHeaderProp> = ({
         return 'text-right'
     }
   }
-  return <h4 className={`${textColor()} ${textPosition()} text-sm ${styles}`}>{children}</h4>;
+  return <h4 className={`${textColor()} ${textPosition()} text-base ${styles}`}>{children}</h4>;
 };
 
 export default H4;

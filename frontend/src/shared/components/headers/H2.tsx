@@ -21,7 +21,7 @@ const H2: React.FC<IHeaderProp> = ({
     }
   }
 
-  return <h2 className={`${textColor()} ${textPosition()} text-xl, ${styles}`}>{children}</h2>;
+  return <h2 className={`${textColor()} ${textPosition()} text-2xl ${styles}`}>{children}</h2>;
 };
 
 export default H2;

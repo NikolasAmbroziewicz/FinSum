@@ -21,7 +21,7 @@ const H3: React.FC<IHeaderProp> = ({
     }
   }
 
-  return <h3 className={`${textColor()} ${textPosition()} text-base ${styles}`}>{children}</h3>;
+  return <h3 className={`${textColor()} ${textPosition()} text-xl ${styles}`}>{children}</h3>;
 };
 
 export default H3;
