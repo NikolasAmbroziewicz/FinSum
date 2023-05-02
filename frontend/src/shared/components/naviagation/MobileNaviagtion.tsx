@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { NavData } from './GlobalNavigation';
 
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
-import MainLogo from 'src/images/MainLogo.svg';
+import MainLogo from 'src/shared/images/MainLogo.svg';
 
 interface IDesktopNavigation {
   activeRoute: (path: string) => string;

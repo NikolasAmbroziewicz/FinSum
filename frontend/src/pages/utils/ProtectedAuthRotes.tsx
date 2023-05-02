@@ -2,7 +2,7 @@ import { useNavigate, Outlet } from 'react-router-dom';
 
 import { useProtectedRoutes } from 'src/features/auth/hooks/useProtectedRoutes';
 
-import Loading from 'src/shared/components/loading/Lading';
+import Loading from 'src/shared/components/loading/Loading';
 import { LoadingSize } from 'src/shared/components/types';
 
 const ProtectedAuthRoutes = () => {
