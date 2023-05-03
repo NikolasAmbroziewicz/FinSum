@@ -7,20 +7,8 @@ import {
   registerSchemaType
 } from 'src/features/auth/validators';
 
-export type Tokens = {
-  refreshToken?: string;
-  accessToken?: string;
-};
+import { UserStore } from '../types';
 
-interface UserStore {
-  isAuthenticated: boolean;
-  user?: {
-    email: string;
-    name: string;
-    surname: string;
-  };
-  tokens: Tokens;
-}
 
 const initialState: UserStore = {
   isAuthenticated: false,
@@ -107,6 +95,7 @@ const userSlice = createSlice({
 
 export const { logOut } = userSlice.actions;
 
+//FIX
 export const selectCurrentTokens = (state: UserStore) => state.tokens;
 
 export const selectCurrentUser = (state: UserStore) => state.user;

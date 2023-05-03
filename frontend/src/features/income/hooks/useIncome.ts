@@ -1,21 +1,21 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { incomeSchema, incomeSchemaType } from 'src/features/income/validators'
+import { incomeSchema, IncomeSchemaType } from 'src/features/income/validators'
 
 export const useIncome = () => {
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<incomeSchemaType>({
+  } = useForm<IncomeSchemaType>({
     resolver: zodResolver(incomeSchema)
   })
 
-  const handleAddIncome = (value: incomeSchemaType) => {
+  const handleAddIncome = (value: IncomeSchemaType) => {
     console.log('handleAddIncome')
   }
 
-  const handleEditIncome = (value: incomeSchemaType) => {
+  const handleEditIncome = (value: IncomeSchemaType) => {
     console.log('handleEditIncome')
   }
 

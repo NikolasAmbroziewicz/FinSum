@@ -8,4 +8,4 @@ export const incomeSchema = object({
   })
 })
 
-export type incomeSchemaType = TypeOf<typeof incomeSchema>
+export type IncomeSchemaType = TypeOf<typeof incomeSchema>

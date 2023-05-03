@@ -5,7 +5,7 @@ import { MdArrowForwardIos, MdArrowBackIos } from 'react-icons/md'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const ExampleCustomInput = forwardRef(({ value, onClick }: any, ref: any ) => (
+const CustomInput = forwardRef(({ value, onClick }: any, ref: any ) => (
   <button className="text-gray-600 hover:text-black" onClick={onClick} ref={ref}>
     {value}
   </button>
@@ -38,7 +38,7 @@ const Calendar: React.FC<ICalendar> = ({ setStartDate, startDate}) => {
           onChange={(date: Date) => setStartDate(date)}
           showYearPicker
           dateFormat="yyyy"
-          customInput={<ExampleCustomInput />}
+          customInput={<CustomInput />}
         />
       </div>
       <div className='flex'>
