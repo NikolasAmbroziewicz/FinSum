@@ -17,6 +17,7 @@ export interface UserStore {
 
 export interface IncomeState {
   income: IncomeSchemaType[]
+  isLoading: boolean
 }
 
 export type MainStoreType = {
