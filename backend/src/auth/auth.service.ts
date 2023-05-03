@@ -98,9 +98,9 @@ export class AuthService {
   }
 
   async refreshTokens(tokens: UserWithTokens): Promise<Tokens> {
-    const { accessToken, refreshToken, email, id } = tokens;
+    const { accessToken, refreshToken, email, userId } = tokens;
 
-    if (!accessToken) {
+    if (!accessToken || !userId) {
       throw new ForbiddenException('Unauthorized');
     }
     const { valid, expired } = this.tokensService.verifyJWT(accessToken);
@@ -118,7 +118,7 @@ export class AuthService {
     } else if (valid && expired) {
       return {
         accessToken: this.tokensService.createAccessToken(
-          id,
+          userId,
           email,
           this.configService.get<string>('ACCESS_TOKEN_TIME_TO_LIVE'),
         ),

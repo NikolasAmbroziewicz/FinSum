@@ -13,7 +13,7 @@ export type UserResponsePayload = {
 };
 
 export type User = {
-  id: number;
+  userId: number;
   email: string;
   iat: number;
   exp: number;

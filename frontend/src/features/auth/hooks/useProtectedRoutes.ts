@@ -29,8 +29,6 @@ export const useProtectedRoutes = () => {
   }, [location.pathname]);
 
   return {
-    authUser,
-    dispatch,
     isAuthenticated,
     isLoading
   };

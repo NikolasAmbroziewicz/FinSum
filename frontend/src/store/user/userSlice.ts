@@ -58,8 +58,11 @@ export const signInUser = createAsyncThunk(
 export const refreshTokens = createAsyncThunk(
   'user/refreshTokens',
   async () => {
+    const { setToLocalStorage } = useLocalStorage();
 
     const res = await refreshToken();
+    
+    setToLocalStorage('user', res)
 
     return {
       tokens: {
@@ -92,6 +95,12 @@ const userSlice = createSlice({
       .addCase(refreshTokens.fulfilled, (state, action) => {
         state.isAuthenticated = true;
         state.tokens = action.payload.tokens;
+      })
+      .addCase(refreshTokens.rejected, (state, action) => {
+        state.tokens = {
+          accessToken: undefined,
+          refreshToken: undefined
+        }
       });
   }
 });
