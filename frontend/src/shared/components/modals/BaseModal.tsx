@@ -19,7 +19,7 @@ const BaseModal: React.FC<IBaseModal> = ({ isOpen, onClose, title, content, acti
         {
             isOpen && (
                 <div className={`${isOpen ? 'fixed': 'none'} inset-0 z-100 p-4 overflow-x-hidden overflow-y-auto bg-sky-500/[.2]`}>
-                <div className="bg-white m-auto my-14 max-w-[600px] rounded-md">
+                <div className="fixed top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white max-w-[600px] rounded-md">
                     <div className="flex justify-between p-4 border-b-[1px]">
                         <H2 position={Position.left}>
                             {title}
