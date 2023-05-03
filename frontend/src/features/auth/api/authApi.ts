@@ -15,11 +15,11 @@ export const singIn = async (data: loginSchemaType) => {
   return apiBase.post('/auth/v1/signin', { ...data }).then((res) => res.data);
 };
 
-export const refreshToken = async (tokens: Tokens) => {
+export const refreshToken = async () => {
   return apiBase
     .get('/auth/v1/refresh_tokens', {
       headers: {
-        ...authHeader(tokens)
+        ...authHeader()
       }
     })
     .then((res) => res.data);

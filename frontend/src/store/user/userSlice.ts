@@ -58,10 +58,8 @@ export const signInUser = createAsyncThunk(
 export const refreshTokens = createAsyncThunk(
   'user/refreshTokens',
   async () => {
-    const { getFromLocalStorage } = useLocalStorage();
-    const tokens: Tokens = getFromLocalStorage('user');
 
-    const res = await refreshToken(tokens);
+    const res = await refreshToken();
 
     return {
       tokens: {
