@@ -28,7 +28,9 @@ const BaseInput: React.FC<IBaseInput> = ({
     <>
       <input
         className={`w-full shadow border ${borderClass()} rounded py-2 px-3 text-gray-700 leading-tight 
-          focus:outline-none focus:shadow-outline focus:borderfocus:border-sky-600`}
+          focus:outline-none focus:shadow-outline focus:borderfocus:border-sky-600
+          placeholder:text-slate-300
+          `}
         id={id}
         type={type}
         placeholder={placeholder}
