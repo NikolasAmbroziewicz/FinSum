@@ -1,32 +1,40 @@
-import { useForm } from 'react-hook-form'
-
 import FormElement from "src/features/auth/components/FormElement"
+
 import BaseButton from "src/shared/components/button/base/BaseButton"
 import BaseInput from "src/shared/components/input/base/BaseInput"
+import BaseDropdownMenu from 'src/shared/components/dropdown/BaseDropdownMenu'
+
+import IncomeFormCalendar from "./IncomeFormCalendar"
+
 
 import { useIncome } from '../hooks/useIncome'
 
+import { supportedCurrency } from 'src/pages/income/content'
+
 const IncomeForm = () => {
-  const { handleAddIncome, errors, handleSubmit, register } = useIncome()
+  const { date, setDate, handleAddIncome, errors, handleSubmit, register, setValue, getValues } = useIncome()
+
+  const handleValue = (val: string) => {
+    setValue('currency', val, { shouldValidate: true })
+  }
 
   return (
     <form onSubmit={handleSubmit(handleAddIncome)} className="flex flex-col gap-4 w-screen mx-4">
-      <FormElement value="Name" error={errors.name?.message}>
+      <FormElement value="Title" error={errors.name?.message}>
         <BaseInput 
           id="name"
           type="text"
-          placeholder="Name"
+          placeholder="Title"
           error={!!errors.name?.message}
           formHandler={register('name')}
         />
       </FormElement>
       <FormElement value="Currency" error={errors.currency?.message}>
-        <BaseInput 
-          id="currency"
-          type="text"
-          placeholder="Currency"
-          error={!!errors.name?.message}
-          formHandler={register('currency')}
+        <BaseDropdownMenu 
+          dropdownContent={supportedCurrency}
+          handleValue={handleValue}
+          value={getValues('currency')} 
+          error={!!errors.currency?.message}
         />
       </FormElement>
       <FormElement value='Amount' error={errors.amount?.message}>
@@ -37,6 +45,9 @@ const IncomeForm = () => {
           error={!!errors.name?.message}
           formHandler={register('amount')}
         />
+      </FormElement>
+      <FormElement value="Date" error={undefined}>
+        <IncomeFormCalendar date={date} setDate={setDate} />
       </FormElement>
       <BaseButton type="submit">Add</BaseButton>
     </form>

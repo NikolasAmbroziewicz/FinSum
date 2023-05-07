@@ -1,20 +1,35 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
+import { AppDispatch } from 'src/store/main';
+import { useDispatch } from 'react-redux';
+
+import { handleGetIncome } from 'src/store/income/incomeSlice';
 
 import H1 from "src/shared/components/headers/H1"
-import H2 from 'src/shared/components/headers/H2'
 import BaseButton from 'src/shared/components/button/base/BaseButton'
 import BaseModal from 'src/shared/components/modals/BaseModal'
 
 import Calendar from 'src/features/income/components/Calendar'
 import IncomeForm from 'src/features/income/components/IncomeForm'
+import IncomeList from 'src/features/income/components/IncomeList';
 
 import { useModal } from 'src/shared/components/modals/hooks/useModal'
 
 import { Position } from 'src/shared/components/headers/Header.types'
 
 const IncomePage = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const [startDate, setStartDate] = useState(new Date());
+
   const { handleOpenModal, isOpen} = useModal()
+
+  useEffect(() => {
+    const handleIncome = async () => {
+      await dispatch(handleGetIncome())
+    }
+
+    handleIncome()
+  }, [])
 
   return (
     <div className='flex flex-col'>
@@ -31,15 +46,13 @@ const IncomePage = () => {
           Add Income
         </BaseButton>
       </div>
-      <div>
-        <H2 position={Position.left}>{`List of Income ${startDate.getFullYear()}`}</H2>
-      </div>
+      <IncomeList startDate={startDate} />
       <BaseModal 
         isOpen={isOpen}
         onClose={handleOpenModal}
         title='Add Income'
         content={
-          <IncomeForm/>
+          <IncomeForm />
         }
       />
     </div>
