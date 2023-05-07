@@ -6,11 +6,12 @@ module.exports = {
   ],
   theme: {
     screens: {
-      xs: '375px',
-      sm: '600px',
-      md: '900px',
-      lg: '1200px',
-      xl: '1536px',
+      xs: {max: '375px'},
+      sm: {max: '600px'},
+      md: {max: '900px'},
+      lg: {max: '1200px'},
+      xl: {min: '1536px'},
+      smplus: {min: '600px'}
     },
     extend: {
       fontFamily: {
