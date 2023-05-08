@@ -5,8 +5,6 @@ import {
   registerSchemaType
 } from 'src/features/auth/validators';
 
-import { Tokens } from 'src/store/user/userSlice';
-
 export const signUp = async (data: registerSchemaType) => {
   return apiBase.post('/auth/v1/signup', { ...data }).then((res) => res.data);
 };

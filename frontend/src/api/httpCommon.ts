@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Tokens } from 'src/store/user/userSlice';
+import { Tokens } from 'src/store/types';
 import { useLocalStorage } from 'src/shared/hooks/useLocalStorage';
 
 export default axios.create({
