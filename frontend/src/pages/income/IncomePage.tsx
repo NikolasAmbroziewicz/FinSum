@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { AppDispatch } from 'src/store/main';
 import { useDispatch } from 'react-redux';
 
-import { handleGetIncome } from 'src/store/income/incomeSlice';
+import { getIncome } from 'src/store/income/incomeSlice';
 
 import H1 from "src/shared/components/headers/H1"
 import BaseButton from 'src/shared/components/button/base/BaseButton'
@@ -25,7 +25,7 @@ const IncomePage = () => {
 
   useEffect(() => {
     const handleIncome = async () => {
-      await dispatch(handleGetIncome())
+      await dispatch(getIncome())
     }
 
     handleIncome()

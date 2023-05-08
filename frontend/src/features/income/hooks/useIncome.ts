@@ -1,10 +1,17 @@
 import { useState } from 'react'
 
+import { useDispatch } from 'react-redux';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+
+import { AppDispatch } from 'src/store/main';
 import { incomeSchema, IncomeSchemaType } from 'src/features/income/validators'
 
+import { addIncome } from 'src/store/income/incomeSlice';
+
 export const useIncome = () => {
+  const dispatch = useDispatch<AppDispatch>()
   const [date, setDate] = useState(new Date())
   
   const {
@@ -17,8 +24,8 @@ export const useIncome = () => {
     resolver: zodResolver(incomeSchema)
   })
 
-  const handleAddIncome = (value: IncomeSchemaType) => {
-    console.log('handleAddIncome', value)
+const handleAddIncome = (value: IncomeSchemaType) => {
+    dispatch(addIncome(value))
   }
 
   const handleEditIncome = (value: IncomeSchemaType) => {

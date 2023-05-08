@@ -1,14 +1,23 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { getIncome } from 'src/features/income/api/incomeApi'
+import { get_income, add_income } from 'src/features/income/api/incomeApi'
 
 import { IncomeSchemaType } from 'src/features/income/validators'
 import { IncomeState, MainStoreType } from "../types";
 
-export const handleGetIncome = createAsyncThunk(
+export const getIncome = createAsyncThunk(
   'income/getIncome',
   async () => {
-    const res: IncomeSchemaType[] = await getIncome()
+    const res: IncomeSchemaType[] = await get_income()
+
+    return res
+  }
+)
+
+export const addIncome = createAsyncThunk(
+  'income/addIncome',
+  async (data: IncomeSchemaType) => {
+    const res: IncomeSchemaType = await add_income(data)
 
     return res
   }
@@ -25,15 +34,18 @@ const incomeSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(handleGetIncome.fulfilled, (state, action) => {
+      .addCase(getIncome.fulfilled, (state, action) => {
         state.income = action.payload
         state.isLoading = false
       })
-      .addCase(handleGetIncome.pending, (state, action) => {
+      .addCase(getIncome.pending, (state, action) => {
         state.isLoading = true
       })
-      .addCase(handleGetIncome.rejected, (state, action) => {
+      .addCase(getIncome.rejected, (state, action) => {
         state.isLoading = false
+      })
+      .addCase(addIncome.fulfilled, (state, action) => {
+        state.income.push(action.payload)
       })
   }
 })
