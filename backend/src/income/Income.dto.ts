@@ -1,8 +1,8 @@
-import { IsDecimal, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class IcomeDto {
-  @IsNumber()
-  value: number;
+  @IsString()
+  amount: string;
 
   @IsString()
   name: string;
