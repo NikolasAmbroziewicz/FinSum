@@ -29,14 +29,6 @@ const IncomeForm = () => {
           formHandler={register('name')}
         />
       </FormElement>
-      <FormElement value="Currency" error={errors.currency?.message}>
-        <BaseDropdownMenu 
-          dropdownContent={supportedCurrency}
-          handleValue={handleValue}
-          value={getValues('currency')} 
-          error={!!errors.currency?.message}
-        />
-      </FormElement>
       <FormElement value='Amount' error={errors.amount?.message}>
         <BaseInput 
           id="amount"
@@ -48,6 +40,14 @@ const IncomeForm = () => {
       </FormElement>
       <FormElement value="Date" error={undefined}>
         <IncomeFormCalendar date={date} setDate={setDate} />
+      </FormElement>
+      <FormElement value="Currency" error={errors.currency?.message}>
+        <BaseDropdownMenu 
+          dropdownContent={supportedCurrency}
+          handleValue={handleValue}
+          value={getValues('currency')} 
+          error={!!errors.currency?.message}
+        />
       </FormElement>
       <BaseButton type="submit">Add</BaseButton>
     </form>
