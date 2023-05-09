@@ -21,7 +21,7 @@ const IncomePage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [startDate, setStartDate] = useState(new Date());
 
-  const { handleOpenModal, isOpen} = useModal()
+  const { handleOpenModal, isOpen } = useModal()
 
   useEffect(() => {
     const handleIncome = async () => {
@@ -52,7 +52,7 @@ const IncomePage = () => {
         onClose={handleOpenModal}
         title='Add Income'
         content={
-          <IncomeForm />
+          <IncomeForm onClose={handleOpenModal}/>
         }
       />
     </div>

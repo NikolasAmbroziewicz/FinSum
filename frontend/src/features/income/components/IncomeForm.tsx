@@ -11,8 +11,12 @@ import { useIncome } from '../hooks/useIncome'
 
 import { supportedCurrency } from 'src/pages/income/content'
 
-const IncomeForm = () => {
-  const { date, setDate, handleAddIncome, errors, handleSubmit, register, setValue, getValues } = useIncome()
+interface IIncomeForm {
+  onClose: () => void
+}
+
+const IncomeForm: React.FC<IIncomeForm> = ({ onClose }) => {
+  const { date, setDate, handleAddIncome, errors, handleSubmit, register, setValue, getValues } = useIncome({onClose})
 
   const handleValue = (val: string) => {
     setValue('currency', val, { shouldValidate: true })

@@ -10,7 +10,11 @@ import { incomeSchema, IncomeSchemaType } from 'src/features/income/validators'
 
 import { addIncome } from 'src/store/income/incomeSlice';
 
-export const useIncome = () => {
+interface IUseIncome {
+  onClose?: () => void
+}
+
+export const useIncome = ({ onClose }: IUseIncome) => {
   const dispatch = useDispatch<AppDispatch>()
   const [date, setDate] = useState(new Date())
   
@@ -24,8 +28,12 @@ export const useIncome = () => {
     resolver: zodResolver(incomeSchema)
   })
 
-const handleAddIncome = (value: IncomeSchemaType) => {
+  const handleAddIncome = (value: IncomeSchemaType) => {
     dispatch(addIncome(value))
+    
+    if(onClose) {
+      onClose()
+    }
   }
 
   const handleEditIncome = (value: IncomeSchemaType) => {
