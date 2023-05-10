@@ -2,7 +2,7 @@ import { Decimal } from '@prisma/client/runtime';
 
 export type IncomeResponse = {
   id: number;
-  name: string;
+  title: string;
   amount: Decimal;
   currency: string;
   date: Date;

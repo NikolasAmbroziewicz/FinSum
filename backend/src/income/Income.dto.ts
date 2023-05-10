@@ -5,7 +5,7 @@ export class IcomeDto {
   amount: string;
 
   @IsString()
-  name: string;
+  title: string;
 
   @IsString()
   currency: string;

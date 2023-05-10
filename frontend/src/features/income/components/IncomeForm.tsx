@@ -28,13 +28,13 @@ const IncomeForm: React.FC<IIncomeForm> = ({ onClose }) => {
 
   return (
     <form onSubmit={handleSubmit(handleAddIncome)} className="flex flex-col gap-4 w-screen mx-4">
-      <FormElement value="Title" error={errors.name?.message}>
+      <FormElement value="Title" error={errors.title?.message}>
         <BaseInput 
           id="name"
           type="text"
           placeholder="Title"
-          error={!!errors.name?.message}
-          formHandler={register('name')}
+          error={!!errors.title?.message}
+          formHandler={register('title')}
         />
       </FormElement>
       <FormElement value='Amount' error={errors.amount?.message}>
@@ -42,7 +42,7 @@ const IncomeForm: React.FC<IIncomeForm> = ({ onClose }) => {
           id="amount"
           type="number"
           placeholder="Amount"
-          error={!!errors.name?.message}
+          error={!!errors.amount?.message}
           formHandler={register('amount')}
         />
       </FormElement>

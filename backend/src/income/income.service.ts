@@ -19,7 +19,7 @@ export class IncomeService {
     user: UserWithTokens,
   ): Promise<IncomeResponse> {
     const { email } = user;
-    const { currency, name, amount, date } = income;
+    const { currency, title, amount, date } = income;
 
     const parsedDate = new Date(date)
     const parsedAmount = Number(amount)
@@ -27,7 +27,7 @@ export class IncomeService {
     const addedIncome = await this.prisma.income.create({
       data: {
         currency: currency,
-        name: name,
+        title: title,
         amount: parsedAmount,
         date: parsedDate,
         user: {
@@ -80,12 +80,12 @@ export class IncomeService {
 
   async editIncome(income: IcomeDto, id: number): Promise<IncomeResponse> {
     try {
-      const { amount, name, currency } = income;
+      const { amount, title, currency } = income;
 
       const updatedIncome = await this.prisma.income.update({
         data: {
           amount: amount,
-          name: name,
+          title: title,
           currency: currency,
         },
         where: {
