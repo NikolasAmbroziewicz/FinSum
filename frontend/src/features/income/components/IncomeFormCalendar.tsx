@@ -24,6 +24,7 @@ const IncomeFormCalendar: React.FC<IIncomeFormCalendar> = ({ date, setDate }) =>
       selected={date} 
       onChange={(date: Date) => setDate(date)}
       customInput={<CustomInput />}
+      dateFormat="MM/dd/yyyy"
     />
   )
 }

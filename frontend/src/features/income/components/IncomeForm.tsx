@@ -16,10 +16,14 @@ interface IIncomeForm {
 }
 
 const IncomeForm: React.FC<IIncomeForm> = ({ onClose }) => {
-  const { date, setDate, handleAddIncome, errors, handleSubmit, register, setValue, getValues } = useIncome({onClose})
+  const { handleAddIncome, errors, handleSubmit, register, setValue, getValues } = useIncome({onClose})
 
   const handleValue = (val: string) => {
     setValue('currency', val, { shouldValidate: true })
+  }
+
+  const handleDateValue = (val: Date) => {
+    setValue('date', val, { shouldValidate: true})
   }
 
   return (
@@ -42,8 +46,8 @@ const IncomeForm: React.FC<IIncomeForm> = ({ onClose }) => {
           formHandler={register('amount')}
         />
       </FormElement>
-      <FormElement value="Date" error={undefined}>
-        <IncomeFormCalendar date={date} setDate={setDate} />
+      <FormElement value="Date" error={errors.date?.message}>
+        <IncomeFormCalendar date={getValues('date')} setDate={handleDateValue} />
       </FormElement>
       <FormElement value="Currency" error={errors.currency?.message}>
         <BaseDropdownMenu 

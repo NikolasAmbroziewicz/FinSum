@@ -16,16 +16,18 @@ interface IUseIncome {
 
 export const useIncome = ({ onClose }: IUseIncome) => {
   const dispatch = useDispatch<AppDispatch>()
-  const [date, setDate] = useState(new Date())
   
   const {
     register,
     formState: { errors },
     handleSubmit,
     setValue,
-    getValues
+    getValues,
   } = useForm<IncomeSchemaType>({
-    resolver: zodResolver(incomeSchema)
+    resolver: zodResolver(incomeSchema),
+    defaultValues: {
+      date: new Date()
+    }
   })
 
   const handleAddIncome = (value: IncomeSchemaType) => {
@@ -41,8 +43,6 @@ export const useIncome = ({ onClose }: IUseIncome) => {
   }
 
   return {
-    date,
-    setDate,
     handleAddIncome,
     handleSubmit,
     errors,
