@@ -19,13 +19,17 @@ export class IncomeService {
     user: UserWithTokens,
   ): Promise<IncomeResponse> {
     const { email } = user;
-    const { currency, name, amount } = income;
+    const { currency, name, amount, date } = income;
+
+    const parsedDate = new Date(date)
+    const parsedAmount = Number(amount)
 
     const addedIncome = await this.prisma.income.create({
       data: {
         currency: currency,
         name: name,
-        amount: Number(amount),
+        amount: parsedAmount,
+        date: parsedDate,
         user: {
           connect: {
             email: email,
