@@ -2,13 +2,13 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { get_income, add_income } from 'src/features/income/api/incomeApi'
 
-import { IncomeSchemaType } from 'src/features/income/validators'
+import { IncomeSchemaType, IncomeType } from 'src/features/income/validators'
 import { IncomeState, MainStoreType } from "../types";
 
 export const getIncome = createAsyncThunk(
   'income/getIncome',
   async () => {
-    const res: IncomeSchemaType[] = await get_income()
+    const res: IncomeType[] = await get_income()
 
     return res
   }
@@ -17,7 +17,7 @@ export const getIncome = createAsyncThunk(
 export const addIncome = createAsyncThunk(
   'income/addIncome',
   async (data: IncomeSchemaType) => {
-    const res: IncomeSchemaType = await add_income(data)
+    const res: IncomeType = await add_income(data)
 
     return res
   }
