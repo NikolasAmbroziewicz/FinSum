@@ -10,7 +10,7 @@ const BaseTable: React.FC<IBaseTable> = ({ headers,headerWidth, children }) => {
       <thead>
         <tr>
           {
-            headers.map((header, index) => <th className={`bg-gray-100 text-gray-600 text-left px-4 py-2 w-[${headerWidth[index]}]`}>{header}</th>)
+            headers.map((header, index) => <th key={index} className={`bg-gray-100 text-gray-600 text-left px-4 py-2 w-[${headerWidth[index]}]`}>{header}</th>)
           }
         </tr>
       </thead>
