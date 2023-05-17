@@ -14,5 +14,5 @@ export const incomeSchema = object({
 export type IncomeSchemaType = TypeOf<typeof incomeSchema>
 
 export interface IncomeType extends IncomeSchemaType {
-  id: string
+  id: number
 }
