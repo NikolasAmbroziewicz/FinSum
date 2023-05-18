@@ -1,6 +1,7 @@
-import { object, string, TypeOf, date } from 'zod'
+import { object, string, TypeOf, date, number } from 'zod'
 
 export const incomeSchema = object({
+  id: number().optional(),
   title: string().min(1, 'Name is required'),
   currency: string().min(1, 'Currency is Required'),
   amount: string().refine((val) => !Number.isNaN(parseInt(val, 10)), {
@@ -12,7 +13,3 @@ export const incomeSchema = object({
 })
 
 export type IncomeSchemaType = TypeOf<typeof incomeSchema>
-
-export interface IncomeType extends IncomeSchemaType {
-  id: number
-}

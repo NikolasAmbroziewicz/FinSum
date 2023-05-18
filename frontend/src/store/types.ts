@@ -1,4 +1,4 @@
-import { IncomeType } from "src/features/income/validators";
+import { IncomeSchemaType } from "src/features/income/validators";
 
 export type Tokens = {
   refreshToken?: string;
@@ -16,7 +16,7 @@ export interface UserStore {
 }
 
 export interface IncomeState {
-  income: IncomeType[]
+  income: IncomeSchemaType[]
   isLoading: boolean
 }
 

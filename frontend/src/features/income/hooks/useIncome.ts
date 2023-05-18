@@ -14,7 +14,9 @@ interface IUseIncome {
   onClose?: () => void
 }
 
-export const useIncome = ({ onClose }: IUseIncome) => {
+export const useIncome = ({ 
+  onClose = undefined 
+}: IUseIncome) => {
   const dispatch = useDispatch<AppDispatch>()
   
   const {
@@ -31,6 +33,7 @@ export const useIncome = ({ onClose }: IUseIncome) => {
   })
 
   const handleAddIncome = (value: IncomeSchemaType) => {
+    console.log('value', value)
     dispatch(addIncome(value))
     
     if(onClose) {
@@ -40,10 +43,24 @@ export const useIncome = ({ onClose }: IUseIncome) => {
 
   const handleEditIncome = (value: IncomeSchemaType) => {
     console.log('handleEditIncome')
+
+    if(onClose) {
+      onClose()
+    }
+  }
+
+  const handleDeleteIncome = (value: number | undefined) => {
+    console.log('handleDeleteincome')
+
+    if(onClose) {
+      onClose()
+    }
   }
 
   return {
     handleAddIncome,
+    handleDeleteIncome,
+    handleEditIncome,
     handleSubmit,
     errors,
     register,
