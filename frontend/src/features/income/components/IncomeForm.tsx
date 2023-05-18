@@ -1,22 +1,25 @@
-import FormElement from "src/features/auth/components/FormElement"
+import { useEffect } from "react"
 
 import BaseButton from "src/shared/components/button/base/BaseButton"
 import BaseInput from "src/shared/components/input/base/BaseInput"
 import BaseDropdownMenu from 'src/shared/components/dropdown/BaseDropdownMenu'
 
+import FormElement from "src/features/auth/components/FormElement"
 import IncomeFormCalendar from "./IncomeFormCalendar"
-
 
 import { useIncome } from '../hooks/useIncome'
 
 import { supportedCurrency } from 'src/pages/income/content'
+import { IncomeSchemaType } from "../validators"
 
 interface IIncomeForm {
-  onClose: () => void
+  onClose: () => void,
+  editForm: boolean,
+  income?: IncomeSchemaType
 }
 
-const IncomeForm: React.FC<IIncomeForm> = ({ onClose }) => {
-  const { handleAddIncome, errors, handleSubmit, register, setValue, getValues } = useIncome({onClose})
+const IncomeForm: React.FC<IIncomeForm> = ({ onClose, editForm, income }) => {
+  const { handleAddIncome, handleEditIncome, errors, handleSubmit, register, setValue, getValues } = useIncome({onClose})
 
   const handleValue = (val: string) => {
     setValue('currency', val, { shouldValidate: true })
@@ -26,8 +29,20 @@ const IncomeForm: React.FC<IIncomeForm> = ({ onClose }) => {
     setValue('date', val, { shouldValidate: true})
   }
 
+  useEffect(() => {
+    if (editForm && income) {
+      setValue('id', income?.id)
+      setValue('title', income.title)
+      setValue('date', new Date(income.date))
+      setValue('amount', income.amount)
+      setValue('currency', income.currency, { shouldValidate: true })
+    }
+  }, [])
+
   return (
-    <form onSubmit={handleSubmit(handleAddIncome)} className="flex flex-col gap-4 w-screen mx-4">
+    <form onSubmit={
+        handleSubmit(editForm ? handleEditIncome : handleAddIncome)
+    } className="flex flex-col gap-4 w-screen mx-4">
       <FormElement value="Title" error={errors.title?.message}>
         <BaseInput 
           id="name"
