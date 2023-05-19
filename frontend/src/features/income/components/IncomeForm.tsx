@@ -72,7 +72,7 @@ const IncomeForm: React.FC<IIncomeForm> = ({ onClose, editForm, income }) => {
           error={!!errors.currency?.message}
         />
       </FormElement>
-      <BaseButton type="submit">Add</BaseButton>
+      <BaseButton type="submit">Submit</BaseButton>
     </form>
   )
 }
