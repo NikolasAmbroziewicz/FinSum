@@ -80,13 +80,14 @@ export class IncomeService {
 
   async editIncome(income: IcomeDto, id: number): Promise<IncomeResponse> {
     try {
-      const { amount, title, currency } = income;
+      const { amount, title, currency, date } = income;
 
       const updatedIncome = await this.prisma.income.update({
         data: {
           amount: amount,
           title: title,
           currency: currency,
+          date: date
         },
         where: {
           id: id,
