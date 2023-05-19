@@ -23,6 +23,15 @@ export const addIncome = createAsyncThunk(
   }
 )
 
+export const editIncome = createAsyncThunk(
+  'income/editIncome',
+  async (data: IncomeSchemaType) => {
+    const res: IncomeSchemaType = await edit_income(data)
+
+    return res
+  }
+)
+
 export const deleteIncome = createAsyncThunk(
   'income/deleteIncome', 
   async (id: number) => { 
@@ -59,6 +68,10 @@ const incomeSlice = createSlice({
       .addCase(deleteIncome.fulfilled, (state, action) => {
         const newState = state.income.filter((income) => income.id !== action.payload.id)
         state.income = newState
+      })
+      .addCase(editIncome.fulfilled, (state, action) => {
+        const findIndex = state.income.findIndex((income) => income.id === action.payload.id)
+        state.income[findIndex] = action.payload
       })
   }
 })
