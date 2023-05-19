@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { AppDispatch } from 'src/store/main';
 import { incomeSchema, IncomeSchemaType } from 'src/features/income/validators'
 
-import { addIncome } from 'src/store/income/incomeSlice';
+import { addIncome, deleteIncome } from 'src/store/income/incomeSlice';
 
 interface IUseIncome {
   onClose?: () => void
@@ -49,8 +49,8 @@ export const useIncome = ({
     }
   }
 
-  const handleDeleteIncome = (value: number | undefined) => {
-    console.log('handleDeleteincome')
+  const handleDeleteIncome = (value: number) => {
+    dispatch(deleteIncome(value))
 
     if(onClose) {
       onClose()

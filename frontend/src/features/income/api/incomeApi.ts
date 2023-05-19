@@ -18,3 +18,11 @@ export const add_income = async (data: IncomeSchemaType) => {
     }
   }).then((res) => res.data)
 }
+
+export const delete_income = async (id: number) => {
+  return apiBase.delete(`income/v1/delete-income?id=${id}`, {
+    headers: {
+      ...authHeader()
+    }
+  }).then((res) => res.data)
+}

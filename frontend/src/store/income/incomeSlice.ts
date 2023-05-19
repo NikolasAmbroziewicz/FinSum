@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { get_income, add_income } from 'src/features/income/api/incomeApi'
+import { get_income, add_income, edit_income, delete_income } from 'src/features/income/api/incomeApi'
 
 import { IncomeSchemaType } from 'src/features/income/validators'
 import { IncomeState, MainStoreType } from "../types";
@@ -18,6 +18,15 @@ export const addIncome = createAsyncThunk(
   'income/addIncome',
   async (data: IncomeSchemaType) => {
     const res: IncomeSchemaType = await add_income(data)
+
+    return res
+  }
+)
+
+export const deleteIncome = createAsyncThunk(
+  'income/deleteIncome', 
+  async (id: number) => { 
+    const res: IncomeSchemaType = await delete_income(id)
 
     return res
   }
@@ -46,6 +55,10 @@ const incomeSlice = createSlice({
       })
       .addCase(addIncome.fulfilled, (state, action) => {
         state.income.push(action.payload)
+      })
+      .addCase(deleteIncome.fulfilled, (state, action) => {
+        const newState = state.income.filter((income) => income.id !== action.payload.id)
+        state.income = newState
       })
   }
 })

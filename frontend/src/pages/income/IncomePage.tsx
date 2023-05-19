@@ -52,7 +52,10 @@ const IncomePage = () => {
         onClose={handleOpenModal}
         title='Add Income'
         content={
-          <IncomeForm onClose={handleOpenModal}/>
+          <IncomeForm 
+            onClose={handleOpenModal}
+            editForm={false}
+          />
         }
       />
     </div>

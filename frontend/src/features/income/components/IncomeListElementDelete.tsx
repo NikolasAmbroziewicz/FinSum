@@ -6,12 +6,12 @@ import { useModal } from 'src/shared/components/modals/hooks/useModal'
 import { useIncome } from 'src/features/income/hooks/useIncome'
 
 import { ButtonTheme } from 'src/shared/components/button/base/types'
-import { IncomeType } from "src/features/income/validators"
+import { IncomeSchemaType } from "src/features/income/validators"
 
 import { AiFillEdit, AiOutlineClose } from 'react-icons/ai'
 
 interface IIncomeListElementDelete {
-  income: IncomeType
+  income: IncomeSchemaType
 }
 
 const IncomeListElementDelete: React.FC<IIncomeListElementDelete> =({ income })=> {
@@ -19,7 +19,9 @@ const IncomeListElementDelete: React.FC<IIncomeListElementDelete> =({ income })=
 
   const {
     handleDeleteIncome,
-  }  = useIncome({})
+  }  = useIncome({
+    onClose: handleOpenModal
+  })
 
   return (
     <>
@@ -36,7 +38,7 @@ const IncomeListElementDelete: React.FC<IIncomeListElementDelete> =({ income })=
         }
         action={
           <>
-            <BaseButton color={ButtonTheme.base} styles="w-[45%]" handler={() => handleDeleteIncome(income.id)}>
+            <BaseButton color={ButtonTheme.base} styles="w-[45%]" handler={() => handleDeleteIncome(income.id as number)}>
               Yes
             </BaseButton>
             <BaseButton color={ButtonTheme.error} styles="w-[45%]" handler={() => handleOpenModal()}>
