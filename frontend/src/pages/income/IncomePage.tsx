@@ -25,11 +25,11 @@ const IncomePage = () => {
 
   useEffect(() => {
     const handleIncome = async () => {
-      await dispatch(getIncome())
+      await dispatch(getIncome(startDate))
     }
 
     handleIncome()
-  }, [])
+  }, [startDate])
 
   return (
     <div className='flex flex-col'>

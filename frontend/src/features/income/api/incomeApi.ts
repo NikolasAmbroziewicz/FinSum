@@ -1,8 +1,8 @@
 import apiBase, { authHeader } from 'src/api/httpCommon'
 import { IncomeSchemaType } from '../validators'
 
-export const get_income = async () => {
-  return apiBase.get('/income/v1/get-income', {
+export const get_income = async (date: Date) => {
+  return apiBase.get(`/income/v1/get-income?date=${date}`, {
     headers: {
       ...authHeader()
     }

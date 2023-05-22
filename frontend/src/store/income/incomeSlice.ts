@@ -7,8 +7,8 @@ import { IncomeState, MainStoreType } from "../types";
 
 export const getIncome = createAsyncThunk(
   'income/getIncome',
-  async () => {
-    const res: IncomeSchemaType[] = await get_income()
+  async (date: Date) => {
+    const res: IncomeSchemaType[] = await get_income(date)
 
     return res
   }
