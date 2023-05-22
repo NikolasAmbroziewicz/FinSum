@@ -15,7 +15,7 @@ const BaseNavLayout: React.FC<IBaseNavLayout> = ({ children }) => {
       }  w-screen h-screen`}
     >
       <GlobalNavigation />
-      <div className="overflow-scroll p-6 smplus:w-full">{children}</div>
+      <div className="overflow-scroll  p-2 smplus:p-6 smplus:w-full">{children}</div>
     </div>
   );
 };

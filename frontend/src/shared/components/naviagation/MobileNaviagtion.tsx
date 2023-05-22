@@ -19,13 +19,13 @@ const MobileNavigation: React.FC<IDesktopNavigation> = ({
   navData
 }) => {
   return (
-    <nav>
+    <nav className='bg-sky-600'>
       <div className="flex justify-center relative m-2">
         <button
           className="absolute top-1/2 left-0 -translate-y-1/2"
           onClick={handleNavOpen}
         >
-          <AiOutlineMenu className="text-xl mr-1" />
+          <AiOutlineMenu className="text-xl mr-1 text-white" />
         </button>
         <img src={MainLogo} alt="Main Logo" className="h-[40px]" />
       </div>
