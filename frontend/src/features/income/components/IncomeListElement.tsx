@@ -1,4 +1,4 @@
-import moment from 'moment'
+import { useDate } from 'src/shared/hooks/useDate'
 
 interface IIncomeListElement {
   amount: string,
@@ -9,9 +9,7 @@ interface IIncomeListElement {
 }
 
 const IncomeListElement: React.FC<IIncomeListElement> = ({ amount, children, currency, date, title }) => {
-  const dateFormat = (date: Date) => {
-    return moment(date).format('ll')
-  }
+  const  { dateFormat } = useDate()
 
   return (
     <tr className='border-2 border-gray-100'>
