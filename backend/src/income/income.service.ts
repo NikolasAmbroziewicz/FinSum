@@ -43,8 +43,10 @@ export class IncomeService {
     };
   }
 
-  async getIncome(user: UserWithTokens): Promise<IncomeResponse[]> {
+  async getIncome(user: UserWithTokens, date: Date): Promise<IncomeResponse[]> {
     const { userId, email } = user;
+
+    const currentYear = new Date(date).getFullYear()
 
     const income = await this.prisma.income.findMany({
       where: {
@@ -52,6 +54,10 @@ export class IncomeService {
           id: userId,
           email: email,
         },
+        date: {
+          lte: new Date(`${currentYear}-12-31`),
+          gte: new Date(`${currentYear}-01-01`),
+        }
       },
     });
 
