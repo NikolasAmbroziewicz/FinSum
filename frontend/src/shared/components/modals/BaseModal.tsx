@@ -18,7 +18,7 @@ const BaseModal: React.FC<IBaseModal> = ({ isOpen, onClose, title, content, acti
         <>
         {
             isOpen && (
-                <div className={`${isOpen ? 'fixed': 'none'} inset-0 z-100 overflow-x-hidden overflow-y-auto bg-sky-500/[.2]`}>
+                <div className={`${isOpen ? 'fixed': 'none'} inset-0 z-100 overflow-x-hidden overflow-y-auto bg-sky-500/[.2] z-[2]`}>
                     <div className="
                         fixed bg-white smplus:max-w-[600px] rounded-md 
                         top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
