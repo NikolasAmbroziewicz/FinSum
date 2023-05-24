@@ -2,7 +2,7 @@ import { useEffect } from "react"
 
 import BaseButton from "src/shared/components/button/base/BaseButton"
 import BaseInput from "src/shared/components/input/base/BaseInput"
-import BaseDropdownMenu from 'src/shared/components/dropdown/BaseDropdownMenu'
+import ButtonDropdownMenu from 'src/shared/components/dropdown/ButtonDropdownMenu'
 
 import FormElement from "src/features/auth/components/FormElement"
 import IncomeFormCalendar from "./IncomeFormCalendar"
@@ -65,7 +65,7 @@ const IncomeForm: React.FC<IIncomeForm> = ({ onClose, editForm, income }) => {
         <IncomeFormCalendar date={getValues('date')} setDate={handleDateValue} />
       </FormElement>
       <FormElement value="Currency" error={errors.currency?.message}>
-        <BaseDropdownMenu 
+        <ButtonDropdownMenu 
           dropdownContent={supportedCurrency}
           handleValue={handleValue}
           value={getValues('currency')} 

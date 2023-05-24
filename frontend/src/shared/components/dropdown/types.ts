@@ -1,4 +1,6 @@
 export type DropdownContent = {
   id: number,
-  content: string
+  content: string,
+  icon?: JSX.Element,
+  handler?: () => void
 }
