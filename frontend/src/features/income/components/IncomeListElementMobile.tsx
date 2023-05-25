@@ -2,7 +2,6 @@ import H3 from 'src/shared/components/headers/H3'
 import H4 from 'src/shared/components/headers/H4'
 
 import { Position } from 'src/shared/components/headers/Header.types'
-
 import { useDate } from 'src/shared/hooks/useDate'
 
 interface IIncomeListElementMobile {
@@ -25,14 +24,14 @@ const IncomeListElementMobile: React.FC<IIncomeListElementMobile> = ({ amount, c
   }
 
   return (
-    <div className='bg-gray-100 p-2 rounded'>
-      <div className='flex justify-end'>
+    <div className='bg-gray-100 p-2 rounded relative'>
+      <div>
         {children}
       </div>
       <div className='my-1'>
         <H3 position={Position.left}>{title}</H3>
       </div>
-      <div className='flex justify-between my-1'> 
+      <div className='flex justify-between items-center my-1'> 
         <H4 position={Position.left}>{displayDate()}</H4>
         <H4 position={Position.right}>{displayAmount()}</H4>
       </div>

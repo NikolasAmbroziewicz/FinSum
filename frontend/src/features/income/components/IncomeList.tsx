@@ -8,9 +8,8 @@ import Loading from "src/shared/components/loading/Loading"
 import BaseTable from "src/shared/components/table/BaseTable"
 
 import IncomeListElement from "src/features/income/components/IncomeListElement"
-import IncomeListElementDelete from "./IncomeListElementDelete"
-import IncomeListElementEdit from "./IncomeListElementEdit"
-import IncomeListElementMobile from "./IncomeListElementMobile"
+import IncomeListElementMobile from "src/features/income/components/IncomeListElementMobile"
+import IncomeListElementActions from "./IncomeListElementActions"
 
 import { useScreen } from "src/shared/hooks/useScreen"
 
@@ -47,14 +46,7 @@ const IncomeList: React.FC<IIncomeList> = ({ startDate }) => {
                       amount={element.amount}
                       date={element.date}
                     >
-                      <div className="flex gap-2">
-                        <IncomeListElementEdit 
-                          income={element}
-                        />
-                        <IncomeListElementDelete 
-                          income={element}
-                        />
-                      </div>
+                      <IncomeListElementActions income={element} />
                     </IncomeListElementMobile>
                   ))
                   }
@@ -62,8 +54,8 @@ const IncomeList: React.FC<IIncomeList> = ({ startDate }) => {
                 )
               ): (
                 <BaseTable 
-                  headers={['Title', 'Amount', 'Currency', 'Date', 'Actions']}
-                  headerWidth={['50%', '10%', '10%', '15%', '15%']}
+                  headers={['Title', 'Amount', 'Currency', 'Date', '']}
+                  headerWidth={['1/2', '100px', '60px', '130px', '30px']}
                 >
                   {
                     income.map((element) => (
@@ -74,14 +66,7 @@ const IncomeList: React.FC<IIncomeList> = ({ startDate }) => {
                         amount={element.amount}
                         date={element.date}
                       >
-                        <div className="flex gap-2">
-                          <IncomeListElementEdit 
-                            income={element}
-                          />
-                          <IncomeListElementDelete 
-                            income={element}
-                          />
-                        </div>
+                        <IncomeListElementActions income={element} />
                       </IncomeListElement>
                     ))
                   }
