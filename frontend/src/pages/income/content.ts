@@ -19,4 +19,4 @@ export const supportedCurrency = [
     id: 5,
     content: 'GBP'
   }
-]
+];

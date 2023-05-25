@@ -6,7 +6,11 @@ import { useScreen } from 'src/shared/hooks/useScreen';
 import DesktopNavigation from './DesktopNavigation';
 import MobileNaviagtion from './MobileNaviagtion';
 
-import { AiOutlineStock, AiOutlineHome, AiOutlineCalendar } from 'react-icons/ai';
+import {
+  AiOutlineStock,
+  AiOutlineHome,
+  AiOutlineCalendar
+} from 'react-icons/ai';
 import { BiBitcoin, BiMoney } from 'react-icons/bi';
 import { GiTwoCoins } from 'react-icons/gi';
 

@@ -1,11 +1,11 @@
-import moment from 'moment'
+import moment from 'moment';
 
 export const useDate = () => {
   const dateFormat = (date: Date) => {
-    return moment(date).format('ll')
-  }
+    return moment(date).format('ll');
+  };
 
   return {
     dateFormat
-  }
-}
+  };
+};

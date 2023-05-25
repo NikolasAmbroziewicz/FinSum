@@ -9,7 +9,7 @@ const PrivateRoutes = () => {
   const { isAuthenticated, isLoading } = useProtectedRoutes();
 
   return isLoading ? (
-    <div className='flex h-screen'>
+    <div className="flex h-screen">
       <Loading size={LoadingSize.large} />
     </div>
   ) : isAuthenticated ? (

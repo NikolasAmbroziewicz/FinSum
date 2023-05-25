@@ -9,7 +9,6 @@ import {
 
 import { UserStore } from '../types';
 
-
 const initialState: UserStore = {
   isAuthenticated: false,
   user: undefined,
@@ -49,8 +48,8 @@ export const refreshTokens = createAsyncThunk(
     const { setToLocalStorage } = useLocalStorage();
 
     const res = await refreshToken();
-    
-    setToLocalStorage('user', res)
+
+    setToLocalStorage('user', res);
 
     return {
       tokens: {
@@ -88,7 +87,7 @@ const userSlice = createSlice({
         state.tokens = {
           accessToken: undefined,
           refreshToken: undefined
-        }
+        };
       });
   }
 });

@@ -30,7 +30,7 @@ export class IncomeController {
   @Get('v1/get-income')
   getIncome(
     @GetCurrentUser() user: UserWithTokens,
-    @Query('date') date: Date
+    @Query('date') date: Date,
   ): Promise<IncomeResponse[]> {
     return this.financeService.getIncome(user, date);
   }

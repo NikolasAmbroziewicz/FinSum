@@ -10,9 +10,7 @@ import { UserWithTokens } from '../auth/auth.type';
 
 @Injectable()
 export class IncomeService {
-  constructor(
-    private prisma: PrismaService,
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
   async addIncome(
     income: IcomeDto,
@@ -21,8 +19,8 @@ export class IncomeService {
     const { email } = user;
     const { currency, title, amount, date } = income;
 
-    const parsedDate = new Date(date)
-    const parsedAmount = Number(amount)
+    const parsedDate = new Date(date);
+    const parsedAmount = Number(amount);
 
     const addedIncome = await this.prisma.income.create({
       data: {
@@ -46,7 +44,7 @@ export class IncomeService {
   async getIncome(user: UserWithTokens, date: Date): Promise<IncomeResponse[]> {
     const { userId, email } = user;
 
-    const currentYear = new Date(date).getFullYear()
+    const currentYear = new Date(date).getFullYear();
 
     const income = await this.prisma.income.findMany({
       where: {
@@ -57,7 +55,7 @@ export class IncomeService {
         date: {
           lte: new Date(`${currentYear}-12-31`),
           gte: new Date(`${currentYear}-01-01`),
-        }
+        },
       },
     });
 
@@ -93,7 +91,7 @@ export class IncomeService {
           amount: amount,
           title: title,
           currency: currency,
-          date: date
+          date: date,
         },
         where: {
           id: id,

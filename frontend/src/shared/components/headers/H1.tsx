@@ -11,17 +11,21 @@ const H1: React.FC<IHeaderProp> = ({
   };
 
   const textPosition = () => {
-    switch(position) {
+    switch (position) {
       case Position.center:
-        return 'text-center'
+        return 'text-center';
       case Position.left:
-        return 'text-left'
+        return 'text-left';
       case Position.right:
-        return 'text-right'
+        return 'text-right';
     }
-  }
+  };
 
-  return <h1 className={`${textColor()} ${textPosition()}  text-3xl ${styles}`}>{children}</h1>;
+  return (
+    <h1 className={`${textColor()} ${textPosition()}  text-3xl ${styles}`}>
+      {children}
+    </h1>
+  );
 };
 
 export default H1;

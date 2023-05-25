@@ -65,7 +65,7 @@ function App() {
             </BaseNavLayout>
           }
         />
-        <Route 
+        <Route
           path="income"
           element={
             <BaseNavLayout>

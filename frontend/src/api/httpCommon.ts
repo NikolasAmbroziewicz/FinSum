@@ -9,10 +9,10 @@ export default axios.create({
   }
 });
 
-export const authHeader = () => {
+export const useAuthHeader = () => {
   const { getFromLocalStorage } = useLocalStorage();
   const tokens: Tokens = getFromLocalStorage('user');
-  
+
   return {
     Authorization: `Bearer ${tokens.accessToken}`,
     'x-refresh-token': tokens.refreshToken

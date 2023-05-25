@@ -11,5 +11,5 @@ export class IcomeDto {
   currency: string;
 
   @IsDateString()
-  date: Date
+  date: Date;
 }
