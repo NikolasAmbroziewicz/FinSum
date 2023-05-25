@@ -100,7 +100,13 @@ export class AuthService {
   async refreshTokens(tokens: UserWithTokens): Promise<Tokens> {
     const { accessToken, refreshToken, email, userId } = tokens;
 
-    if (!accessToken || !userId) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
+
+    if (!accessToken && !user.id) {
       throw new ForbiddenException('Unauthorized');
     }
     const { valid, expired } = this.tokensService.verifyJWT(accessToken);
