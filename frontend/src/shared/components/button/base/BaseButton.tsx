@@ -12,7 +12,7 @@ const BaseButton: React.FC<IBaseButton> = ({
   color = ButtonTheme.base,
   handler,
   type,
-  styles,
+  styles = '',
   children
 }) => {
   const buttonColor = () => {

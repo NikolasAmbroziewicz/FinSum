@@ -19,7 +19,7 @@ const MobileNavigation: React.FC<IDesktopNavigation> = ({
   navData
 }) => {
   return (
-    <nav className="bg-sky-600">
+    <nav className="bg-sky-600 z-[10]">
       <div className="flex justify-center relative m-2">
         <button
           className="absolute top-1/2 left-0 -translate-y-1/2"
