@@ -1,5 +1,8 @@
 import GlobalNavigation from '../components/naviagation/GlobalNavigation';
+import BaseSnackbar from '../components/snackbar/BaseSnackbar';
+
 import { useScreen } from 'src/shared/hooks/useScreen';
+import { useNotificationContext } from 'src/context/NotificationContext';
 
 interface IBaseNavLayout {
   children: JSX.Element;
@@ -7,6 +10,13 @@ interface IBaseNavLayout {
 
 const BaseNavLayout: React.FC<IBaseNavLayout> = ({ children }) => {
   const { isMobileScreen } = useScreen();
+  
+  const { 
+    showNotification,
+    notificationType,
+    notificationValue,
+    handleShowNotification 
+  } = useNotificationContext()
 
   return (
     <div
@@ -18,6 +28,9 @@ const BaseNavLayout: React.FC<IBaseNavLayout> = ({ children }) => {
       <div className="overflow-scroll  p-2 smplus:p-6 smplus:w-full grow">
         {children}
       </div>
+      {
+        showNotification && <BaseSnackbar message={notificationValue} type={notificationType} onClick={handleShowNotification} />
+      }
     </div>
   );
 };
