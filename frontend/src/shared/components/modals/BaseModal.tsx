@@ -28,8 +28,7 @@ const BaseModal: React.FC<IBaseModal> = ({
           } inset-0 z-100 overflow-x-hidden overflow-y-auto bg-sky-500/[.2] z-[2]`}
         >
           <div
-            className="
-                        fixed bg-white smplus:max-w-[600px] rounded-md 
+            className="fixed bg-white smplus:max-w-[600px] rounded-md 
                         top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
                         sm:w-[calc(100%_-_1rem)]
                         smplus:top-1/3 smplus:left-1/2 smplus:-translate-x-1/2 smplus:-translate-y-1/2"
