@@ -1,10 +1,14 @@
-import { LoadingSize } from '../types';
+import { LoadingSize, LoadingPosition } from './types';
 
 interface ILoading {
   size?: LoadingSize;
+  position?: LoadingPosition;
 }
 
-const Loading: React.FC<ILoading> = ({ size = LoadingSize.medium }) => {
+const Loading: React.FC<ILoading> = ({
+  size = LoadingSize.medium,
+  position = LoadingPosition.center
+}) => {
   const loadingSize = () => {
     switch (size) {
       case LoadingSize.small:
@@ -16,8 +20,19 @@ const Loading: React.FC<ILoading> = ({ size = LoadingSize.medium }) => {
     }
   };
 
+  const alignPosition = () => {
+    switch (position) {
+      case LoadingPosition.start:
+        return 'items-start';
+      case LoadingPosition.center:
+        return 'items-center';
+      case LoadingPosition.end:
+        return 'items-end';
+    }
+  };
+
   return (
-    <div className="w-screen h-screen flex justify-center items-center">
+    <div className={`flex h-full w-full justify-center ${alignPosition()}`}>
       <div
         className={`animate-spin inline-block ${loadingSize()} border-current border-t-transparent text-sky-600 rounded-full`}
         role="status"

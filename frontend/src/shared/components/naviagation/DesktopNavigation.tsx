@@ -3,7 +3,7 @@ import { NavData } from './GlobalNavigation';
 
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 
-import MainLogo from 'src/images/MainLogo.svg';
+import MainLogo from 'src/shared/images/MainLogo.svg';
 
 interface IDesktopNavigation {
   activeRoute: (path: string) => string;
@@ -19,7 +19,7 @@ const DesktopNavigation: React.FC<IDesktopNavigation> = ({
   navData
 }) => {
   const navStyle = () => {
-    return isOpen ? '200' : '50';
+    return isOpen ? '200' : '60';
   };
   return (
     <nav
@@ -27,7 +27,7 @@ const DesktopNavigation: React.FC<IDesktopNavigation> = ({
     >
       <div
         onClick={handleNavOpen}
-        className="absolute right-[-10px] top-[40px] border-2 rounded-full border-white bg-white"
+        className="absolute right-[-10px] top-[40px] border-2 rounded-full border-white bg-white cursor-pointer"
       >
         {isOpen ? (
           <AiOutlineArrowLeft className="text-base" />

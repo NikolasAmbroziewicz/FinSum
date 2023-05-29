@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { useLocalStorage } from 'src/hooks/useLocalStorage';
+import { useLocalStorage } from 'src/shared/hooks/useLocalStorage';
 
 import { signUp, singIn, refreshToken } from 'src/features/auth/api/authApi';
 import {
@@ -7,20 +7,7 @@ import {
   registerSchemaType
 } from 'src/features/auth/validators';
 
-export type Tokens = {
-  refreshToken?: string;
-  accessToken?: string;
-};
-
-interface UserStore {
-  isAuthenticated: boolean;
-  user?: {
-    email: string;
-    name: string;
-    surname: string;
-  };
-  tokens: Tokens;
-}
+import { UserStore } from '../types';
 
 const initialState: UserStore = {
   isAuthenticated: false,
@@ -58,10 +45,11 @@ export const signInUser = createAsyncThunk(
 export const refreshTokens = createAsyncThunk(
   'user/refreshTokens',
   async () => {
-    const { getFromLocalStorage } = useLocalStorage();
-    const tokens: Tokens = getFromLocalStorage('user');
+    const { setToLocalStorage } = useLocalStorage();
 
-    const res = await refreshToken(tokens);
+    const res = await refreshToken();
+
+    setToLocalStorage('user', res);
 
     return {
       tokens: {
@@ -94,12 +82,19 @@ const userSlice = createSlice({
       .addCase(refreshTokens.fulfilled, (state, action) => {
         state.isAuthenticated = true;
         state.tokens = action.payload.tokens;
+      })
+      .addCase(refreshTokens.rejected, (state, action) => {
+        state.tokens = {
+          accessToken: undefined,
+          refreshToken: undefined
+        };
       });
   }
 });
 
 export const { logOut } = userSlice.actions;
 
+//FIX
 export const selectCurrentTokens = (state: UserStore) => state.tokens;
 
 export const selectCurrentUser = (state: UserStore) => state.user;

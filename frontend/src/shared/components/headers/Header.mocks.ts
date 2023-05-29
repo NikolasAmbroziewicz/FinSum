@@ -1,8 +1,10 @@
-import { IHeaderProp, VariantColor } from './Header.types';
+import { IHeaderProp, Variant, Position } from './Header.types';
 
 const base: IHeaderProp = {
   children: 'This is awesome Header Text',
-  variant: VariantColor.dark
+  variant: Variant.dark,
+  position: Position.center,
+  styles: ''
 };
 
 export const mockHeadersBaseProps = {

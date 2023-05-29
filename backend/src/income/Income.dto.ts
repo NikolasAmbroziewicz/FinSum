@@ -1,12 +1,15 @@
-import { IsDecimal, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsString, IsDateString } from 'class-validator';
 
 export class IcomeDto {
-  @IsNumber()
-  value: number;
+  @IsString()
+  amount: string;
 
   @IsString()
-  name: string;
+  title: string;
 
   @IsString()
   currency: string;
+
+  @IsDateString()
+  date: Date;
 }

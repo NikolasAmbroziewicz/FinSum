@@ -1,14 +1,31 @@
-import { IHeaderProp, VariantColor } from './Header.types';
+import { IHeaderProp, Variant, Position } from './Header.types';
 
 const H3: React.FC<IHeaderProp> = ({
   children,
-  variant = VariantColor.dark
+  variant = Variant.dark,
+  position = Position.center,
+  styles = ''
 }) => {
   const textColor = () => {
-    return variant === VariantColor.dark ? 'text-gray-600' : 'text-stone-50';
+    return variant === Variant.dark ? 'text-gray-600' : 'text-stone-50';
   };
 
-  return <h3 className={`text-center ${textColor()} text-base`}>{children}</h3>;
+  const textPosition = () => {
+    switch (position) {
+      case Position.center:
+        return 'text-center';
+      case Position.left:
+        return 'text-left';
+      case Position.right:
+        return 'text-right';
+    }
+  };
+
+  return (
+    <h3 className={`${textColor()} ${textPosition()} text-xl ${styles}`}>
+      {children}
+    </h3>
+  );
 };
 
 export default H3;

@@ -2,9 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import userReducer from './user/userSlice';
 
+import incomeReducer from './income/incomeSlice';
+
 export const store = configureStore({
   reducer: {
-    auth: userReducer
+    auth: userReducer,
+    income: incomeReducer
   }
 });
 

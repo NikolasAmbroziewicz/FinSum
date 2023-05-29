@@ -10,25 +10,26 @@ import { UserWithTokens } from '../auth/auth.type';
 
 @Injectable()
 export class IncomeService {
-  constructor(
-    private prisma: PrismaService,
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
   async addIncome(
     income: IcomeDto,
     user: UserWithTokens,
   ): Promise<IncomeResponse> {
-    const { id, email } = user;
-    const { currency, name, value } = income;
+    const { email } = user;
+    const { currency, title, amount, date } = income;
+
+    const parsedDate = new Date(date);
+    const parsedAmount = Number(amount);
 
     const addedIncome = await this.prisma.income.create({
       data: {
         currency: currency,
-        name: name,
-        amount: value,
+        title: title,
+        amount: parsedAmount,
+        date: parsedDate,
         user: {
           connect: {
-            id: id,
             email: email,
           },
         },
@@ -40,14 +41,20 @@ export class IncomeService {
     };
   }
 
-  async getIncome(user: UserWithTokens): Promise<IncomeResponse[]> {
-    const { id, email } = user;
+  async getIncome(user: UserWithTokens, date: Date): Promise<IncomeResponse[]> {
+    const { userId, email } = user;
+
+    const currentYear = new Date(date).getFullYear();
 
     const income = await this.prisma.income.findMany({
       where: {
         user: {
-          id: id,
+          id: userId,
           email: email,
+        },
+        date: {
+          lte: new Date(`${currentYear}-12-31`),
+          gte: new Date(`${currentYear}-01-01`),
         },
       },
     });
@@ -77,13 +84,14 @@ export class IncomeService {
 
   async editIncome(income: IcomeDto, id: number): Promise<IncomeResponse> {
     try {
-      const { value, name, currency } = income;
+      const { amount, title, currency, date } = income;
 
       const updatedIncome = await this.prisma.income.update({
         data: {
-          amount: value,
-          name: name,
+          amount: amount,
+          title: title,
           currency: currency,
+          date: date,
         },
         where: {
           id: id,

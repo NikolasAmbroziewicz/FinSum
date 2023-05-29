@@ -28,7 +28,7 @@ model user {
 }
 model income {
   id       Int      @id @default(autoincrement())
-  name     String   @db.VarChar(50)
+  title     String   @db.VarChar(50)
   amount   Decimal  @db.Decimal()
   currency String   @db.VarChar(10)
   date DateTime @db.Timestamp() @default(now())

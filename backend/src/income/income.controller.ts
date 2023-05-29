@@ -28,8 +28,11 @@ export class IncomeController {
   }
 
   @Get('v1/get-income')
-  getIncome(@GetCurrentUser() user: UserWithTokens): Promise<IncomeResponse[]> {
-    return this.financeService.getIncome(user);
+  getIncome(
+    @GetCurrentUser() user: UserWithTokens,
+    @Query('date') date: Date,
+  ): Promise<IncomeResponse[]> {
+    return this.financeService.getIncome(user, date);
   }
 
   @Delete('v1/delete-income')

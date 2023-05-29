@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { Tokens } from 'src/store/user/userSlice';
+import { Tokens } from 'src/store/types';
+import { useLocalStorage } from 'src/shared/hooks/useLocalStorage';
 
 export default axios.create({
   baseURL: import.meta.env.VITE_BACKEND_HOST,
@@ -8,7 +9,10 @@ export default axios.create({
   }
 });
 
-export const authHeader = (tokens: Tokens) => {
+export const useAuthHeader = () => {
+  const { getFromLocalStorage } = useLocalStorage();
+  const tokens: Tokens = getFromLocalStorage('user');
+
   return {
     Authorization: `Bearer ${tokens.accessToken}`,
     'x-refresh-token': tokens.refreshToken
