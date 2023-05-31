@@ -1,38 +1,44 @@
 import { createContext, useContext, useState } from 'react'
+import { SnackbarType } from 'src/shared/components/snackbar/type'
 
 interface INotificationContext {
-  showNotification: boolean,
+  handleNotification: (value: string, notificationType: SnackbarType) => void,
   handleShowNotification: () => void,
   notificationValue: string,
-  handleNotificationValue: (val: string) => void,
+  showNotification: boolean,
+  notificationType: SnackbarType
 }
 
 const defaultValue: INotificationContext = {
-  showNotification: false,
+  handleNotification: () => {},
   handleShowNotification: () => {},
   notificationValue: '',
-  handleNotificationValue: () => {}
+  showNotification: false,
+  notificationType: SnackbarType.neutral
 }
 
 const NotificationContext = createContext<INotificationContext>(defaultValue)
 
 export const NotificationProvider: React.FC<{ children: JSX.Element}> = ({ children }) => {
+  const [notificationType, setNotificationType] = useState(SnackbarType.neutral)
   const [showNotification, setShowNotification] = useState(false)
   const [notificationValue, setNotificationValue] = useState('')
+
+  const handleNotification = (value: string, notificationType: SnackbarType) => {
+    setShowNotification(!showNotification)
+    setNotificationValue(value)
+    setNotificationType(notificationType)
+  }
 
   const handleShowNotification = () => {
     setShowNotification(!showNotification)
   }
 
-  const handleNotificationValue = (value: string) => {
-    setNotificationValue(value)
-  }
-
   return (
-    <NotificationContext.Provider value={{ showNotification, notificationValue, handleNotificationValue, handleShowNotification}} >
+    <NotificationContext.Provider value={{ showNotification, notificationValue, handleNotification, handleShowNotification, notificationType}} >
       {children}
     </NotificationContext.Provider>
   )
 }
 
-export const useNotificationContext = useContext(NotificationContext)
+export const useNotificationContext = () => useContext(NotificationContext)

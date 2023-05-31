@@ -68,7 +68,7 @@ const IncomeListElementActions: React.FC<IIncomeListElementActions> = ({
           title="Delete Income"
           content={
             <span className="text-gray-600 mx-4">
-              Do you want do delete this Income
+              Do you want do delete this Income?
             </span>
           }
           action={
