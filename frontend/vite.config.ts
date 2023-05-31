@@ -9,10 +9,7 @@ export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   test: {
     globals: true,
-    environment: 'jsdom',
-    coverage: {
-        reporter: ['text', 'json', 'html'],
-    },
+    environment: 'happy-dom',
   },
   server: {
     port: 3000
