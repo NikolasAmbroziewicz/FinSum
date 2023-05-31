@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`BaseTemplate > defined 1`] = `
+<div
+  className="bg-gradient-to-r from-cyan-500 to-blue-500 underline text-black flex"
+>
+  text
+</div>
+`;

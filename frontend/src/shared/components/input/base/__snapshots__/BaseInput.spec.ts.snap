@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`BaseInput > defined 1`] = `
+<React.Fragment>
+  <input
+    className="w-full shadow border border-slate-300 rounded py-2 px-3 text-gray-700 leading-tight 
+          focus:outline-none focus:shadow-outline focus:borderfocus:border-sky-600
+          placeholder:text-slate-300
+          "
+    id="Base Input"
+    placeholder="Base Input"
+    type="text"
+  />
+</React.Fragment>
+`;
