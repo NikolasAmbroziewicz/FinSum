@@ -48,9 +48,9 @@ const BaseDropdownMenu: React.FC<IBaseDropdownMenu> = ({
           {value === undefined ? 'Select' : value}
         </span>
         {menuOpen ? (
-          <BiChevronUp className="text-slate-600 text-2xl" />
+          <BiChevronUp data-test="iconUp" className="text-slate-600 text-2xl" />
         ) : (
-          <BiChevronDown className="text-slate-600 text-2xl" />
+          <BiChevronDown data-test="iconDown" className="text-slate-600 text-2xl" />
         )}
       </button>
 
