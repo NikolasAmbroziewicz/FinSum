@@ -1,4 +1,4 @@
-import {render, screen, act} from '@testing-library/react'
+import {render, act} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
 
 import BaseDropdownMenu from './ButtonDropdownMenu'
