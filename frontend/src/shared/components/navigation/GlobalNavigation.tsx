@@ -3,8 +3,8 @@ import { useLocation } from 'react-router-dom';
 
 import { useScreen } from 'src/shared/hooks/useScreen';
 
-import DesktopNavigation from './DesktopNavigation';
-import MobileNaviagtion from './MobileNaviagtion';
+import DesktopNavigation from 'src/shared/components/navigation/DesktopNavigation';
+import MobileNaviagtion from 'src/shared/components/navigation/MobileNaviagtion';
 
 import {
   AiOutlineStock,

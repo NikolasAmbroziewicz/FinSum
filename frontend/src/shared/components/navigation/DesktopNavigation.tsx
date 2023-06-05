@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { NavData } from './GlobalNavigation';
+import { NavData } from 'src/shared/components/navigation/GlobalNavigation';
 
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 
