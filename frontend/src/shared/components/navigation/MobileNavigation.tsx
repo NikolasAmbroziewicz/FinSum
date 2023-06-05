@@ -2,24 +2,23 @@ import { Link } from 'react-router-dom';
 
 import { NavData } from './GlobalNavigation';
 
+import {useNavigation} from './useNavigation'
+
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import MainLogo from 'src/shared/images/MainLogo.svg';
 
 interface IDesktopNavigation {
-  activeRoute: (path: string) => string;
-  isOpen: boolean;
-  handleNavOpen: () => void;
   navData: NavData[];
 }
 
 const MobileNavigation: React.FC<IDesktopNavigation> = ({
-  activeRoute,
-  isOpen,
-  handleNavOpen,
   navData
 }) => {
+  const { isOpen, handleNavOpen, activeRoute } = useNavigation()
+
+
   return (
-    <nav className="bg-sky-600 z-[10]">
+    <nav className="bg-sky-600 z-[10]" data-test="mobileNavigation">
       <div className="flex justify-center relative m-2">
         <button
           className="absolute top-1/2 left-0 -translate-y-1/2"

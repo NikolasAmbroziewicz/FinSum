@@ -1,10 +1,7 @@
-import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
-
 import { useScreen } from 'src/shared/hooks/useScreen';
 
 import DesktopNavigation from 'src/shared/components/navigation/DesktopNavigation';
-import MobileNaviagtion from 'src/shared/components/navigation/MobileNaviagtion';
+import MobileNaviagtion from 'src/shared/components/navigation/MobileNavigation';
 
 import {
   AiOutlineStock,
@@ -54,33 +51,16 @@ const navData: NavData[] = [
 ];
 
 const GlobalNavigation = () => {
-  const location = useLocation();
   const { isMobileScreen } = useScreen();
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleNavOpen = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const activeRoute = (path: string): string => {
-    return location.pathname.includes(path) ? 'bg-sky-700' : 'bg-inherit';
-  };
-
   return (
     <>
       {isMobileScreen() ? (
         <MobileNaviagtion
-          activeRoute={activeRoute}
           navData={navData}
-          handleNavOpen={handleNavOpen}
-          isOpen={isOpen}
         />
       ) : (
         <DesktopNavigation
-          activeRoute={activeRoute}
           navData={navData}
-          handleNavOpen={handleNavOpen}
-          isOpen={isOpen}
         />
       )}
     </>
