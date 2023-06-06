@@ -1,4 +1,4 @@
-import GlobalNavigation from '../components/naviagation/GlobalNavigation';
+import GlobalNavigation from '../components/navigation/GlobalNavigation';
 import BaseSnackbar from '../components/snackbar/BaseSnackbar';
 
 import { useScreen } from 'src/shared/hooks/useScreen';

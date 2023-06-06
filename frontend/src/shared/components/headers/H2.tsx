@@ -1,4 +1,5 @@
 import { IHeaderProp, Variant, Position } from './Header.types';
+import { useHeader } from './useHeader';
 
 const H2: React.FC<IHeaderProp> = ({
   children,
@@ -6,20 +7,7 @@ const H2: React.FC<IHeaderProp> = ({
   position = Position.center,
   styles = ''
 }) => {
-  const textColor = () => {
-    return variant === Variant.dark ? 'text-gray-600' : 'text-stone-50';
-  };
-
-  const textPosition = () => {
-    switch (position) {
-      case Position.center:
-        return 'text-center';
-      case Position.left:
-        return 'text-left';
-      case Position.right:
-        return 'text-right';
-    }
-  };
+  const { textColor, textPosition} = useHeader(variant, position)
 
   return (
     <h2 className={`${textColor()} ${textPosition()} text-2xl ${styles}`}>

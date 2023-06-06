@@ -1,0 +1,33 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Headers > H1 define 1`] = `
+<h1
+  className="text-gray-600 text-center  text-3xl "
+>
+  This is awesome Header Text
+</h1>
+`;
+
+exports[`Headers > H2 define 1`] = `
+<h2
+  className="text-gray-600 text-center text-2xl "
+>
+  This is awesome Header Text
+</h2>
+`;
+
+exports[`Headers > H3 define 1`] = `
+<h3
+  className="text-gray-600 text-center text-xl "
+>
+  This is awesome Header Text
+</h3>
+`;
+
+exports[`Headers > H4 define 1`] = `
+<h4
+  className="text-gray-600 text-center text-base "
+>
+  This is awesome Header Text
+</h4>
+`;

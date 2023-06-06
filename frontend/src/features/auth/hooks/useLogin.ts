@@ -10,7 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema, loginSchemaType } from 'src/features/auth/validators';
 
 export const useLogin = () => {
-  const naviagtion = useNavigate();
+  const navigation = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
   const [loginError, setLoginError] = useState<string>();
@@ -26,7 +26,7 @@ export const useLogin = () => {
   const handleFormSubmit = async (values: loginSchemaType) => {
     try {
       await dispatch(signInUser(values)).unwrap();
-      naviagtion('/dashboard');
+      navigation('/dashboard');
     } catch (error: any) {
       if (error.response?.data.message) {
         setLoginError(error.response.data.message);

@@ -1,0 +1,10 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`InputLabel > define 1`] = `
+<label
+  className="block text-gray-600 text-sm font-bold mb-2"
+  htmlFor="Login"
+>
+  Login
+</label>
+`;

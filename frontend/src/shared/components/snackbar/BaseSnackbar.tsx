@@ -44,7 +44,9 @@ const BaseSnackbar: React.FC<IBaseSnackbar> = ({ message, onClick, type }) => {
   return (
     <div className={`absolute flex justify-end items-center ${snackbar()} ${snackbarColor(type)}  border-[2px] rounded text-sm`}>
       <H4 position={Position.left} styles="w-full">{message}</H4>
-      <AiOutlineClose className="cursor-pointer ml-3 text-xl" onClick={onClick}/>
+      <button onClick={onClick}>
+        <AiOutlineClose className="cursor-pointer ml-3 text-xl"/>
+      </button>
     </div>
   )
 }
