@@ -27,11 +27,12 @@ const DesktopNavigation: React.FC<IDesktopNavigation> = ({
       <button
         onClick={handleNavOpen}
         className="absolute right-[-10px] top-[40px] border-2 rounded-full border-white bg-white cursor-pointer"
+        data-test="toggleButton"
       >
         {isOpen ? (
-          <AiOutlineArrowLeft className="text-base" />
+          <AiOutlineArrowLeft data-test="closedIcon" className="text-base" />
         ) : (
-          <AiOutlineArrowRight className="text-base" />
+          <AiOutlineArrowRight data-test="openIcon" className="text-base" />
         )}
       </button>
       <div className="flex justify-center h-[75px]">
