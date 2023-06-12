@@ -3,7 +3,7 @@ import { forwardRef } from 'react';
 import { MdArrowForwardIos, MdArrowBackIos } from 'react-icons/md';
 
 import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+// import 'react-datepicker/dist/react-datepicker.css';
 
 const CustomInput = forwardRef(({ value, onClick }: any, ref: any) => (
   <button
@@ -45,14 +45,16 @@ const Calendar: React.FC<ICalendar> = ({ setStartDate, startDate }) => {
         />
       </div>
       <div className="flex">
-        <MdArrowBackIos
-          className="text-gray-600 cursor-pointer hover:text-black"
-          onClick={handleDecreaseYear}
-        />
-        <MdArrowForwardIos
-          className="text-gray-600 cursor-pointer hover:text-black"
-          onClick={handleIncreaseYear}
-        />
+        <button onClick={handleDecreaseYear} data-test="iconBack">
+          <MdArrowBackIos
+            className="text-gray-600 cursor-pointer hover:text-black"
+          />
+        </button>
+        <button onClick={handleIncreaseYear} data-test="iconForward">
+          <MdArrowForwardIos
+            className="text-gray-600 cursor-pointer hover:text-black"
+          />
+        </button>
       </div>
     </div>
   );
