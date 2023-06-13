@@ -26,8 +26,7 @@ const IncomeListElementActions: React.FC<IIncomeListElementActions> = ({
   const incomeMenuRef = useRef<IIconDropdownMenuRef>(null);
 
   const { isOpen: isEditOpen, handleOpenModal: handleEditOpen } = useModal();
-  const { isOpen: isDeleteOpen, handleOpenModal: handleDeleteOpen } =
-    useModal();
+  const { isOpen: isDeleteOpen, handleOpenModal: handleDeleteOpen } = useModal();
 
   const { handleDeleteIncome } = useIncome({
     onClose: handleDeleteOpen
