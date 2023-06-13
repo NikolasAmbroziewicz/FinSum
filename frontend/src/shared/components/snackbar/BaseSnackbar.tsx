@@ -19,11 +19,10 @@ const BaseSnackbar: React.FC<IBaseSnackbar> = ({ message, onClick, type }) => {
   const { isMobileScreen } = useScreen()
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    setTimeout(() => {
+      console.log('timer')
       onClick()
     }, 2000) 
-
-    return clearTimeout(timer)
   }, []) 
 
   const snackbar = () => {

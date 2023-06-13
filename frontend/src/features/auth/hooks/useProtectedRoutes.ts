@@ -29,6 +29,7 @@ export const useProtectedRoutes = () => {
   }, [location.pathname]);
 
   return {
+    authUser,
     isAuthenticated,
     isLoading
   };
