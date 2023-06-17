@@ -8,7 +8,9 @@ import {
 } from 'src/features/income/api/incomeApi';
 
 import { IncomeSchemaType } from 'src/features/income/validators';
-import { IncomeState, MainStoreType } from '../types';
+
+import type { RootState } from '../main'
+import { IncomeState } from './types';
 
 export const getIncome = createAsyncThunk(
   'income/getIncome',
@@ -70,6 +72,9 @@ const incomeSlice = createSlice({
       .addCase(addIncome.fulfilled, (state, action) => {
         state.income.push(action.payload);
       })
+      .addCase(addIncome.rejected, () => {
+        console.log('rejected')
+      })
       .addCase(deleteIncome.fulfilled, (state, action) => {
         const newState = state.income.filter(
           (income) => income.id !== action.payload.id
@@ -85,8 +90,7 @@ const incomeSlice = createSlice({
   }
 });
 
-export const getAllIncome = (state: MainStoreType) => state.income.income;
-export const getLoadingStatus = (state: MainStoreType) =>
-  state.income.isLoading;
+export const getAllIncome = (state: RootState) => state.income.income;
+export const getLoadingStatus = (state: RootState) => state.income.isLoading;
 
 export default incomeSlice.reducer;

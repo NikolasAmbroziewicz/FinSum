@@ -7,7 +7,9 @@ import {
   registerSchemaType
 } from 'src/features/auth/validators';
 
-import { UserStore } from '../types';
+import type { RootState } from '../main'
+import { UserStore } from './types';
+
 
 const initialState: UserStore = {
   isAuthenticated: false,
@@ -95,11 +97,11 @@ const userSlice = createSlice({
 export const { logOut } = userSlice.actions;
 
 //FIX
-export const selectCurrentTokens = (state: UserStore) => state.tokens;
+export const selectCurrentTokens = (state: RootState) => state.auth.tokens;
 
-export const selectCurrentUser = (state: UserStore) => state.user;
+export const selectCurrentUser = (state: RootState) => state.auth.user;
 
-export const selectUserAuthenticated = (state: UserStore) =>
-  state.isAuthenticated;
+export const selectUserAuthenticated = (state: RootState) =>
+  state.auth.isAuthenticated;
 
 export default userSlice.reducer;
