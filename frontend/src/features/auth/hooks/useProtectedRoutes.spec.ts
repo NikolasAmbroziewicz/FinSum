@@ -1,4 +1,4 @@
-import { renderHook, act, } from '@testing-library/react'
+import { renderHook, act, waitFor } from '@testing-library/react'
 import { describe, expect, it, vi} from 'vitest'
 
 import { useProtectedRoutes } from './useProtectedRoutes'
@@ -23,9 +23,7 @@ describe('useProtectedRoutes', () => {
     mockUseDispatch.mockImplementation(() => {})
     const { result } = renderHook(() => useProtectedRoutes())
 
-    await act(() => {
-      result.current.authUser()
-    })
+    await waitFor(() => result.current.authUser()) 
     
     expect(result.current.isAuthenticated).toBeTruthy()
     expect(result.current.isLoading).toBeFalsy
@@ -35,9 +33,7 @@ describe('useProtectedRoutes', () => {
     mockUseDispatch.mockRejectedValue({})
     const { result } = renderHook(() => useProtectedRoutes())
 
-    await act(() => {
-      result.current.authUser()
-    })
+    await waitFor(() => result.current.authUser())
     
     expect(result.current.isAuthenticated).toBeFalsy()
     expect(result.current.isLoading).toBeFalsy
