@@ -72,9 +72,6 @@ const incomeSlice = createSlice({
       .addCase(addIncome.fulfilled, (state, action) => {
         state.income.push(action.payload);
       })
-      .addCase(addIncome.rejected, () => {
-        console.log('rejected')
-      })
       .addCase(deleteIncome.fulfilled, (state, action) => {
         const newState = state.income.filter(
           (income) => income.id !== action.payload.id

@@ -1,4 +1,4 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { configureStore, combineReducers, PreloadedState } from '@reduxjs/toolkit';
 
 import userReducer from './user/userSlice';
 
@@ -9,9 +9,13 @@ const rootReducer = combineReducers({
   income: incomeReducer
 })
 
-export function setupStore (){
+export function setupStore (preloadedState?: PreloadedState<RootState>){
   return configureStore({
-    reducer: rootReducer
+    reducer: rootReducer,
+    preloadedState,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+      serializableCheck: false,
+    }),
   })
 };
 
