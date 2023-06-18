@@ -96,7 +96,6 @@ const userSlice = createSlice({
 
 export const { logOut } = userSlice.actions;
 
-//FIX
 export const selectCurrentTokens = (state: RootState) => state.auth.tokens;
 
 export const selectCurrentUser = (state: RootState) => state.auth.user;
