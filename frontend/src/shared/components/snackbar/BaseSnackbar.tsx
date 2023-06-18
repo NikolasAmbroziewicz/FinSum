@@ -20,7 +20,6 @@ const BaseSnackbar: React.FC<IBaseSnackbar> = ({ message, onClick, type }) => {
 
   useEffect(() => {
     setTimeout(() => {
-      console.log('timer')
       onClick()
     }, 2000) 
   }, []) 

@@ -1,14 +1,24 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, combineReducers, PreloadedState } from '@reduxjs/toolkit';
 
 import userReducer from './user/userSlice';
 
 import incomeReducer from './income/incomeSlice';
 
-export const store = configureStore({
-  reducer: {
-    auth: userReducer,
-    income: incomeReducer
-  }
-});
+const rootReducer = combineReducers({
+  auth: userReducer,
+  income: incomeReducer
+})
 
-export type AppDispatch = typeof store.dispatch;
+export function setupStore (preloadedState?: PreloadedState<RootState>){
+  return configureStore({
+    reducer: rootReducer,
+    preloadedState,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+  })
+};
+
+export type RootState = ReturnType<typeof rootReducer>
+export type AppDispatch = ReturnType<typeof setupStore>['dispatch']
+export type StoreType = ReturnType<typeof setupStore>

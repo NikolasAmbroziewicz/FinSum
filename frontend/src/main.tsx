@@ -5,13 +5,13 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { NotificationProvider } from './context/NotificationContext';
 
-import { store } from 'src/store/main';
+import { setupStore } from 'src/store/main';
 import App from './App';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <NotificationProvider>
-      <Provider store={store}>
+      <Provider store={setupStore()}>
         <BrowserRouter>
           <App />
         </BrowserRouter>

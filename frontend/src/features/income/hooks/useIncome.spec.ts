@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react'
-import { describe, expect, it, vi }  from 'vitest'
+import { beforeEach, describe, expect, it, vi }  from 'vitest'
 
 import { useIncome } from './useIncome'
 
@@ -27,6 +27,11 @@ vi.mock('src/context/NotificationContext', () => ({
 }))
 
 describe('useIncome > handleAddIncome', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+
   it('Dispatch addIncome action', () => {
     const { result } = renderHook(() => useIncome({}))
 
@@ -53,6 +58,9 @@ describe('useIncome > handleAddIncome', () => {
 })
 
 describe('useIncome > handleEditIncome', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
   it('Dispatch editIncome action', () => {
     const { result } = renderHook(() => useIncome({}))
 
@@ -79,6 +87,9 @@ describe('useIncome > handleEditIncome', () => {
 })
 
 describe('useIncome > handleDeleteIncome', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
   it('Dispatch deleteAction action', () => {
     const { result } = renderHook(() => useIncome({}))
 
