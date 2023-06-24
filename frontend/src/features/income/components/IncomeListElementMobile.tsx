@@ -31,9 +31,9 @@ const IncomeListElementMobile: React.FC<IIncomeListElementMobile> = ({
 
   return (
     <div className="bg-gray-100 p-2 rounded relative">
-      <div>{children}</div>
-      <div className="my-1">
+      <div className="flex justify-between items-center">
         <H3 position={Position.left}>{title}</H3>
+        <div>{children}</div>
       </div>
       <div className="flex justify-between items-center my-1">
         <H4 position={Position.left}>{displayDate()}</H4>
