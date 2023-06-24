@@ -29,12 +29,12 @@ const generateTokens = (
 ) => {
   const tokens = {
     accessToken: tokenService.createRefreshToken(
-      userWithToken.id,
+      userWithToken.userId,
       userWithToken.email,
       accessTokenTime,
     ),
     refreshToken: tokenService.createRefreshToken(
-      userWithToken.id,
+      userWithToken.userId,
       userWithToken.email,
       configService.get<string>('REFRESH_TOKEN_TIME_TO_LIVE'),
     ),
@@ -80,7 +80,7 @@ describe('AuthService > methods > signUp', () => {
     expect(service.signUp).toBeDefined();
   });
   it('should return refresh and access token when user data is correct', async () => {
-    createUserMock.mockResolvedValue(userResponseFromDataBase);
+    createUserMock.mockResolvedValueOnce(userResponseFromDataBase);
     const serviceMethod = await service.signUp(userRegister);
 
     expect(serviceMethod).toEqual({
@@ -102,7 +102,7 @@ describe('AuthService > methods > signIn', () => {
     expect(service.signIn).toBeDefined();
   });
   it('should return refresh and access token when user credentials are correct', async () => {
-    findUniqueUserMock.mockResolvedValue(userResponseFromDataBase);
+    findUniqueUserMock.mockResolvedValueOnce(userResponseFromDataBase);
 
     const serviceMethod = await service.signIn(userLogin);
 
@@ -120,7 +120,7 @@ describe('AuthService > methods > signIn', () => {
   });
 
   it("should throw error when email don't exist", async () => {
-    findUniqueUserMock.mockResolvedValue(null);
+    findUniqueUserMock.mockResolvedValueOnce(null);
 
     await expect(service.signIn(userLogin)).rejects.toEqual(
       new ForbiddenException("User doesn't exist"),
@@ -128,7 +128,7 @@ describe('AuthService > methods > signIn', () => {
   });
 
   it('should throw error when password is incorrect', async () => {
-    findUniqueUserMock.mockResolvedValue(userResponseFromDataBase);
+    findUniqueUserMock.mockResolvedValueOnce(userResponseFromDataBase);
 
     await expect(
       service.signIn({
@@ -146,6 +146,7 @@ describe('AuthService > methods > refreshTokens', () => {
 
   it('should throw error when no accessToken', async () => {
     const UserWithTokensPayload = generateTokens();
+    findUniqueUserMock.mockResolvedValueOnce({ id: 1})
 
     await expect(
       service.refreshTokens({
@@ -155,8 +156,21 @@ describe('AuthService > methods > refreshTokens', () => {
     ).rejects.toEqual(new ForbiddenException('Unauthorized'));
   });
 
+  it('Should throw error when there is no user', async  () => {
+    const UserWithTokensPayload = generateTokens();
+    findUniqueUserMock.mockResolvedValueOnce({ id: null})
+
+    await expect(
+      service.refreshTokens({
+        ...UserWithTokensPayload,
+        accessToken: null,
+      }),
+    ).rejects.toEqual(new ForbiddenException('Unauthorized'));
+  })
+
   it('should return accessToken and refreshToken when accessToken is not expired and is valid', async () => {
     const UserWithTokensPayload = generateTokens();
+    findUniqueUserMock.mockResolvedValueOnce({ id: 1})
 
     const serviceMethod = await service.refreshTokens(UserWithTokensPayload);
 
@@ -168,6 +182,7 @@ describe('AuthService > methods > refreshTokens', () => {
 
   it('should return null when access token is invalid', async () => {
     const UserWithTokensPayload = generateTokens();
+    findUniqueUserMock.mockResolvedValueOnce({ id: 1})
 
     const serviceMethod = await service.refreshTokens({
       ...UserWithTokensPayload,
@@ -182,6 +197,7 @@ describe('AuthService > methods > refreshTokens', () => {
 
   it('should return new accessToken when is expired', async () => {
     const UserWithTokensPayload = generateTokens('-10s');
+    findUniqueUserMock.mockResolvedValueOnce({ id: 1})
 
     const serviceMethod = await service.refreshTokens(UserWithTokensPayload);
 
