@@ -10,6 +10,7 @@ import {
   userWithToken,
   editIncome,
   editIncomeInput,
+  mockDate
 } from './mocks';
 
 let service: IncomeService;
@@ -72,7 +73,7 @@ describe('IncomeService > methods > getIncome', () => {
   it('Should return List of Incomes for specyfic user', async () => {
     findManyIncomeMock.mockResolvedValue([addedIncome, addedIncome]);
 
-    const serviceMethod = await service.getIncome(userWithToken);
+    const serviceMethod = await service.getIncome(userWithToken, mockDate);
 
     expect(serviceMethod).toEqual([addedIncome, addedIncome]);
   });

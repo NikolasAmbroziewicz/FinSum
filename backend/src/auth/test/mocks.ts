@@ -11,7 +11,7 @@ export const userLogin = {
 };
 
 export const userWithToken = {
-  id: 1,
+  userId: 1,
   email: 'niko@test.com',
   iat: 12,
   exp: 12,
