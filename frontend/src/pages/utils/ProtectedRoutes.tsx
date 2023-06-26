@@ -1,9 +1,9 @@
 import { Outlet, Navigate } from 'react-router-dom';
 
-import { useProtectedRoutes } from 'src/features/auth/hooks/useProtectedRoutes';
+import { useProtectedRoutes } from 'src/features/Auth/hooks/useProtectedRoutes';
 
-import Loading from 'src/shared/components/loading/Loading';
-import { LoadingSize } from 'src/shared/components/loading/types';
+import Loading from 'src/shared/components/Loading/Loading';
+import { LoadingSize } from 'src/shared/components/Loading/types';
 
 const PrivateRoutes = () => {
   const { isAuthenticated, isLoading } = useProtectedRoutes();

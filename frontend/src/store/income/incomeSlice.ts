@@ -5,9 +5,9 @@ import {
   add_income,
   edit_income,
   delete_income
-} from 'src/features/income/api/incomeApi';
+} from 'src/features/Income/api/IncomeApi';
 
-import { IncomeSchemaType } from 'src/features/income/validators';
+import { IncomeSchemaType } from 'src/features/Income/validators';
 
 import type { RootState } from '../main'
 import { IncomeState } from './types';

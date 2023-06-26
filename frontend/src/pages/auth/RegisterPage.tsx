@@ -1,18 +1,18 @@
 import { Link } from 'react-router-dom';
 
 import { useScreen } from 'src/shared/hooks/useScreen';
-import { useRegister } from 'src/features/auth/hooks/useRegister';
+import { useRegister } from 'src/features/Auth/hooks/useRegister';
 
-import BaseButton from 'src/shared/components/button/base/BaseButton';
-import H1 from 'src/shared/components/headers/H1';
-import H3 from 'src/shared/components/headers/H3';
-import H4 from 'src/shared/components/headers/H4';
-import BaseInput from 'src/shared/components/input/base/BaseInput';
-import PasswordInput from 'src/shared/components/input/password/PasswordInput';
+import BaseButton from 'src/shared/components/Button/base/BaseButton';
+import H1 from 'src/shared/components/Headers/H1';
+import H3 from 'src/shared/components/Headers/H3';
+import H4 from 'src/shared/components/Headers/H4';
+import BaseInput from 'src/shared/components/Input/base/BaseInput';
+import PasswordInput from 'src/shared/components/Input/password/PasswordInput';
 
-import { Variant } from 'src/shared/components/headers/Header.types';
-import FeatureList from 'src/features/auth/components/FeatureList';
-import FormElement from 'src/features/auth/components/FormElement';
+import { Variant } from 'src/shared/components/Headers/Header.types';
+import FeatureList from 'src/features/Auth/components/FeatureList';
+import FormElement from 'src/features/Auth/components/FormElement';
 import MainLogo from 'src/shared/images/MainLogo.svg';
 
 export default function RegisterPage() {

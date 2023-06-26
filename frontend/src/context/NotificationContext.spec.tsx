@@ -3,7 +3,7 @@ import { act, renderHook }  from '@testing-library/react'
 
 import { useNotificationContext, NotificationProvider } from './NotificationContext'
 
-import { SnackbarType } from 'src/shared/components/snackbar/type'
+import { SnackbarType } from 'src/shared/components/Snackbar/type'
 
 const wrapper = ({ children }: { children: JSX.Element}) => <NotificationProvider>{children}</NotificationProvider>
 

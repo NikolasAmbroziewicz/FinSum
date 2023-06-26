@@ -1,7 +1,7 @@
 import { useScreen } from 'src/shared/hooks/useScreen';
 
-import DesktopNavigation from 'src/shared/components/navigation/DesktopNavigation';
-import MobileNaviagtion from 'src/shared/components/navigation/MobileNavigation';
+import DesktopNavigation from 'src/shared/components/Navigation/DesktopNavigation';
+import MobileNaviagtion from 'src/shared/components/Navigation/MobileNavigation';
 
 import {
   AiOutlineStock,

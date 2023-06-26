@@ -1,5 +1,5 @@
-import GlobalNavigation from '../components/navigation/GlobalNavigation';
-import BaseSnackbar from '../components/snackbar/BaseSnackbar';
+import GlobalNavigation from '../components/Navigation/GlobalNavigation';
+import BaseSnackbar from '../components/Snackbar/BaseSnackbar';
 
 import { useScreen } from 'src/shared/hooks/useScreen';
 import { useNotificationContext } from 'src/context/NotificationContext';

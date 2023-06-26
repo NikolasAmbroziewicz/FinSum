@@ -4,13 +4,13 @@ import { useNavigate } from 'react-router-dom';
 
 import { AppDispatch } from 'src/store/main';
 import { useDispatch } from 'react-redux';
-import { signUpUser } from 'src/store/user/userSlice';
+import { signUpUser } from 'src/store/User/UserSlice';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   registerSchema,
   registerSchemaType
-} from 'src/features/auth/validators';
+} from 'src/features/Auth/validators';
 
 export const useRegister = () => {
   const navigation = useNavigate();

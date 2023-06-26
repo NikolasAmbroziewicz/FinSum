@@ -1,3 +1,5 @@
+import {} from 'react'
+
 const MonthFinance = () => {
   return <div>Month Finance</div>;
 };

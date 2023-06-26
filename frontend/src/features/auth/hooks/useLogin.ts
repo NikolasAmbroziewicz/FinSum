@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { AppDispatch } from 'src/store/main';
 import { useDispatch } from 'react-redux';
-import { signInUser } from 'src/store/user/userSlice';
+import { signInUser } from 'src/store/User/UserSlice';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { loginSchema, loginSchemaType } from 'src/features/auth/validators';
+import { loginSchema, loginSchemaType } from 'src/features/Auth/validators';
 
 export const useLogin = () => {
   const navigation = useNavigate();

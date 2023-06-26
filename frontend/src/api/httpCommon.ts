@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Tokens } from 'src/store/user/types';
+import { Tokens } from 'src/store/User/types';
 import { useLocalStorage } from 'src/shared/hooks/useLocalStorage';
 
 export const apiBase = () =>  axios.create({

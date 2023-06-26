@@ -4,16 +4,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
 import { AppDispatch } from 'src/store/main';
-import { incomeSchema, IncomeSchemaType } from 'src/features/income/validators';
+import { incomeSchema, IncomeSchemaType } from 'src/features/Income/validators';
 
 import { useNotificationContext } from 'src/context/NotificationContext';
-import { SnackbarType } from 'src/shared/components/snackbar/type';
+import { SnackbarType } from 'src/shared/components/Snackbar/type';
 
 import {
   addIncome,
   deleteIncome,
   editIncome
-} from 'src/store/income/incomeSlice';
+} from 'src/store/Income/IncomeSlice';
 
 interface IUseIncome {
   onClose?: () => void;

@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 
-import H4 from "../headers/H4";
+import H4 from "../Headers/H4";
 
 import { useScreen } from "src/shared/hooks/useScreen"
 
-import { Position } from "../headers/Header.types";
+import { Position } from "../Headers/Header.types";
 import { SnackbarType } from './type'
 
 import { AiOutlineClose } from 'react-icons/ai';

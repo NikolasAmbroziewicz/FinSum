@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter'
 import { describe, expect, it, vi } from 'vitest'
 
 import { setupStore, StoreType } from '../main'
-import { signUpUser, signInUser, refreshTokens } from './userSlice'
+import { signUpUser, signInUser, refreshTokens } from './UserSlice'
 
 //mocks
 const setToLocalStorageMock = vi.fn()
