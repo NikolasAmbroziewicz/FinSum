@@ -9,7 +9,7 @@ import NotFoundPage from './pages/404/NotFound';
 import PrivateRoutes from './pages/utils/ProtectedRoutes';
 import ProtectedAuthRoutes from './pages/utils/ProtectedAuthRotes';
 
-import MonthFinance from './pages/monthfinance/MonthFinance';
+import MonthFinance from './pages/MonthFinance/MonthFinance';
 import StocksPage from './pages/stocks/StocksPage';
 import CryptocurrencyPage from './pages/cryptocurrency/CryptocurrencyPage';
 import MetalsPage from './pages/metals/MetalsPage';

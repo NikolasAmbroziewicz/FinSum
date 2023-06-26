@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { getAllIncome, getLoadingStatus } from 'src/store/income/incomeSlice';
 
 import H2 from 'src/shared/components/headers/H2';
-import NotFound from 'src/shared/components/not-found/NotFound';
+import NotFound from 'src/shared/components/NotFound/NotFound';
 import Loading from 'src/shared/components/loading/Loading';
 import BaseTable from 'src/shared/components/table/BaseTable';
 
