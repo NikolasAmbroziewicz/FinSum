@@ -1,8 +1,7 @@
 import { configureStore, combineReducers, PreloadedState } from '@reduxjs/toolkit';
 
-import userReducer from './user/userSlice';
-
-import incomeReducer from './income/incomeSlice';
+import userReducer from './User/UserSlice';
+import incomeReducer from './Income/IncomeSlice';
 
 const rootReducer = combineReducers({
   auth: userReducer,

@@ -1,6 +1,6 @@
-import H2 from 'src/shared/components/headers/H2';
+import H2 from 'src/shared/components/Headers/H2';
 
-import { Position } from 'src/shared/components/headers/Header.types';
+import { Position } from 'src/shared/components/Headers/Header.types';
 
 import { AiOutlineClose } from 'react-icons/ai';
 

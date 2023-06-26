@@ -1,19 +1,19 @@
 import { Routes, Route } from 'react-router-dom';
 
-import DashboardPage from './pages/dashboard/DashboardPage';
+import DashboardPage from './pages/Dashboard/DashboardPage';
 
-import LoginPage from './pages/auth/LoginPage';
-import RegisterPage from './pages/auth/RegisterPage';
+import LoginPage from './pages/Auth/LoginPage';
+import RegisterPage from './pages/Auth/RegisterPage';
 
 import NotFoundPage from './pages/404/NotFound';
-import PrivateRoutes from './pages/utils/ProtectedRoutes';
-import ProtectedAuthRoutes from './pages/utils/ProtectedAuthRotes';
+import PrivateRoutes from './pages/Utils/ProtectedRoutes';
+import ProtectedAuthRoutes from './pages/Utils/ProtectedAuthRotes';
 
 import MonthFinance from './pages/MonthFinance/MonthFinance';
-import StocksPage from './pages/stocks/StocksPage';
-import CryptocurrencyPage from './pages/cryptocurrency/CryptocurrencyPage';
-import MetalsPage from './pages/metals/MetalsPage';
-import IncomePage from './pages/income/IncomePage';
+import StocksPage from './pages/Stocks/StocksPage';
+import CryptocurrencyPage from './pages/Cryptocurrency/CryptocurrencyPage';
+import MetalsPage from './pages/Metals/MetalsPage';
+import IncomePage from './pages/Income/IncomePage';
 
 import BaseNavLayout from './shared/layouts/BaseNavLayout';
 

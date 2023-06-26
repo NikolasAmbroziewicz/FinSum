@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom';
 
-import { Variant } from 'src/shared/components/headers/Header.types';
+import { Variant } from 'src/shared/components/Headers/Header.types';
 
-import FormElement from 'src/features/auth/components/FormElement';
+import FormElement from 'src/features/Auth/components/FormElement';
 import MainLogo from 'src/shared/images/MainLogo.svg';
-import BaseButton from 'src/shared/components/button/base/BaseButton';
-import H1 from 'src/shared/components/headers/H1';
-import BaseInput from 'src/shared/components/input/base/BaseInput';
-import PasswordInput from 'src/shared/components/input/password/PasswordInput';
+import BaseButton from 'src/shared/components/Button/base/BaseButton';
+import H1 from 'src/shared/components/Headers/H1';
+import BaseInput from 'src/shared/components/Input/base/BaseInput';
+import PasswordInput from 'src/shared/components/Input/password/PasswordInput';
 
-import { useLogin } from 'src/features/auth/hooks/useLogin';
+import { useLogin } from 'src/features/Auth/hooks/useLogin';
 
 export default function LoginPage() {
   const { errors, handleSubmit, handleFormSubmit, loginError, register } =

@@ -1,4 +1,4 @@
-import InputLabel from 'src/shared/components/input/label/InputLabel';
+import InputLabel from 'src/shared/components/Input/label/InputLabel';
 
 export interface IFormElement {
   value: string;

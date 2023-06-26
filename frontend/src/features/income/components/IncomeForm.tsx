@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 
-import BaseButton from 'src/shared/components/button/base/BaseButton';
-import BaseInput from 'src/shared/components/input/base/BaseInput';
-import ButtonDropdownMenu from 'src/shared/components/dropdown/ButtonDropdownMenu';
+import BaseButton from 'src/shared/components/Button/base/BaseButton';
+import BaseInput from 'src/shared/components/Input/base/BaseInput';
+import ButtonDropdownMenu from 'src/shared/components/Dropdown/ButtonDropdownMenu';
 
-import FormElement from 'src/features/auth/components/FormElement';
+import FormElement from 'src/features/Auth/components/FormElement';
 import IncomeFormCalendar from './IncomeFormCalendar';
 
 import { useIncome } from '../hooks/useIncome';
 
-import { supportedCurrency } from 'src/pages/income/content';
+import { supportedCurrency } from 'src/pages/Income/content';
 import { IncomeSchemaType } from '../validators';
 
 interface IIncomeForm {

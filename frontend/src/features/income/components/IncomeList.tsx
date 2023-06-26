@@ -1,20 +1,20 @@
 import { useSelector } from 'react-redux';
 
-import { getAllIncome, getLoadingStatus } from 'src/store/income/incomeSlice';
+import { getAllIncome, getLoadingStatus } from 'src/store/Income/IncomeSlice';
 
-import H2 from 'src/shared/components/headers/H2';
+import H2 from 'src/shared/components/Headers/H2';
 import NotFound from 'src/shared/components/NotFound/NotFound';
-import Loading from 'src/shared/components/loading/Loading';
-import BaseTable from 'src/shared/components/table/BaseTable';
+import Loading from 'src/shared/components/Loading/Loading';
+import BaseTable from 'src/shared/components/Table/BaseTable';
 
-import IncomeListElement from 'src/features/income/components/IncomeListElement';
-import IncomeListElementMobile from 'src/features/income/components/IncomeListElementMobile';
+import IncomeListElement from 'src/features/Income/components/IncomeListElement';
+import IncomeListElementMobile from 'src/features/Income/components/IncomeListElementMobile';
 import IncomeListElementActions from './IncomeListElementActions';
 
 import { useScreen } from 'src/shared/hooks/useScreen';
 
-import { Position } from 'src/shared/components/headers/Header.types';
-import { LoadingPosition } from 'src/shared/components/loading/types';
+import { Position } from 'src/shared/components/Headers/Header.types';
+import { LoadingPosition } from 'src/shared/components/Loading/types';
 
 interface IIncomeList {
   startDate: Date;

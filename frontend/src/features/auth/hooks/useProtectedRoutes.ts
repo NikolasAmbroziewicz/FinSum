@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { AppDispatch } from 'src/store/main';
-import { refreshTokens } from 'src/store/user/userSlice';
+import { refreshTokens } from 'src/store/User/UserSlice';
 
 export const useProtectedRoutes = () => {
   const dispatch = useDispatch<AppDispatch>();

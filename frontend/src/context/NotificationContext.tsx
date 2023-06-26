@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react'
-import { SnackbarType } from 'src/shared/components/snackbar/type'
+import { SnackbarType } from 'src/shared/components/Snackbar/type'
 
 interface INotificationContext {
   handleNotification: (value: string, notificationType: SnackbarType) => void,

@@ -1,18 +1,18 @@
 import { useRef } from 'react';
 
-import BaseModal from 'src/shared/components/modals/BaseModal';
-import BaseButton from 'src/shared/components/button/base/BaseButton';
-import IconDropdownMenu from 'src/shared/components/dropdown/IconDropdownMenu';
+import BaseModal from 'src/shared/components/Modals/BaseModal';
+import BaseButton from 'src/shared/components/Button/base/BaseButton';
+import IconDropdownMenu from 'src/shared/components/Dropdown/IconDropdownMenu';
 
-import IncomeForm from 'src/features/income/components/IncomeForm';
+import IncomeForm from 'src/features/Income/components/IncomeForm';
 
-import { useModal } from 'src/shared/components/modals/hooks/useModal';
-import { useIncome } from 'src/features/income/hooks/useIncome';
+import { useModal } from 'src/shared/components/Modals/hooks/useModal';
+import { useIncome } from 'src/features/Income/hooks/useIncome';
 
-import { ButtonTheme } from 'src/shared/components/button/base/types';
-import { DropdownContent } from 'src/shared/components/dropdown/types';
-import { IIconDropdownMenuRef } from 'src/shared/components/dropdown/IconDropdownMenu';
-import { IncomeSchemaType } from 'src/features/income/validators';
+import { ButtonTheme } from 'src/shared/components/Button/base/types';
+import { DropdownContent } from 'src/shared/components/Dropdown/types';
+import { IIconDropdownMenuRef } from 'src/shared/components/Dropdown/IconDropdownMenu';
+import { IncomeSchemaType } from 'src/features/Income/validators';
 
 import { AiFillEdit, AiOutlineClose } from 'react-icons/ai';
 

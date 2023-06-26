@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { useLocalStorage } from 'src/shared/hooks/useLocalStorage';
 
-import { signUp, singIn, refreshToken } from 'src/features/auth/api/authApi';
+import { signUp, singIn, refreshToken } from 'src/features/Auth/api/AuthApi';
 import {
   loginSchemaType,
   registerSchemaType
-} from 'src/features/auth/validators';
+} from 'src/features/Auth/validators';
 
 import type { RootState } from '../main'
 import { UserStore } from './types';
