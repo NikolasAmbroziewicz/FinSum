@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import { Variant } from 'src/shared/components/Headers/Header.types';
 
-import FormElement from 'src/features/Auth/components/FormElement';
+import FormElement from 'src/shared/components/Form/FormElement';
 import MainLogo from 'src/shared/images/MainLogo.svg';
 import BaseButton from 'src/shared/components/Button/base/BaseButton';
 import H1 from 'src/shared/components/Headers/H1';

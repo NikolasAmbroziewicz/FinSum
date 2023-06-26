@@ -4,7 +4,7 @@ import BaseButton from 'src/shared/components/Button/base/BaseButton';
 import BaseInput from 'src/shared/components/Input/base/BaseInput';
 import ButtonDropdownMenu from 'src/shared/components/Dropdown/ButtonDropdownMenu';
 
-import FormElement from 'src/features/Auth/components/FormElement';
+import FormElement from 'src/shared/components/Form/FormElement';
 import IncomeFormCalendar from './IncomeFormCalendar';
 
 import { useIncome } from '../hooks/useIncome';

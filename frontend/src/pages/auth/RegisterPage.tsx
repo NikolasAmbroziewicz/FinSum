@@ -12,7 +12,7 @@ import PasswordInput from 'src/shared/components/Input/password/PasswordInput';
 
 import { Variant } from 'src/shared/components/Headers/Header.types';
 import FeatureList from 'src/features/Auth/components/FeatureList';
-import FormElement from 'src/features/Auth/components/FormElement';
+import FormElement from 'src/shared/components/Form/FormElement';
 import MainLogo from 'src/shared/images/MainLogo.svg';
 
 export default function RegisterPage() {
