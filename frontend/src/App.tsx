@@ -9,7 +9,7 @@ import NotFoundPage from './pages/404/NotFound';
 import PrivateRoutes from './pages/Utils/ProtectedRoutes';
 import ProtectedAuthRoutes from './pages/Utils/ProtectedAuthRotes';
 
-import MonthFinance from './pages/MonthFinance/MonthFinance';
+import AccountsPage from './pages/Accounts/AccountsPage';
 import StocksPage from './pages/Stocks/StocksPage';
 import CryptocurrencyPage from './pages/Cryptocurrency/CryptocurrencyPage';
 import MetalsPage from './pages/Metals/MetalsPage';
@@ -58,15 +58,15 @@ function App() {
           }
         />
         <Route
-          path="month-finance"
+          path="/accounts"
           element={
             <BaseNavLayout>
-              <MonthFinance />
+              <AccountsPage />
             </BaseNavLayout>
           }
         />
         <Route
-          path="income"
+          path="/income"
           element={
             <BaseNavLayout>
               <IncomePage />
