@@ -14,7 +14,6 @@ import IncomeList from 'src/features/Income/components/IncomeList';
 
 import { useModal } from 'src/shared/components/Modals/hooks/useModal';
 
-
 const IncomePage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [startDate, setStartDate] = useState(new Date());

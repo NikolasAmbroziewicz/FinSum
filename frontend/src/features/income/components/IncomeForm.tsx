@@ -9,7 +9,7 @@ import IncomeFormCalendar from './IncomeFormCalendar';
 
 import { useIncome } from '../hooks/useIncome';
 
-import { supportedCurrency } from 'src/pages/Income/content';
+import { supportedCurrency } from 'src/shared/data/SupportedCurrencies';
 import { IncomeSchemaType } from '../validators';
 
 interface IIncomeForm {
