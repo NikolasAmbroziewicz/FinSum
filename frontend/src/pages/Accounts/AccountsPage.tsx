@@ -5,6 +5,7 @@ import BaseModal from 'src/shared/components/Modals/BaseModal';
 import PageHeader from 'src/shared/components/PageHeader/PageHeader';
 
 import AccountsForm from 'src/features/Accounts/components/AccountsForm';
+import AccountsList from 'src/features/Accounts/components/AccountsList';
 
 import { useModal } from 'src/shared/components/Modals/hooks/useModal';
 
@@ -18,6 +19,7 @@ const AccountsPage = () => {
       >
         <BaseButton handler={handleOpenModal}>Add Accounts</BaseButton>
       </PageHeader>
+      <AccountsList />
       <BaseModal
         isOpen={isOpen}
         onClose={handleOpenModal}

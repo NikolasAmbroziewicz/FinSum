@@ -9,7 +9,6 @@ interface IUseAccount {
 }
 
 export const useAccount = (value: IUseAccount) => {
-
   const {
     register,
     formState: { errors },
