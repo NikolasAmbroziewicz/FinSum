@@ -3,19 +3,19 @@ import { useState, useEffect } from 'react';
 import { AppDispatch } from 'src/store/main';
 import { useDispatch } from 'react-redux';
 
-import { getIncome } from 'src/store/income/incomeSlice';
+import { getIncome } from 'src/store/Income/IncomeSlice';
 
-import H1 from 'src/shared/components/headers/H1';
-import BaseButton from 'src/shared/components/button/base/BaseButton';
-import BaseModal from 'src/shared/components/modals/BaseModal';
+import H1 from 'src/shared/components/Headers/H1';
+import BaseButton from 'src/shared/components/Button/base/BaseButton';
+import BaseModal from 'src/shared/components/Modals/BaseModal';
 
-import Calendar from 'src/features/income/components/Calendar';
-import IncomeForm from 'src/features/income/components/IncomeForm';
-import IncomeList from 'src/features/income/components/IncomeList';
+import Calendar from 'src/shared/components/Calendar/Calendar';
+import IncomeForm from 'src/features/Income/components/IncomeForm';
+import IncomeList from 'src/features/Income/components/IncomeList';
 
-import { useModal } from 'src/shared/components/modals/hooks/useModal';
+import { useModal } from 'src/shared/components/Modals/hooks/useModal';
 
-import { Position } from 'src/shared/components/headers/Header.types';
+import { Position } from 'src/shared/components/Headers/Header.types';
 
 const IncomePage = () => {
   const dispatch = useDispatch<AppDispatch>();
