@@ -41,7 +41,7 @@ export class AccountsController {
   }
 
   @Put('v1/edit-account')
-  editIncome(@Body() income: AccountsDto, @Query('id') id: number) {
+  editIncome(@Body() income: AccountsDto, @Query('id') id: number): Promise<AccountsResponse>  {
     return this.accountsService.editAccount(income, Number(id))
   }
 }
