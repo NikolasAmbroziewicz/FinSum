@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { AccessTokenGuards } from './common/guards/accessToken.guards';
 import { TokensModule } from './tokens/tokens.module';
 import { IncomeModule } from './income/income.module';
+import { AccountsModule } from './accounts/accounts.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { IncomeModule } from './income/income.module';
     PrismaModule,
     TokensModule,
     IncomeModule,
+    AccountsModule,
   ],
   providers: [
     {
