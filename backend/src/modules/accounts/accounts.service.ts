@@ -21,7 +21,7 @@ export class AccountsService {
 
     const addedAccount = await this.prisma.account.create({
       data: {
-        name: title,
+        title: title,
         currency: currency,
         user: {
           connect: {
@@ -32,7 +32,9 @@ export class AccountsService {
     })
 
     return {
-      ...addedAccount
+      id: addedAccount.id,
+      currency: addedAccount.currency,
+      title: addedAccount.title
     }
   }
 
@@ -49,7 +51,11 @@ export class AccountsService {
       }
     })
 
-    return allAccounts
+    return allAccounts.map((account) => ({
+      id: account.id,
+      currency: account.currency,
+      title: account.title
+    }))
   }
 
   async deleteAccount (
@@ -62,8 +68,16 @@ export class AccountsService {
         }
       })
 
-      return {
-        ...deleteAccount
+      if(deleteAccount.id) {
+        return {
+          id: deleteAccount.id,
+          currency: deleteAccount.currency,
+          title: deleteAccount.title
+        }
+      } else {
+        return {
+          ...deleteAccount
+        }
       }
     } catch(e: any) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
@@ -83,7 +97,7 @@ export class AccountsService {
 
       const updatedAccounts = await this.prisma.account.update({
         data: {
-          name: title,
+          title: title,
           currency: currency
         },
         where: {
@@ -91,10 +105,19 @@ export class AccountsService {
         }
       })
 
-      return {
-        ...updatedAccounts
+      if(updatedAccounts.id) {
+        return {
+          id: updatedAccounts.id,
+          currency: updatedAccounts.currency,
+          title: updatedAccounts.title
+        }
+      } else {
+        return {
+          ...updatedAccounts
+        }
       }
     } catch (e: any) {
+      console.log('error in file', e)
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2025') {
           throw new ForbiddenException('Account does not exist');
