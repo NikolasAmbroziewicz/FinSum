@@ -6,7 +6,7 @@ import { AuthService } from '../auth.service';
 import { ConfigService } from '@nestjs/config';
 
 import { TokensService } from '../../tokens/tokens.service';
-import { PrismaService } from '../../prisma/prisma.service';
+import { PrismaService } from '../../../prisma/prisma.service';
 
 import {
   userRegister,
