@@ -9,6 +9,8 @@ import { accountSchema, AccountSchemaType } from 'src/features/Accounts/validato
 
 import {
   addAccount,
+  deleteAccount,
+  editAccount
 } from 'src/store/Accounts/AccountsSlice'
 
 interface IUseAccount {
@@ -36,12 +38,20 @@ export const useAccount = ({ onClose = undefined }: IUseAccount) => {
     }
   }
 
-  const handleDeleteAccounts = () => {
-    console.log('handle Delete Accounts')
+  const handleDeleteAccounts = (id: number) => {
+    dispatch(deleteAccount(id))
+
+    if(onClose) {
+      onClose()
+    }
   }
 
-  const handleEditAccounts = () => {
-    console.log('handle Edit Accounts')
+  const handleEditAccounts = (value: AccountSchemaType) => {
+    dispatch(editAccount(value))
+
+    if(onClose) {
+      onClose()
+    }
   }
 
   return {
