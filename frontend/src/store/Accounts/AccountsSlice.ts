@@ -7,10 +7,11 @@ import {
   get_accounts
 } from 'src/features/Accounts/api/AccountsApi'
 
+import type { RootState } from '../main'
 import { AccountsState } from './types'
 import { AccountSchemaType } from 'src/features/Accounts/validators'
 
-export const getAllAccounts = createAsyncThunk(
+export const getAccounts = createAsyncThunk(
   'accounts/getAccounts',
   async () => {
     const res: AccountSchemaType[] = await get_accounts()
@@ -57,14 +58,14 @@ const accountsSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(getAllAccounts.fulfilled, (state, action) => {
+      .addCase(getAccounts.fulfilled, (state, action) => {
         state.accounts = action.payload
         state.isLoading = false
       })
-      .addCase(getAllAccounts.pending, (state) => {
+      .addCase(getAccounts.pending, (state) => {
         state.isLoading = true
       })
-      .addCase(getAllAccounts.rejected, (state) => {
+      .addCase(getAccounts.rejected, (state) => {
         state.isLoading = false
       })
       .addCase(addAccount.fulfilled, (state, action) => {
@@ -104,5 +105,8 @@ const accountsSlice = createSlice({
       })
   }
 })
+
+export const getAllAccounts = (state: RootState) => state.accounts.accounts
+export const getLoadingStatus = (state: RootState) => state.accounts.isLoading
 
 export default accountsSlice.reducer;

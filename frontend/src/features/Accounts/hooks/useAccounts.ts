@@ -1,14 +1,23 @@
+import { useDispatch } from 'react-redux';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
+import { AppDispatch } from 'src/store/main';
+
 import { accountSchema, AccountSchemaType } from 'src/features/Accounts/validators'
+
+import {
+  addAccount,
+} from 'src/store/Accounts/AccountsSlice'
 
 interface IUseAccount {
   onClose?: () => void 
 }
 
-export const useAccount = (value: IUseAccount) => {
+export const useAccount = ({ onClose = undefined }: IUseAccount) => {
+  const dispatch = useDispatch<AppDispatch>();
+
   const {
     register,
     formState: { errors },
@@ -19,8 +28,12 @@ export const useAccount = (value: IUseAccount) => {
     resolver: zodResolver(accountSchema),
   })
 
-  const handleAddAccounts = () => {
-    console.log('handle Add Accounts')
+  const handleAddAccounts = (value: AccountSchemaType) => {
+    dispatch(addAccount(value))
+
+    if(onClose) {
+      onClose()
+    }
   }
 
   const handleDeleteAccounts = () => {

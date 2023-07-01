@@ -26,7 +26,7 @@ const AccountsForm: React.FC<IAccountsForm> = ({ onClose, editForm, income }) =>
     register,
     setValue,
     getValues
-  } = useAccount({})
+  } = useAccount({ onClose: onClose})
 
   useEffect(() => {
     if (editForm && income) {
