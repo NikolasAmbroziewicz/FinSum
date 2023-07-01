@@ -1,36 +1,34 @@
-import { useRef } from 'react';
+import React, { useRef } from 'react'
 
-import BaseModal from 'src/shared/components/Modals/BaseModal';
-import BaseButton from 'src/shared/components/Button/base/BaseButton';
-import IconDropdownMenu from 'src/shared/components/Dropdown/IconDropdownMenu';
+import BaseModal from 'src/shared/components/Modals/BaseModal'
+import BaseButton from 'src/shared/components/Button/base/BaseButton'
+import IconDropdownMenu from 'src/shared/components/Dropdown/IconDropdownMenu'
 
-import IncomeForm from 'src/features/Income/components/IncomeForm';
+import AccountsForm from 'src/features/Accounts/components/AccountsForm'
 
 import { useModal } from 'src/shared/components/Modals/hooks/useModal';
-import { useIncome } from 'src/features/Income/hooks/useIncome';
+import { useAccount } from 'src/features/Accounts/hooks/useAccounts';
 
 import { ButtonTheme } from 'src/shared/components/Button/base/types';
 import { DropdownContent } from 'src/shared/components/Dropdown/types';
 import { IIconDropdownMenuRef } from 'src/shared/components/Dropdown/IconDropdownMenu';
-import { IncomeSchemaType } from 'src/features/Income/validators';
+import { AccountSchemaType } from 'src/features/Accounts/validators'
 
 import { AiFillEdit, AiOutlineClose } from 'react-icons/ai';
 
-interface IIncomeListElementActions {
-  income: IncomeSchemaType;
+interface IAccountElementAction {
+  account: AccountSchemaType
 }
 
-const IncomeListElementActions: React.FC<IIncomeListElementActions> = ({
-  income
-}) => {
+const AccountElementAction: React.FC<IAccountElementAction> = ({ account }) => {
   const incomeMenuRef = useRef<IIconDropdownMenuRef>(null);
 
   const { isOpen: isEditOpen, handleOpenModal: handleEditOpen } = useModal();
   const { isOpen: isDeleteOpen, handleOpenModal: handleDeleteOpen } = useModal();
 
-  const { handleDeleteIncome } = useIncome({
+  const { handleDeleteAccounts } = useAccount({
     onClose: handleDeleteOpen
-  });
+  })
 
   const handleEditAction = () => {
     //Open Modal
@@ -62,16 +60,17 @@ const IncomeListElementActions: React.FC<IIncomeListElementActions> = ({
   ];
 
   return (
-    <div className="relative">
+    <div className='relative'>
       <IconDropdownMenu ref={incomeMenuRef} dropdownContent={dropdownContent} />
-      {isDeleteOpen && (
-        <BaseModal
+      {
+        isDeleteOpen && (
+          <BaseModal
           isOpen={isDeleteOpen}
           onClose={handleDeleteOpen}
           title="Delete Income"
           content={
             <span className="text-gray-600 mx-4">
-              Do you want do delete this Income?
+              Do you want do delete this Account?
             </span>
           }
           action={
@@ -79,7 +78,7 @@ const IncomeListElementActions: React.FC<IIncomeListElementActions> = ({
               <BaseButton
                 color={ButtonTheme.base}
                 styles="w-[45%]"
-                handler={() => handleDeleteIncome(income.id as number)}
+                handler={() => handleDeleteAccounts(account.id as number)}
               >
                 Yes
               </BaseButton>
@@ -100,16 +99,16 @@ const IncomeListElementActions: React.FC<IIncomeListElementActions> = ({
           onClose={handleEditOpen}
           title="Edit Income"
           content={
-            <IncomeForm
+            <AccountsForm
               onClose={handleEditOpen}
               editForm={true}
-              income={income}
+              income={account}
             />
           }
         />
       )}
     </div>
-  );
-};
+  )
+}
 
-export default IncomeListElementActions;
+export default AccountElementAction
