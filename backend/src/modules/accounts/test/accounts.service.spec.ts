@@ -2,14 +2,15 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ForbiddenException } from '@nestjs/common';
 
 import { AccountsService } from '../accounts.service';
-import { PrismaService } from '../../prisma/prisma.service';
+import { PrismaService } from '../../../prisma/prisma.service';
 
 import {
   addAccountData,
   accountResponse, 
   accountEditResponse,
   userWithToken,
-  editAccountData
+  editAccountData,
+  findAllaccountResponse
 } from './mocks'
 
 let service: AccountsService;
@@ -70,13 +71,13 @@ describe('AccountsService > methods > getAccounts', () => {
   });
 
   it('Should return all accounts', async () => {
-    findManyAccountMock.mockResolvedValueOnce(accountResponse)
+    findManyAccountMock.mockResolvedValueOnce(findAllaccountResponse)
 
     const serviceMethod = await service.getAccounts(
       userWithToken
     )
 
-    expect(serviceMethod).toEqual(accountResponse)
+    expect(serviceMethod).toEqual(findAllaccountResponse)
   })
 })
 

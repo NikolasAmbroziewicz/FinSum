@@ -8,7 +8,7 @@ import {
   Query
 } from '@nestjs/common';
 
-import { GetCurrentUser } from '../common/decorators/getCurrentUser.decorator';
+import { GetCurrentUser } from '../../common/decorators/getCurrentUser.decorator';
 import { AccountsService } from './accounts.service';
 
 import { AccountsDto } from './accounts.dto';

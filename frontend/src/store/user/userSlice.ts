@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { useLocalStorage } from 'src/shared/hooks/useLocalStorage';
 
-import { signUp, singIn, refreshToken } from 'src/features/Auth/api/AuthApi';
+import { signUp, singIn, refreshToken } from 'src/features/Auth/api/authApi';
 import {
   loginSchemaType,
   registerSchemaType

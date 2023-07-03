@@ -2,9 +2,9 @@ import { Body, Controller, Post, Get, UseGuards } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
 
-import { PublicRoute } from '../common/decorators/publicRoute.decorators';
-import { GetCurrentUser } from '../common/decorators/getCurrentUser.decorator';
-import { RefreshTokenGuards } from '../common/guards/refreshToken.guards';
+import { PublicRoute } from '../../common/decorators/publicRoute.decorators';
+import { GetCurrentUser } from '../../common/decorators/getCurrentUser.decorator';
+import { RefreshTokenGuards } from '../../common/guards/refreshToken.guards';
 
 import { SignInDto, SingUpDto } from './auth.dto';
 import { Tokens, UserWithTokens, UserResponsePayload } from './auth.type';

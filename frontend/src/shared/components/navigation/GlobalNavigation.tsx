@@ -5,10 +5,9 @@ import MobileNaviagtion from 'src/shared/components/Navigation/MobileNavigation'
 
 import {
   AiOutlineStock,
-  AiOutlineHome,
-  AiOutlineCalendar
+  AiOutlineHome
 } from 'react-icons/ai';
-import { BiBitcoin, BiMoney } from 'react-icons/bi';
+import { BiBitcoin, BiMoney, BiWalletAlt } from 'react-icons/bi';
 import { GiTwoCoins } from 'react-icons/gi';
 
 export type NavData = {
@@ -24,9 +23,9 @@ const navData: NavData[] = [
     path: '/dashboard'
   },
   {
-    icon: <AiOutlineCalendar className="text-white text-2xl" />,
-    label: 'Month Cash',
-    path: '/month-finance'
+    icon: <BiWalletAlt className="text-white text-2xl" />,
+    label: 'accounts',
+    path: '/accounts'
   },
   {
     icon: <BiMoney className="text-white text-2xl" />,

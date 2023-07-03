@@ -4,7 +4,7 @@ import { Request } from 'express';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import { UserWithTokens } from 'src/auth/auth.type';
+import { UserWithTokens } from 'src/modules/auth/auth.type';
 
 @Injectable()
 export class RefreshTokenStrategy extends PassportStrategy(

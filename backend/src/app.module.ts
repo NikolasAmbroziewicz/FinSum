@@ -3,12 +3,12 @@ import { APP_GUARD } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 
 import { PrismaModule } from './prisma/prisma.module';
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 import { AccessTokenGuards } from './common/guards/accessToken.guards';
-import { TokensModule } from './tokens/tokens.module';
-import { IncomeModule } from './income/income.module';
-import { AccountsModule } from './accounts/accounts.module';
+import { TokensModule } from './modules/tokens/tokens.module';
+import { IncomeModule } from './modules/income/income.module';
+import { AccountsModule } from './modules/accounts/accounts.module';
 
 @Module({
   imports: [

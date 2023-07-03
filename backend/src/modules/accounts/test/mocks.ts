@@ -12,14 +12,17 @@ export const accountResponse = {
   id: 1,
   title: 'Test Ttile',
   currency: 'USD',
-  user_id: 12
 }
+
+export const findAllaccountResponse = [
+  accountResponse,
+  accountResponse
+]
 
 export const accountEditResponse = {
   id: 1,
   title: 'Test Ttile 1',
   currency: 'PLN',
-  user_id: 12
 }
 
 export const userWithToken = {
