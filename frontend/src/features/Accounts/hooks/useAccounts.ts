@@ -7,6 +7,9 @@ import { AppDispatch } from 'src/store/main';
 
 import { accountSchema, AccountSchemaType } from 'src/features/Accounts/validators'
 
+import { useNotificationContext } from 'src/context/NotificationContext';
+import { SnackbarType } from 'src/shared/components/Snackbar/type';
+
 import {
   addAccount,
   deleteAccount,
@@ -19,6 +22,7 @@ interface IUseAccount {
 
 export const useAccount = ({ onClose = undefined }: IUseAccount) => {
   const dispatch = useDispatch<AppDispatch>();
+  const { handleNotification } = useNotificationContext()
 
   const {
     register,
@@ -35,6 +39,7 @@ export const useAccount = ({ onClose = undefined }: IUseAccount) => {
 
     if(onClose) {
       onClose()
+      handleNotification('Account has been Added.', SnackbarType.success)
     }
   }
 
@@ -43,6 +48,7 @@ export const useAccount = ({ onClose = undefined }: IUseAccount) => {
 
     if(onClose) {
       onClose()
+      handleNotification('Account has been Removed.', SnackbarType.danger)
     }
   }
 
@@ -51,6 +57,7 @@ export const useAccount = ({ onClose = undefined }: IUseAccount) => {
 
     if(onClose) {
       onClose()
+      handleNotification('Account has been Edited.', SnackbarType.neutral)
     }
   }
 
