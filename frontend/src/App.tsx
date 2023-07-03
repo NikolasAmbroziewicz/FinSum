@@ -10,6 +10,7 @@ import PrivateRoutes from './pages/Utils/ProtectedRoutes';
 import ProtectedAuthRoutes from './pages/Utils/ProtectedAuthRotes';
 
 import AccountsPage from './pages/Accounts/AccountsPage';
+import AccountDetailsPage from './pages/AccountDetails/AccountDetails';
 import StocksPage from './pages/Stocks/StocksPage';
 import CryptocurrencyPage from './pages/Cryptocurrency/CryptocurrencyPage';
 import MetalsPage from './pages/Metals/MetalsPage';
@@ -26,7 +27,7 @@ function App() {
       </Route>
       <Route element={<PrivateRoutes />}>
         <Route
-          path="/dashboard"
+          path="dashboard"
           element={
             <BaseNavLayout>
               <DashboardPage />
@@ -34,7 +35,7 @@ function App() {
           }
         />
         <Route
-          path="/stock"
+          path="stock"
           element={
             <BaseNavLayout>
               <StocksPage />
@@ -42,7 +43,7 @@ function App() {
           }
         />
         <Route
-          path="/cryptocurrency"
+          path="cryptocurrency"
           element={
             <BaseNavLayout>
               <CryptocurrencyPage />
@@ -50,7 +51,7 @@ function App() {
           }
         />
         <Route
-          path="/metals"
+          path="metals"
           element={
             <BaseNavLayout>
               <MetalsPage />
@@ -58,15 +59,27 @@ function App() {
           }
         />
         <Route
-          path="/accounts"
-          element={
-            <BaseNavLayout>
-              <AccountsPage />
-            </BaseNavLayout>
-          }
-        />
+          path="accounts"
+        >
+          <Route
+            index
+            element={
+              <BaseNavLayout>
+                <AccountsPage />
+              </BaseNavLayout>
+            }
+          />
+          <Route 
+            path=":accountId"
+            element={
+              <BaseNavLayout>
+                <AccountDetailsPage />
+              </BaseNavLayout>
+            }
+          />
+        </Route>
         <Route
-          path="/income"
+          path="income"
           element={
             <BaseNavLayout>
               <IncomePage />
