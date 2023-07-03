@@ -19,16 +19,12 @@ const AccountsList = () => {
 
   const { isMobileScreen } = useScreen()
 
-  const handleAccountClick = () => {
-    console.log('handleAccountClick')
-  }
-
   return (
     <div className="flex flex-col h-full gap-6 mt-4">
       <H2 position={Position.left}>
         Your Accounts
       </H2>
-      <div className={`flex flex-row flex-wrap ${isMobileScreen() && 'justify-center'} gap-6 cursor-pointer`} onClick={handleAccountClick}>
+      <div className={`flex flex-row flex-wrap ${isMobileScreen() || accounts.length === 0 &&  'justify-center'}  gap-6 cursor-pointer`}>
         {
           loading ? (
             <Loading position={LoadingPosition.start} />
@@ -37,7 +33,7 @@ const AccountsList = () => {
               <AccountListElement key={account.id} account={account} />
             ))
           ) : (
-            <NotFound text={'No Accounts Found'} />
+            <NotFound text={'No Accounts Found'} />  
           )}
       </div>
     </div>

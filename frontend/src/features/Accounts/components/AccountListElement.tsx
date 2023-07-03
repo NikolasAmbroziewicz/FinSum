@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom'
+
 import H3 from 'src/shared/components/Headers/H3';
 
 import AccountElementAction from 'src/features/Accounts/components/AccountElementAction';
@@ -11,15 +13,21 @@ interface IAccountListElement {
 }
 
 const AccountListElement: React.FC<IAccountListElement> = ({ account }) => {
+  const navigate = useNavigate()
+
+  const handleAccountClick = (id: number | undefined) => {
+    navigate(`${id}`)
+  }
+
   return (
-    <div key={account.id} className="flex flex-col justify-between w-[200px] h-[200px] border-slate-300 border-[1px] p-4 rounded-md bg-gray-100">
-    <div className='flex justify-between items-center'>
-      <H3 position={Position.left}>{account.title}</H3>
-      <AccountElementAction account={account} />
+    <div className="flex flex-col justify-between w-[200px] h-[200px] border-slate-300 border-[1px] p-4 rounded-md bg-gray-100" onClick={() => handleAccountClick(account.id)}>
+      <div className='flex justify-between items-center'>
+        <H3 position={Position.left}>{account.title}</H3>
+        <AccountElementAction account={account} />
+      </div>
+      
+      <span>Currency: {account.currency}</span>
     </div>
-    
-    <span>Currency: {account.currency}</span>
-  </div>
   )
 }
 
