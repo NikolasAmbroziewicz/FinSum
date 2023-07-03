@@ -83,6 +83,7 @@ const accountsSlice = createSlice({
           (account) => account.id !== action.payload.id
         )
         state.accounts = newState
+        state.isLoading = false
       })
       .addCase(deleteAccount.pending, (state) => {
         state.isLoading = true
@@ -96,6 +97,7 @@ const accountsSlice = createSlice({
         )
 
         state.accounts[findIndex] = action.payload
+        state.isLoading = false
       })
       .addCase(editAccount.pending, (state) => {
         state.isLoading = true
