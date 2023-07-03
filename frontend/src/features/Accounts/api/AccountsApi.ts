@@ -43,7 +43,7 @@ export const edit_income = async (data: AccountSchemaType) => {
 
 export const delete_account = async (id: number) => {
   return apiBase().delete(
-    `/accounts/v1/add-account?id=${id}`, 
+    `/accounts/v1/delete-account?id=${id}`, 
     {
       headers: {
         ...useAuthHeader()
