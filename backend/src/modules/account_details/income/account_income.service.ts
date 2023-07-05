@@ -2,19 +2,16 @@ import { Injectable, ForbiddenException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
 import { PrismaService } from '../../../prisma/prisma.service';
-
-import { AccountExpenseDto } from './account_expenses.dto'
+import { AccountIncomeDto } from './account_income.dto';
 
 @Injectable()
-export class AccountExpensesService {
+export class AccountIncomeService {
   constructor(private prisma: PrismaService) {}
 
-  async getExpenses (
-    acount_id: string
-  ) {
-    const parsedNumber = Number(acount_id)
+  async getIncomes(account_id: string) {
+    const parsedNumber = Number(account_id)
 
-    const allExpenses = await this.prisma.expense.findMany({
+    const allIncomes = await this.prisma.cash.findMany({
       where: {
         account: {
           id: parsedNumber
@@ -22,25 +19,24 @@ export class AccountExpensesService {
       }
     })
 
-    return allExpenses
+    return allIncomes
   }
 
-  async addExpense(
-    expense: AccountExpenseDto,
-    acount_id: string
+  async addIncome(
+    income: AccountIncomeDto,
+    account_id: string
   ) {
-    const { title, date, description, amount } = expense
+    const { date, title, amount} = income
 
     const parsedDate = new Date(date);
     const parsedAmount = Number(amount);
-    const parsedAccountId = Number(acount_id)
+    const parsedAccountId = Number(account_id)
 
-    const addedExpense = await this.prisma.expense.create({
+    const addedIncome = await this.prisma.cash.create({
       data: {
         title: title,
         date: parsedDate,
         amount: parsedAmount,
-        description: description,
         account: {
           connect: {
             id: parsedAccountId
@@ -50,24 +46,24 @@ export class AccountExpensesService {
     })
 
     return {
-      ...addedExpense
+      ...addedIncome
     }
   }
 
-  async deleteExpense(
-    expense_id: string
+  async deleteIncome(
+    income_id: string
   ) {
     try {
-      const parsedExpenseId = Number(expense_id)
+      const parsedExpenseId = Number(income_id)
 
-      const deletedExpense = this.prisma.expense.delete({
+      const deletedIncome = this.prisma.expense.delete({
         where: {
           id: parsedExpenseId
         }
       })
-  
+
       return {
-        ...deletedExpense
+        ...deletedIncome
       }
     } catch (e: any) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
@@ -78,31 +74,30 @@ export class AccountExpensesService {
     }
   }
 
-  async editExpense(
-    expense: AccountExpenseDto,
-    expense_id: string
+  async editIncome(
+    income: AccountIncomeDto,
+    income_id: string
   ) {
     try {
-      const { title, date, description, amount } = expense
+      const { date, title, amount} = income
 
       const parsedDate = new Date(date);
       const parsedAmount = Number(amount);
-      const parsedExpenseId = Number(expense_id)
+      const parsedIncomeId = Number(income_id)
 
-      const updatedExpense = this.prisma.expense.update({
+      const updatedIncome = this.prisma.expense.update({
         data: {
           title: title,
           date: parsedDate,
           amount: parsedAmount,
-          description: description,
         },
         where: {
-          id: parsedExpenseId
+          id: parsedIncomeId
         }
       })
 
       return {
-        ...updatedExpense
+        ...updatedIncome
       }
     } catch (e: any) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {

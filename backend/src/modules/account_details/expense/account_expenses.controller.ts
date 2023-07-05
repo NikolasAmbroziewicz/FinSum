@@ -10,9 +10,9 @@ import {
 
 import { AccountExpensesService } from './account_expenses.service';
 
-import { AddAccountExpenseDto } from './account_expenses.dto'
+import { AccountExpenseDto } from './account_expenses.dto'
 
-@Controller('account-details')
+@Controller('account-expense')
 export class AccountExpenses {
   constructor(private accountExpensesService: AccountExpensesService) {}
 
@@ -25,7 +25,7 @@ export class AccountExpenses {
 
   @Post('v1/add-expense')
   addExpense(
-    @Body() expense: AddAccountExpenseDto,
+    @Body() expense: AccountExpenseDto,
     @Query('acount_id') acount_id: string
   ) {
     return this.accountExpensesService.addExpense(expense, acount_id)
@@ -40,7 +40,7 @@ export class AccountExpenses {
 
   @Put('v1/edit-expense')
   editExpense(
-    @Body() expense: AddAccountExpenseDto,
+    @Body() expense: AccountExpenseDto,
     @Query('expense_id') expense_id: string
   ) {
     return this.accountExpensesService.editExpense(expense, expense_id)
