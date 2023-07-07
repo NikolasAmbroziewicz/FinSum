@@ -8,13 +8,13 @@ import {
   Query
 } from '@nestjs/common';
 
-import { AccountExpensesService } from './account_expenses.service';
+import { AccountExpenseService } from './account_expense.service';
 
-import { AccountExpenseDto } from './account_expenses.dto'
+import { AccountExpenseDto } from './account_expense.dto'
 
 @Controller('account-expense')
 export class AccountExpenses {
-  constructor(private accountExpensesService: AccountExpensesService) {}
+  constructor(private accountExpensesService: AccountExpenseService) {}
 
   @Get('v1/get-expenses')
   getExpense(

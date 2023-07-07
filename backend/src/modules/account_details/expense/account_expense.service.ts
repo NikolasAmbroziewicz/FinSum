@@ -3,10 +3,10 @@ import { Prisma } from '@prisma/client';
 
 import { PrismaService } from '../../../prisma/prisma.service';
 
-import { AccountExpenseDto } from './account_expenses.dto'
+import { AccountExpenseDto } from './account_expense.dto'
 
 @Injectable()
-export class AccountExpensesService {
+export class AccountExpenseService {
   constructor(private prisma: PrismaService) {}
 
   async getExpenses (
@@ -105,6 +105,7 @@ export class AccountExpensesService {
         ...updatedExpense
       }
     } catch (e: any) {
+      console.log('errors')
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2025') {
           throw new ForbiddenException('Expense does not exist');

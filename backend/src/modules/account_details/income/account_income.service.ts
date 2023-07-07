@@ -56,7 +56,9 @@ export class AccountIncomeService {
     try {
       const parsedExpenseId = Number(income_id)
 
-      const deletedIncome = this.prisma.expense.delete({
+      console.log('here', parsedExpenseId)
+
+      const deletedIncome = this.prisma.cash.delete({
         where: {
           id: parsedExpenseId
         }
@@ -85,7 +87,7 @@ export class AccountIncomeService {
       const parsedAmount = Number(amount);
       const parsedIncomeId = Number(income_id)
 
-      const updatedIncome = this.prisma.expense.update({
+      const updatedIncome = this.prisma.cash.update({
         data: {
           title: title,
           date: parsedDate,
@@ -100,6 +102,7 @@ export class AccountIncomeService {
         ...updatedIncome
       }
     } catch (e: any) {
+      console.log('error')
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2025') {
           throw new ForbiddenException('Expense does not exist');
