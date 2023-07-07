@@ -8,9 +8,11 @@ import {
   Query
 } from '@nestjs/common';
 
+import { GetCurrentUser } from '../../../common/decorators/getCurrentUser.decorator';
 import { AccountExpenseService } from './account_expense.service';
 
 import { AccountExpenseDto } from './account_expense.dto'
+import { UserWithTokens } from '../../auth/auth.type';
 
 @Controller('account-expense')
 export class AccountExpenses {
@@ -18,17 +20,17 @@ export class AccountExpenses {
 
   @Get('v1/get-expenses')
   getExpense(
-    @Query('acount_id') acount_id: string
+    @GetCurrentUser() user: UserWithTokens,
   ) {
-    return this.accountExpensesService.getExpenses(acount_id)
+    return this.accountExpensesService.getExpenses(user)
   }
 
   @Post('v1/add-expense')
   addExpense(
     @Body() expense: AccountExpenseDto,
-    @Query('acount_id') acount_id: string
+    @GetCurrentUser() user: UserWithTokens,
   ) {
-    return this.accountExpensesService.addExpense(expense, acount_id)
+    return this.accountExpensesService.addExpense(expense, user)
   }
 
   @Delete('v1/delete-expense')

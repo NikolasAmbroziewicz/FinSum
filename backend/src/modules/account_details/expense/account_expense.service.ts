@@ -4,15 +4,17 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from '../../../prisma/prisma.service';
 
 import { AccountExpenseDto } from './account_expense.dto'
+import { UserWithTokens } from '../../auth/auth.type';
 
 @Injectable()
 export class AccountExpenseService {
   constructor(private prisma: PrismaService) {}
 
   async getExpenses (
-    acount_id: string
+    user: UserWithTokens
   ) {
-    const parsedNumber = Number(acount_id)
+    const { userId } = user;
+    const parsedNumber = Number(userId)
 
     const allExpenses = await this.prisma.expense.findMany({
       where: {
@@ -27,13 +29,14 @@ export class AccountExpenseService {
 
   async addExpense(
     expense: AccountExpenseDto,
-    acount_id: string
+    user: UserWithTokens
   ) {
+    const { userId } = user;
     const { title, date, description, amount } = expense
 
     const parsedDate = new Date(date);
     const parsedAmount = Number(amount);
-    const parsedAccountId = Number(acount_id)
+    const parsedAccountId = Number(userId)
 
     const addedExpense = await this.prisma.expense.create({
       data: {

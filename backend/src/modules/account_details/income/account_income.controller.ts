@@ -8,9 +8,11 @@ import {
   Query
 } from '@nestjs/common'
 
+import { GetCurrentUser } from '../../../common/decorators/getCurrentUser.decorator';
 import { AccountIncomeService } from './account_income.service'
 
 import { AccountIncomeDto } from './account_income.dto'
+import { UserWithTokens } from '../../auth/auth.type';
 
 @Controller('account-income')
 export class AccountIncome{
@@ -18,17 +20,17 @@ export class AccountIncome{
 
   @Get('v1/get-incomes')
   getIncomes(
-    @Query('acount_id') account_id: string
+    @GetCurrentUser() user: UserWithTokens,
   ) {
-    return this.accountIncomeService.getIncomes(account_id)
+    return this.accountIncomeService.getIncomes(user)
   }
 
   @Post('v1/add-income')
   addIncome(
     @Body() income: AccountIncomeDto,
-    @Query('acount_id') acount_id: string
+    @GetCurrentUser() user: UserWithTokens,
   ) {
-    return this.accountIncomeService.addIncome(income, acount_id)
+    return this.accountIncomeService.addIncome(income, user)
   }
 
   @Delete('v1/delete-income')

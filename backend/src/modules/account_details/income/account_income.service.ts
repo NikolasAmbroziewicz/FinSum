@@ -4,12 +4,15 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { AccountIncomeDto } from './account_income.dto';
 
+import { UserWithTokens } from '../../auth/auth.type';
+
 @Injectable()
 export class AccountIncomeService {
   constructor(private prisma: PrismaService) {}
 
-  async getIncomes(account_id: string) {
-    const parsedNumber = Number(account_id)
+  async getIncomes(user: UserWithTokens) {
+    const { userId } = user;
+    const parsedNumber = Number(userId)
 
     const allIncomes = await this.prisma.cash.findMany({
       where: {
@@ -24,13 +27,14 @@ export class AccountIncomeService {
 
   async addIncome(
     income: AccountIncomeDto,
-    account_id: string
+    user: UserWithTokens
   ) {
+    const { userId } = user;
     const { date, title, amount} = income
 
     const parsedDate = new Date(date);
     const parsedAmount = Number(amount);
-    const parsedAccountId = Number(account_id)
+    const parsedAccountId = Number(userId)
 
     const addedIncome = await this.prisma.cash.create({
       data: {
