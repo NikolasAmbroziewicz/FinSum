@@ -60,9 +60,7 @@ export class AccountIncomeService {
     try {
       const parsedExpenseId = Number(income_id)
 
-      console.log('here', parsedExpenseId)
-
-      const deletedIncome = this.prisma.cash.delete({
+      const deletedIncome = await this.prisma.cash.delete({
         where: {
           id: parsedExpenseId
         }
@@ -91,7 +89,7 @@ export class AccountIncomeService {
       const parsedAmount = Number(amount);
       const parsedIncomeId = Number(income_id)
 
-      const updatedIncome = this.prisma.cash.update({
+      const updatedIncome = await this.prisma.cash.update({
         data: {
           title: title,
           date: parsedDate,
