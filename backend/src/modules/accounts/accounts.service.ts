@@ -60,7 +60,7 @@ export class AccountsService {
 
   async deleteAccount (
     id: number
-  ): Promise<AccountsResponse> {
+  ): Promise<AccountsResponse | ForbiddenException> {
     try {
       const deleteAccount = await this.prisma.account.delete({
         where: {
@@ -75,14 +75,12 @@ export class AccountsService {
           title: deleteAccount.title
         }
       } else {
-        return {
-          ...deleteAccount
-        }
+        return new ForbiddenException("Account Does not exist");
       }
     } catch(e: any) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2025') {
-          throw new ForbiddenException('Account does not exist');
+          throw new ForbiddenException('Account Does not exist');
         }
       }
     }
@@ -91,7 +89,7 @@ export class AccountsService {
   async editAccount (
     account: AccountsDto,
     id: number
-  ): Promise<AccountsResponse> {
+  ): Promise<AccountsResponse | ForbiddenException> {
     try {
       const { title, currency } = account
 
@@ -112,15 +110,13 @@ export class AccountsService {
           title: updatedAccounts.title
         }
       } else {
-        return {
-          ...updatedAccounts
-        }
+        return new ForbiddenException("Account Does not exist");
       }
     } catch (e: any) {
       console.log('error in file', e)
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2025') {
-          throw new ForbiddenException('Account does not exist');
+          throw new ForbiddenException('Account Does not exist');
         }
       }
     }

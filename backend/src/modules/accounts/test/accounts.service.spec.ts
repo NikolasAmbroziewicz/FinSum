@@ -101,7 +101,7 @@ describe('AccountsService > methods > deleteAccount', () => {
 
     const serviceMethod = (await service.deleteAccount(1)) as any;
 
-    expect(serviceMethod.message).toEqual('Account Does not exist')
+    expect(serviceMethod.response.message).toEqual('Account Does not exist')
   })
 })
 
@@ -120,11 +120,11 @@ describe('AccountsService > methods > editAccount', () => {
 
   it('Should return Error when account does not exist in database', async () => {
     updateAccountMock.mockImplementation(
-      () => new ForbiddenException('Account does not exist')
+      () => new ForbiddenException('Account Does not exist')
     )
 
     const serviceMethod = (await service.editAccount(editAccountData, 1)) as any
 
-    expect(serviceMethod.message).toEqual('Account does not exist')
+    expect(serviceMethod.message).toEqual('Account Does not exist')
   })
 })
