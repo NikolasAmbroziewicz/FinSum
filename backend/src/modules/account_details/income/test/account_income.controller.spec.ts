@@ -10,8 +10,7 @@ import {
   addedIncomeInput,
   addedIncome,
   editIncome,
-  editIncomeInput,
-  mockDate
+  editIncomeInput
 } from './mocks';
 
 let controller: AccountIncome;

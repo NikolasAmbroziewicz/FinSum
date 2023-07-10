@@ -1,4 +1,4 @@
-export const mockDate = new Date('2020-12-12')
+const mockDate = new Date('2020-12-12')
 
 export const userWithToken = {
   userId: 1,
