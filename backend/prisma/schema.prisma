@@ -63,8 +63,8 @@ model expense {
 model cash {
   id          Int      @id @default(autoincrement())
   amount      Decimal  @db.Decimal()
-  currency    String   @db.VarChar()
   date        DateTime @db.Timestamp() @default(now())
+  title       String   @db.VarChar(50)
   
   account     account  @relation(fields: [account_id], references: [id], onDelete: Cascade)
   account_id  Int @db.Integer

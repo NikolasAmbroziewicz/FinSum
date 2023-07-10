@@ -9,6 +9,7 @@ import { AccessTokenGuards } from './common/guards/accessToken.guards';
 import { TokensModule } from './modules/tokens/tokens.module';
 import { IncomeModule } from './modules/income/income.module';
 import { AccountsModule } from './modules/accounts/accounts.module';
+import { AccountDetailsModule } from './modules/account_details/account_details.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { AccountsModule } from './modules/accounts/accounts.module';
     TokensModule,
     IncomeModule,
     AccountsModule,
+    AccountDetailsModule,
   ],
   providers: [
     {
