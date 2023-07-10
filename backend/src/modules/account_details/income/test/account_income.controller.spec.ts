@@ -54,7 +54,7 @@ describe('AccountIncomeController > methods > addIncome', () => {
 
     const controllerMethod = await controller.addIncome(
       addedIncomeInput,
-      userWithToken,
+      '10',
     );
 
     expect(controllerMethod).toEqual(addedIncome);
@@ -69,7 +69,7 @@ describe('AccountIncomeController > methods > getIncomes', () => {
   it('should return list of income', async () => {
     getIncomesMock.mockResolvedValue([addedIncome, addedIncome]);
 
-    const controllerMethod = await controller.getIncomes(userWithToken);
+    const controllerMethod = await controller.getIncomes('10');
 
     expect(controllerMethod).toEqual([addedIncome, addedIncome]);
   });

@@ -52,7 +52,7 @@ describe('AccountExpenseService > methods > addExpense', () => {
   it('Should add and return expense', async () => {
     createExpenseMock.mockResolvedValueOnce(mockExpense)
 
-    const serviceMethod = await service.addExpense(mockExpenseInput, userWithToken)
+    const serviceMethod = await service.addExpense(mockExpenseInput, '10')
 
     expect(serviceMethod).toEqual(mockExpense)
   })
@@ -66,7 +66,7 @@ describe('AccountExpenseService > methods > getExpense', () => {
   it('Should return all expenses', async () => {
     getExpenseMock.mockResolvedValueOnce([mockExpense, mockExpense])
 
-    const serviceMethod = await service.getExpenses(userWithToken)
+    const serviceMethod = await service.getExpenses('10')
 
     expect(serviceMethod).toEqual([mockExpense, mockExpense])
   })

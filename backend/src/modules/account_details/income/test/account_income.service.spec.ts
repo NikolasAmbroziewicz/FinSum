@@ -57,7 +57,7 @@ describe('AccountIncomeService > methods > addIncome', () => {
 
     const serviceMethod = await service.addIncome(
       addedIncomeInput,
-      userWithToken,
+      '10',
     );
 
     expect(serviceMethod).toEqual(addedIncome);
@@ -72,7 +72,7 @@ describe('AccountIncomeService > methods > getIncome', () => {
   it('Should return List of Incomes for specyfic user', async () => {
     findManyIncomeMock.mockResolvedValue([addedIncome, addedIncome]);
 
-    const serviceMethod = await service.getIncomes(userWithToken);
+    const serviceMethod = await service.getIncomes('10');
 
     expect(serviceMethod).toEqual([addedIncome, addedIncome]);
   });

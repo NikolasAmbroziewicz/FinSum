@@ -49,7 +49,7 @@ describe('AccountExpenseController > methods > addExpense', () => {
   it('should add and return return expense', async () => {
     addExpenseMock.mockReturnValueOnce(mockExpense)
 
-    const controllerMethod = await controller.addExpense(mockExpenseInput, userWithToken)
+    const controllerMethod = await controller.addExpense(mockExpenseInput, '10')
 
     expect(controllerMethod).toEqual(mockExpense)
   })
@@ -64,7 +64,7 @@ describe('AccountExpenseController > methods > getExpenses', () => {
   it('should return expenses', async () => {
     getExpenseMock.mockReturnValueOnce([mockExpense, mockExpense])
     
-    const controllerMethod = await controller.getExpense(userWithToken)
+    const controllerMethod = await controller.getExpense('10')
 
     expect(controllerMethod).toEqual([mockExpense, mockExpense])
   })
