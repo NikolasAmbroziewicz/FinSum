@@ -570,7 +570,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/account-expense/v1/add-expense?acount_id=13",
+									"raw": "http://localhost:8080/account-expense/v1/add-expense?account_id=6",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -583,8 +583,8 @@
 									],
 									"query": [
 										{
-											"key": "acount_id",
-											"value": "13"
+											"key": "account_id",
+											"value": "6"
 										}
 									]
 								}
@@ -625,7 +625,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/account-expense/v1/get-expenses?acount_id=13",
+									"raw": "http://localhost:8080/account-expense/v1/get-expenses?account_id=6",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -638,8 +638,8 @@
 									],
 									"query": [
 										{
-											"key": "acount_id",
-											"value": "13"
+											"key": "account_id",
+											"value": "6"
 										}
 									]
 								}
