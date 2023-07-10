@@ -10,14 +10,13 @@ import { UserWithTokens } from '../../auth/auth.type';
 export class AccountIncomeService {
   constructor(private prisma: PrismaService) {}
 
-  async getIncomes(user: UserWithTokens) {
-    const { userId } = user;
-    const parsedNumber = Number(userId)
+  async getIncomes(account_id: string) {
+    const parsedAccountId = Number(account_id)
 
     const allIncomes = await this.prisma.cash.findMany({
       where: {
         account: {
-          id: parsedNumber
+          id: parsedAccountId
         }
       }
     })
@@ -27,14 +26,13 @@ export class AccountIncomeService {
 
   async addIncome(
     income: AccountIncomeDto,
-    user: UserWithTokens
+    account_id: string
   ) {
-    const { userId } = user;
     const { date, title, amount} = income
 
     const parsedDate = new Date(date);
     const parsedAmount = Number(amount);
-    const parsedAccountId = Number(userId)
+    const parsedAccountId = Number(account_id)
 
     const addedIncome = await this.prisma.cash.create({
       data: {

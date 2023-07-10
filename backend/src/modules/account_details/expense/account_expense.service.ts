@@ -11,16 +11,15 @@ export class AccountExpenseService {
   constructor(private prisma: PrismaService) {}
 
   async getExpenses (
-    user: UserWithTokens
+    account_id: string
   ) {
-    const { userId } = user;
-    const parsedNumber = Number(userId)
+    const parsedAccountId = Number(account_id)
 
     const allExpenses = await this.prisma.expense.findMany({
       where: {
         account: {
-          id: parsedNumber
-        }
+          id: parsedAccountId
+        },
       }
     })
 
@@ -29,14 +28,13 @@ export class AccountExpenseService {
 
   async addExpense(
     expense: AccountExpenseDto,
-    user: UserWithTokens
+    account_id: string
   ) {
-    const { userId } = user;
     const { title, date, description, amount } = expense
 
     const parsedDate = new Date(date);
     const parsedAmount = Number(amount);
-    const parsedAccountId = Number(userId)
+    const parsedAccountId = Number(account_id)
 
     const addedExpense = await this.prisma.expense.create({
       data: {

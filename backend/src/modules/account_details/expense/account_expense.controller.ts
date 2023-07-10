@@ -20,17 +20,17 @@ export class AccountExpenses {
 
   @Get('v1/get-expenses')
   getExpense(
-    @GetCurrentUser() user: UserWithTokens,
+    @Query('account_id') account_id: string
   ) {
-    return this.accountExpensesService.getExpenses(user)
+    return this.accountExpensesService.getExpenses(account_id)
   }
 
   @Post('v1/add-expense')
   addExpense(
     @Body() expense: AccountExpenseDto,
-    @GetCurrentUser() user: UserWithTokens,
+    @Query('account_id') account_id: string
   ) {
-    return this.accountExpensesService.addExpense(expense, user)
+    return this.accountExpensesService.addExpense(expense, account_id)
   }
 
   @Delete('v1/delete-expense')

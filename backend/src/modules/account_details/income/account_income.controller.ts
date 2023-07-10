@@ -20,17 +20,17 @@ export class AccountIncome{
 
   @Get('v1/get-incomes')
   getIncomes(
-    @GetCurrentUser() user: UserWithTokens,
+    @Query('account_id') account_id: string
   ) {
-    return this.accountIncomeService.getIncomes(user)
+    return this.accountIncomeService.getIncomes(account_id)
   }
 
   @Post('v1/add-income')
   addIncome(
     @Body() income: AccountIncomeDto,
-    @GetCurrentUser() user: UserWithTokens,
+    @Query('account_id') account_id: string
   ) {
-    return this.accountIncomeService.addIncome(income, user)
+    return this.accountIncomeService.addIncome(income, account_id)
   }
 
   @Delete('v1/delete-income')
