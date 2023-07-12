@@ -8,11 +8,9 @@ import {
   Query
 } from '@nestjs/common'
 
-import { GetCurrentUser } from '../../../common/decorators/getCurrentUser.decorator';
 import { AccountIncomeService } from './account_income.service'
 
 import { AccountIncomeDto } from './account_income.dto'
-import { UserWithTokens } from '../../auth/auth.type';
 
 @Controller('account-income')
 export class AccountIncome{
