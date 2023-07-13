@@ -1,7 +1,7 @@
 import { useAuthHeader, apiBase } from 'src/api/httpCommon';
-import { AccountDetailsIncomeSchemaType } from '../validators/AccountDetailsIncome'
+import { AccountDetailsIncomeSchemaType } from '../validators/AccountDetailsIncomes'
 
-export const get_account_income = async (account_id: number) => {
+export const get_account_incomes = async (account_id: number) => {
   return apiBase()
     .get(`/account-income/v1/get-incomes?account_id=${account_id}`, {
       headers: {

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-import { AccountDetailsIncomeSchemaType } from 'src/features/AccountDetails/validators/AccountDetailsIncome'
+import { AccountDetailsIncomeSchemaType } from 'src/features/AccountDetails/validators/AccountDetailsIncomes'
 import { AccountIncomesState } from './types'
 import type { RootState } from '../../main'
 
@@ -8,11 +8,11 @@ import {
   add_account_income,
   delete_account_income,
   edit_account_income,
-  get_account_income
-} from 'src/features/AccountDetails/api/AccountDetailsIncome'
+  get_account_incomes
+} from 'src/features/AccountDetails/api/AccountDetailsIncomes'
 
 export const addAccountIncome = createAsyncThunk(
-  'accoutsDetailsIncome/addIncome',
+  'accountDetailsIncomes/addIncome',
   async ({account_id, data}: {account_id: number, data: AccountDetailsIncomeSchemaType}) => {
     const res: AccountDetailsIncomeSchemaType = await add_account_income(account_id, data)
 
@@ -21,7 +21,7 @@ export const addAccountIncome = createAsyncThunk(
 )
 
 export const deleteAccountIncome = createAsyncThunk(
-  'accoutsDetailsIncome/deleteIncome',
+  'accountDetailsIncomes/deleteIncome',
   async (income_id: number) => {
     const res: AccountDetailsIncomeSchemaType = await delete_account_income(income_id)
 
@@ -30,7 +30,7 @@ export const deleteAccountIncome = createAsyncThunk(
 )
 
 export const editAccountIncome = createAsyncThunk(
-  'accoutsDetailsIncome/editIncome',
+  'accountDetailsIncomes/editIncome',
   async ({income_id, data}: {income_id: number, data: AccountDetailsIncomeSchemaType}) => {
     const res: AccountDetailsIncomeSchemaType = await edit_account_income(income_id ,data)
 
@@ -39,9 +39,9 @@ export const editAccountIncome = createAsyncThunk(
 )
 
 export const getAccountIncomes = createAsyncThunk(
-  'accoutsDetailsIncome/getIncomes',
+  'accountDetailsIncomes/getIncomes',
   async (account_id: number) => {
-    const res: AccountDetailsIncomeSchemaType[] = await get_account_income(account_id)
+    const res: AccountDetailsIncomeSchemaType[] = await get_account_incomes(account_id)
 
     return res
   }
@@ -52,8 +52,8 @@ const initialState: AccountIncomesState = {
   isLoading: false
 }
 
-const accountsDetailsIncome = createSlice({
-  name: 'accountsDetailsIncome',
+const accountDetailsIncomes = createSlice({
+  name: 'accountDetailsIncomes',
   initialState: initialState,
   reducers: {},
   extraReducers(builder) {
@@ -111,4 +111,4 @@ const accountsDetailsIncome = createSlice({
 export const getAllIncomes = (state: RootState) => state.accountDetailsIncomes.incomes
 export const getLoadingStatus = (state: RootState) => state.accountDetailsIncomes.isLoading
 
-export default accountsDetailsIncome.reducer
+export default accountDetailsIncomes.reducer

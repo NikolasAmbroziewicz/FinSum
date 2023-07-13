@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import { getAllIncome, getLoadingStatus } from 'src/store/Income/IncomeSlice';
+import { getAllIncome, getLoadingStatus } from 'src/store/Incomes/IncomesSlice';
 
 import H2 from 'src/shared/components/Headers/H2';
 import NotFound from 'src/shared/components/NotFound/NotFound';
