@@ -1,4 +1,4 @@
-import { createAsyncThunk, createAction, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 import {
   add_account,
@@ -93,7 +93,7 @@ const accountsSlice = createSlice({
       })
       .addCase(editAccount.fulfilled, (state, action) => {
         const findIndex = state.accounts.findIndex(
-          (income) => income.id === action.payload.id
+          (account) => account.id === action.payload.id
         )
 
         state.accounts[findIndex] = action.payload
