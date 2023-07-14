@@ -83,6 +83,9 @@ const accountDetailsIncomes = createSlice({
         const newState = state.incomes.filter(
           (income) => income.id !== action.payload.id
         )
+
+        state.incomes = newState
+        state.isLoading = false
       })
       .addCase(deleteAccountIncome.pending, (state) => {
         state.isLoading = true
@@ -102,7 +105,7 @@ const accountDetailsIncomes = createSlice({
         state.isLoading = true
 
       })
-      .addCase(editAccountIncome.fulfilled, (state) => {
+      .addCase(editAccountIncome.rejected, (state) => {
         state.isLoading = false
       })
   }

@@ -4,12 +4,14 @@ import UserReducer from './User/UserSlice';
 import IncomesReducer from './Incomes/IncomesSlice';
 import AccountsReducer from './Accounts/AccountsSlice';
 import AccountDetailsIncomesReducer from './AccountsDetails/incomes/AccountDetailsIncomes';
+import AccountDetailsExpensesReducer from './AccountsDetails/expenses/AccountDetailsExpenses';
 
 const rootReducer = combineReducers({
   auth: UserReducer,
   income: IncomesReducer,
   accounts: AccountsReducer,
-  accountDetailsIncomes: AccountDetailsIncomesReducer
+  accountDetailsIncomes: AccountDetailsIncomesReducer,
+  AccountDetailsExpenses: AccountDetailsExpensesReducer
 })
 
 export function setupStore (preloadedState?: PreloadedState<RootState>){
