@@ -1,6 +1,6 @@
 import { object, string, TypeOf, date, number } from 'zod';
 
-const accountDetailsIncomeSchema = object({
+export const accountDetailsIncomeSchema = object({
   id: number().optional(),
   title: string().min(1, 'Name is required'),
   amount: string().refine((val) => !Number.isNaN(parseInt(val, 10)), {

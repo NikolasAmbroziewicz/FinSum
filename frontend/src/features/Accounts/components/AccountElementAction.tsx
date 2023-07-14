@@ -97,7 +97,7 @@ const AccountElementAction: React.FC<IAccountElementAction> = ({ account }) => {
         <BaseModal
           isOpen={isEditOpen}
           onClose={handleEditOpen}
-          title="Edit Income"
+          title="Edit Account"
           content={
             <AccountsForm
               onClose={handleEditOpen}
