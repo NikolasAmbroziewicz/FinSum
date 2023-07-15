@@ -5,31 +5,32 @@ import BaseInput from 'src/shared/components/Input/base/BaseInput';
 import IncomeFormCalendar from 'src/shared/components/Calendar/IncomeFormCalendar';
 import FormElement from 'src/shared/components/Form/FormElement';
 
-import { useAccountIncome } from 'src/features/AccountDetails/hooks/useAccountIncome';
-import { AccountDetailsIncomeSchemaType } from 'src/features/AccountDetails/validators/AccountDetailsIncomes'
+import { useAccountExpense } from 'src/features/AccountDetails/hooks/useAccountExpense';
+import { AccountDetailsExpenseSchemaType } from 'src/features/AccountDetails/validators/AccountDetailsExpenses'
 
-interface IAccountIncomeForm {
+interface IAccountExpenseForm {
   onClose: () => void;
   editForm: boolean;
-  income?: AccountDetailsIncomeSchemaType;
+  income?: AccountDetailsExpenseSchemaType;
   account_id: number
 }
 
-const AccountIncomeForm: React.FC<IAccountIncomeForm> = ({ 
+const AccountExpenseForm: React.FC<IAccountExpenseForm> = ({
   account_id,
   editForm,
   income,
   onClose,
 }) => {
   const {
-    handleAddIncome, 
-    handleEditIncome,
+    handleAddExpense, 
+    handleEditExpense,
+    handleDeleteExpense,
     errors,
     handleSubmit,
     register,
     setValue,
     getValues
-  } = useAccountIncome({
+  } = useAccountExpense({
     onClose: onClose,
   })
 
@@ -48,10 +49,11 @@ const AccountIncomeForm: React.FC<IAccountIncomeForm> = ({
   }, []);
 
   return (
-    <form onSubmit={
+    <form
+    onSubmit={
       handleSubmit(editForm ? 
-        (data) => handleEditIncome(data): 
-        (data) => handleAddIncome(data, account_id)
+        (data) => handleEditExpense(data): 
+        (data) => handleAddExpense(data, account_id)
       )}
       className="flex flex-col gap-4 w-screen mx-4"
     >
@@ -84,4 +86,4 @@ const AccountIncomeForm: React.FC<IAccountIncomeForm> = ({
   )
 }
 
-export default AccountIncomeForm
+export default AccountExpenseForm

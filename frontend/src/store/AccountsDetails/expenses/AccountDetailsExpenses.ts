@@ -31,8 +31,8 @@ export const deleteAccountExpense = createAsyncThunk(
 
 export const editAccountExpense = createAsyncThunk(
   'accountDetailsExpense/editAccountExpense',
-  async ({expense_id, data}: {expense_id: number, data: AccountDetailsExpenseSchemaType}) => {
-    const res: AccountDetailsExpenseSchemaType = await edit_account_expense(expense_id, data)
+  async (data: AccountDetailsExpenseSchemaType) => {
+    const res: AccountDetailsExpenseSchemaType = await edit_account_expense(data)
 
     return res
   }

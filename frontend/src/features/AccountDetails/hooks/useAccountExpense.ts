@@ -17,10 +17,9 @@ editAccountExpense
 
 interface IUseAccountExpense {
   onClose?: () => void,
-  account_id: string
 }
 
-export const useAccountExpense = ({ onClose = undefined, account_id }: IUseAccountExpense) => {
+export const useAccountExpense = ({ onClose = undefined }: IUseAccountExpense) => {
   const dispatch = useDispatch<AppDispatch>();
   const { handleNotification } = useNotificationContext()
 
@@ -46,8 +45,8 @@ export const useAccountExpense = ({ onClose = undefined, account_id }: IUseAccou
     }
   }
 
-  const handleEditExpense = (value: AccountDetailsExpenseSchemaType, expense_id: number) => {
-    dispatch(editAccountExpense({expense_id: expense_id, data: value}))
+  const handleEditExpense = (value: AccountDetailsExpenseSchemaType) => {
+    dispatch(editAccountExpense(value))
 
     if (onClose) {
       onClose();

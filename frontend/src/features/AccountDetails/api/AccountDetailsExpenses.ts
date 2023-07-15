@@ -25,10 +25,10 @@ export const add_account_expense = async (account_id: number, data: AccountDetai
     .then((res) => res.data)
 }
 
-export const edit_account_expense = async (expense_id: number, data: AccountDetailsExpenseSchemaType) => {
+export const edit_account_expense = async (data: AccountDetailsExpenseSchemaType) => {
   return apiBase()
     .put(
-      `/account-expense/v1/edit-expense?expense_id=${expense_id}`,
+      `/account-expense/v1/edit-expense?expense_id=${data.id}`,
       {
         ...data
       },
