@@ -25,10 +25,10 @@ export const add_account_income = async (account_id: number, data: AccountDetail
     .then((res) => res.data)
 }
 
-export const edit_account_income = async (income_id: number, data: AccountDetailsIncomeSchemaType) => {
+export const edit_account_income = async (data: AccountDetailsIncomeSchemaType) => {
   return apiBase()
     .put(
-      `/account-income/v1/edit-income?income_id=${income_id}`,
+      `/account-income/v1/edit-income?income_id=${data.id}`,
       {
         ...data
       },

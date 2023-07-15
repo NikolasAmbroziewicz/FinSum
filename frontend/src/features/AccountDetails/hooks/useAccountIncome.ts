@@ -17,9 +17,8 @@ import {
 
 interface IUseAccountIncome {
   onClose?: () => void,
-  account_id: string
 }
-export const useAccountIncome = ({ onClose = undefined, account_id }: IUseAccountIncome) => {
+export const useAccountIncome = ({ onClose = undefined }: IUseAccountIncome) => {
   const dispatch = useDispatch<AppDispatch>();
   const { handleNotification } = useNotificationContext()
 
@@ -45,8 +44,8 @@ export const useAccountIncome = ({ onClose = undefined, account_id }: IUseAccoun
     }
   }
 
-  const handleEditIncome = (value: AccountDetailsIncomeSchemaType, income_id: number) => {
-    dispatch(editAccountIncome({data: value, income_id: income_id}))
+  const handleEditIncome = (value: AccountDetailsIncomeSchemaType) => {
+    dispatch(editAccountIncome(value))
 
     if (onClose) {
       onClose();
