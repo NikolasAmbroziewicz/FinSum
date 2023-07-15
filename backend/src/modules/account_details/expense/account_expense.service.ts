@@ -30,7 +30,7 @@ export class AccountExpenseService {
     expense: AccountExpenseDto,
     account_id: string
   ) {
-    const { title, date, description, amount } = expense
+    const { title, date, amount } = expense
 
     const parsedDate = new Date(date);
     const parsedAmount = Number(amount);
@@ -41,7 +41,6 @@ export class AccountExpenseService {
         title: title,
         date: parsedDate,
         amount: parsedAmount,
-        description: description,
         account: {
           connect: {
             id: parsedAccountId
@@ -84,7 +83,7 @@ export class AccountExpenseService {
     expense_id: string
   ) {
     try {
-      const { title, date, description, amount } = expense
+      const { title, date, amount } = expense
 
       const parsedDate = new Date(date);
       const parsedAmount = Number(amount);
@@ -95,7 +94,6 @@ export class AccountExpenseService {
           title: title,
           date: parsedDate,
           amount: parsedAmount,
-          description: description,
         },
         where: {
           id: parsedExpenseId

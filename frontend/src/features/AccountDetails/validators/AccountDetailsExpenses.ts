@@ -3,7 +3,6 @@ import { object, string, TypeOf, date, number } from 'zod';
 export const accountDetailsExpenseSchema = object({
   id: number().optional(),
   title: string().min(1, 'Name is required'),
-  descriptioin: string().min(1, 'Description is required'),
   amount: string().refine((val) => !Number.isNaN(parseInt(val, 10)), {
     message: 'Number is required'
   }),

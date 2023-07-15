@@ -7,9 +7,6 @@ export class AccountExpenseDto {
   @IsString()
   title: string;
 
-  @IsString()
-  description: string;
-
   @IsDateString()
   date: Date
 }
