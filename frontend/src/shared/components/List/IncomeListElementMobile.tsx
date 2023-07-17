@@ -6,7 +6,7 @@ import { useDate } from 'src/shared/hooks/useDate';
 
 interface IIncomeListElementMobile {
   amount: string;
-  currency: string;
+  currency?: string;
   date: Date;
   title: string;
   children: JSX.Element;
@@ -22,11 +22,11 @@ const IncomeListElementMobile: React.FC<IIncomeListElementMobile> = ({
   const { dateFormat } = useDate();
 
   const displayAmount = () => {
-    return `${amount} ${currency}`;
+    return `${amount} ${currency && currency}`;
   };
 
   const displayDate = () => {
-    return `Date: ${dateFormat(date)}`;
+    return dateFormat(date);
   };
 
   return (

@@ -7,8 +7,8 @@ import NotFound from 'src/shared/components/NotFound/NotFound';
 import Loading from 'src/shared/components/Loading/Loading';
 import BaseTable from 'src/shared/components/Table/BaseTable';
 
-import IncomeListElement from 'src/features/Income/components/IncomeListElement';
-import IncomeListElementMobile from 'src/features/Income/components/IncomeListElementMobile';
+import IncomeListElement from 'src/shared/components/List/IncomeListElement';
+import IncomeListElementMobile from 'src/shared/components/List/IncomeListElementMobile';
 import IncomeListElementActions from './IncomeListElementActions';
 
 import { useScreen } from 'src/shared/hooks/useScreen';

@@ -3,7 +3,7 @@ import { useScreen } from 'src/shared/hooks/useScreen';
 
 interface IIncomeListElement {
   amount: string;
-  currency: string;
+  currency?: string;
   date: Date;
   title: string;
   children: JSX.Element;
@@ -27,7 +27,11 @@ const IncomeListElement: React.FC<IIncomeListElement> = ({
     <tr className="border-b-2 border-gray-100">
       <td className={`${tableHeaderStyles()} text-gray-600`}>{title}</td>
       <td className={`${tableHeaderStyles()} text-gray-600`}>{amount}</td>
-      <td className={`${tableHeaderStyles()} text-gray-600`}>{currency}</td>
+      {
+        currency && (
+          <td className={`${tableHeaderStyles()} text-gray-600`}>{currency}</td>
+        )
+      }
       <td className={`${tableHeaderStyles()} text-gray-600`}>
         {dateFormat(date)}
       </td>
