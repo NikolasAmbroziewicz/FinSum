@@ -2,19 +2,26 @@ import { useEffect } from 'react'
 import { useParams } from "react-router-dom"
 import { useDispatch } from "react-redux"
 
+import { AppDispatch } from 'src/store/main';
+import { getAccountIncomes } from 'src/store/AccountsDetails/incomes/AccountDetailsIncomes'
+
 import H2 from "src/shared/components/Headers/H2"
 import BaseButton from "src/shared/components/Button/base/BaseButton"
 import BaseModal from 'src/shared/components/Modals/BaseModal'
-import AccountIncomeForm from './AccountIncomeForm'
 
+import AccountIncomeForm from './AccountIncomeForm'
 import AccountIncomesList from "./AccountIncomesList"
 
 import { useModal } from 'src/shared/components/Modals/hooks/useModal'
 
 const AccountIncome = () => {
-  const dispatch = useDispatch()
-  const params = useParams()
+  const dispatch = useDispatch<AppDispatch>()
   const { handleOpenModal, isOpen } = useModal()
+  const params = useParams()
+
+  useEffect(() => {
+    dispatch(getAccountIncomes(Number(params['accountId'])))
+  }, [])
 
   return (
     <div>
@@ -26,7 +33,7 @@ const AccountIncome = () => {
           </BaseButton>
         </div>
       </div>
-      <AccountIncomesList />
+      <AccountIncomesList account_id={Number(params['accountId'])} />
       <BaseModal 
         isOpen={isOpen}
         onClose={handleOpenModal}
