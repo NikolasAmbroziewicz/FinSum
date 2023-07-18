@@ -4,7 +4,7 @@ import H4 from 'src/shared/components/Headers/H4';
 import { Position } from 'src/shared/components/Headers/Header.types';
 import { useDate } from 'src/shared/hooks/useDate';
 
-interface IIncomeListElementMobile {
+interface IListElementMobile {
   amount: string;
   currency?: string;
   date: Date;
@@ -12,7 +12,7 @@ interface IIncomeListElementMobile {
   children: JSX.Element;
 }
 
-const IncomeListElementMobile: React.FC<IIncomeListElementMobile> = ({
+const ListElementMobile: React.FC<IListElementMobile> = ({
   amount,
   currency,
   date,
@@ -43,4 +43,4 @@ const IncomeListElementMobile: React.FC<IIncomeListElementMobile> = ({
   );
 };
 
-export default IncomeListElementMobile;
+export default ListElementMobile;

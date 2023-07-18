@@ -4,43 +4,46 @@ import BaseModal from 'src/shared/components/Modals/BaseModal';
 import BaseButton from 'src/shared/components/Button/base/BaseButton';
 import IconDropdownMenu from 'src/shared/components/Dropdown/IconDropdownMenu';
 
-import AccountIncomeForm from './AccountIncomeForm';
-
-import { useAccountIncome } from '../../hooks/useAccountIncome';
-import { useModal } from 'src/shared/components/Modals/hooks/useModal';
-
 import { ButtonTheme } from 'src/shared/components/Button/base/types';
 import { DropdownContent } from 'src/shared/components/Dropdown/types';
 import { IIconDropdownMenuRef } from 'src/shared/components/Dropdown/IconDropdownMenu';
-import { AccountDetailsIncomeSchemaType } from 'src/features/AccountDetails/validators/AccountDetailsIncomes';
 
 import { AiFillEdit, AiOutlineClose } from 'react-icons/ai';
 
-interface IIncomeListElementActions {
-  income: AccountDetailsIncomeSchemaType;
-  account_id: number
+interface IListElementAction<T> {
+  element: T;
+  titleDeleteModal: string,
+  titleEditModal: string,
+  isDeleteModalOpen: boolean,
+  isEditModalOpen: boolean,
+  handleDeleteElement: (value: number) => void,
+  handleDeleteModal: () => void,
+  handleEditModal: () => void,
+  contentEditModal: JSX.Element
 }
 
-const AccountIncomeListElementAction: React.FC<IIncomeListElementActions> = ({ income, account_id }) => {
+export default function ListElementAction<T extends { id?: number | undefined }>({
+  element,
+  titleDeleteModal,
+  titleEditModal,
+  isDeleteModalOpen,
+  isEditModalOpen,
+  handleDeleteModal,
+  handleDeleteElement,
+  handleEditModal,
+  contentEditModal
+}: IListElementAction<T> ) {
   const incomeMenuRef = useRef<IIconDropdownMenuRef>(null);
-
-  const { isOpen: isEditOpen, handleOpenModal: handleEditOpen } = useModal();
-  const { isOpen: isDeleteOpen, handleOpenModal: handleDeleteOpen } = useModal();
-
-  const { handleDeleteIncome } = useAccountIncome({
-    onClose: handleDeleteOpen
-  });
-
   const handleEditAction = () => {
     //Open Modal
-    handleEditOpen();
+    handleEditModal();
     // Close Action Menu
     incomeMenuRef.current?.handleMenuOpen();
   };
 
   const handleDeleteAction = () => {
     // Open Modal
-    handleDeleteOpen();
+    handleDeleteModal();
     // Close Action Menu
     incomeMenuRef.current?.handleMenuOpen();
   };
@@ -63,11 +66,11 @@ const AccountIncomeListElementAction: React.FC<IIncomeListElementActions> = ({ i
   return (
     <div className="relative">
     <IconDropdownMenu ref={incomeMenuRef} dropdownContent={dropdownContent} />
-    {isDeleteOpen && (
+    {isDeleteModalOpen && (
       <BaseModal
-        isOpen={isDeleteOpen}
-        onClose={handleDeleteOpen}
-        title="Delete Income"
+        isOpen={isDeleteModalOpen}
+        onClose={handleDeleteModal}
+        title={titleDeleteModal}
         content={
           <span className="text-gray-600 mx-4">
             Do you want do delete this Income?
@@ -78,14 +81,14 @@ const AccountIncomeListElementAction: React.FC<IIncomeListElementActions> = ({ i
             <BaseButton
               color={ButtonTheme.base}
               styles="w-[45%]"
-              handler={() => handleDeleteIncome(income.id as number)}
+              handler={() => handleDeleteElement(element.id as number)}
             >
               Yes
             </BaseButton>
             <BaseButton
               color={ButtonTheme.error}
               styles="w-[45%]"
-              handler={() => handleDeleteOpen()}
+              handler={() => handleDeleteModal()}
             >
               No
             </BaseButton>
@@ -93,23 +96,14 @@ const AccountIncomeListElementAction: React.FC<IIncomeListElementActions> = ({ i
         }
       />
     )}
-    {isEditOpen && (
+    {isEditModalOpen && (
       <BaseModal
-        isOpen={isEditOpen}
-        onClose={handleEditOpen}
-        title="Edit Income"
-        content={
-          <AccountIncomeForm
-            onClose={handleEditOpen}
-            editForm={true}
-            income={income}
-            account_id={account_id}
-          />
-        }
+        isOpen={isEditModalOpen}
+        onClose={handleEditModal}
+        title={titleEditModal}
+        content={contentEditModal}
       />
     )}
   </div>
   )
 }
-
-export default AccountIncomeListElementAction

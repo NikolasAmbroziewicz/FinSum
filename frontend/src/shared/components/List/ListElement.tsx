@@ -1,7 +1,7 @@
 import { useDate } from 'src/shared/hooks/useDate';
 import { useScreen } from 'src/shared/hooks/useScreen';
 
-interface IIncomeListElement {
+interface IListElement {
   amount: string;
   currency?: string;
   date: Date;
@@ -9,7 +9,7 @@ interface IIncomeListElement {
   children: JSX.Element;
 }
 
-const IncomeListElement: React.FC<IIncomeListElement> = ({
+const ListElement: React.FC<IListElement> = ({
   amount,
   children,
   currency,
@@ -40,4 +40,4 @@ const IncomeListElement: React.FC<IIncomeListElement> = ({
   );
 };
 
-export default IncomeListElement;
+export default ListElement;
