@@ -1,4 +1,10 @@
+
+import { useEffect } from 'react'
 import { useParams } from "react-router-dom"
+import { useDispatch } from "react-redux"
+
+import { AppDispatch } from 'src/store/main';
+import { getAccountExpenses } from 'src/store/AccountsDetails/expenses/AccountDetailsExpenses'
 
 import H2 from "src/shared/components/Headers/H2"
 import BaseButton from "src/shared/components/Button/base/BaseButton"
@@ -10,8 +16,14 @@ import AccountExpensesList from "./AccountExpensesList"
 import { useModal } from 'src/shared/components/Modals/hooks/useModal'
 
 const AccountExpense = () => {
-  const params = useParams()
+  const dispatch = useDispatch<AppDispatch>()
   const { handleOpenModal, isOpen } = useModal()
+  const params = useParams()
+
+  useEffect(() => {
+    dispatch(getAccountExpenses(Number(params['accountId'])))
+  }, [])
+
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -20,7 +32,7 @@ const AccountExpense = () => {
           Add Expense
         </BaseButton>
       </div>
-      <AccountExpensesList />
+      <AccountExpensesList account_id={Number(params['accountId'])} />
       <BaseModal 
         isOpen={isOpen}
         onClose={handleOpenModal}

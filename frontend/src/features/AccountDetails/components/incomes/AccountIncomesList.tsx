@@ -2,20 +2,23 @@ import { useSelector } from 'react-redux'
 
 import { getAllIncomes, getLoadingStatus } from 'src/store/AccountsDetails/incomes/AccountDetailsIncomes'
 
-import H2 from 'src/shared/components/Headers/H2';
+import AccountIncomeForm from './AccountIncomeForm';
+
 import NotFound from 'src/shared/components/NotFound/NotFound';
 import Loading from 'src/shared/components/Loading/Loading';
 import BaseTable from 'src/shared/components/Table/BaseTable';
 
-import IncomeListElement from 'src/shared/components/List/IncomeListElement';
-import IncomeListElementMobile from 'src/shared/components/List/IncomeListElementMobile';
+import ListElement from 'src/shared/components/List/ListElement';
+import ListElementMobile from 'src/shared/components/List/ListElementMobile';
+import ListElementAction from 'src/shared/components/List/ListElementAction';
 
-import AccountIncomeListElementAction from './AccountIncomeListElementAction';
+import { useAccountIncome } from 'src/features/AccountDetails/hooks/useAccountIncome';
 
 import { useScreen } from 'src/shared/hooks/useScreen'
+import { useModal } from 'src/shared/components/Modals/hooks/useModal';
 
-import { Position } from 'src/shared/components/Headers/Header.types';
 import { LoadingPosition } from 'src/shared/components/Loading/types';
+import { AccountDetailsIncomeSchemaType } from 'src/features/AccountDetails/validators/AccountDetailsIncomes';
 
 interface IAccountIncomesList {
   account_id: number
@@ -26,6 +29,12 @@ const AccountIncomesList: React.FC<IAccountIncomesList> = ({ account_id }) => {
   const loading = useSelector(getLoadingStatus);
 
   const { isMobileScreen } = useScreen()
+  const { isOpen: isEditOpen, handleOpenModal: handleEditOpen } = useModal();
+  const { isOpen: isDeleteOpen, handleOpenModal: handleDeleteOpen } = useModal();
+
+  const { handleDeleteIncome } = useAccountIncome({
+    onClose: handleDeleteOpen
+  });
 
   return (
     <div className="h-full my-4">
@@ -37,17 +46,31 @@ const AccountIncomesList: React.FC<IAccountIncomesList> = ({ account_id }) => {
             isMobileScreen() ? (
               <div className="flex gap-2 flex-col">
                 {income.map((element) => (
-                  <IncomeListElementMobile
+                  <ListElementMobile
                     key={element.id}
                     title={element.title}
                     amount={element.amount}
                     date={element.date}
                   >
-                    <AccountIncomeListElementAction 
-                      income={element}
-                      account_id={account_id}
+                    <ListElementAction<AccountDetailsIncomeSchemaType>
+                      element={element}
+                      isDeleteModalOpen={isDeleteOpen}
+                      handleDeleteModal={handleDeleteOpen}
+                      isEditModalOpen={isEditOpen}
+                      handleEditModal={handleEditOpen}
+                      handleDeleteElement={handleDeleteIncome}
+                      titleDeleteModal='Delete Income'
+                      titleEditModal='EditModal'
+                      contentEditModal={
+                        <AccountIncomeForm
+                          onClose={handleEditOpen}
+                          editForm={true}
+                          income={element}
+                          account_id={account_id}
+                        />
+                      }
                     />
-                  </IncomeListElementMobile>
+                  </ListElementMobile>
                   ))}
               </div>
             ) : (
@@ -56,17 +79,31 @@ const AccountIncomesList: React.FC<IAccountIncomesList> = ({ account_id }) => {
                 headerWidth={['1/2', '100px', '130px', '60px']}
               >
                 {income.map((element) => (
-                  <IncomeListElement
+                  <ListElement
                     key={element.id}
                     title={element.title}
                     amount={element.amount}
                     date={element.date}
                   >
-                    <AccountIncomeListElementAction 
-                      income={element}
-                      account_id={account_id}
+                    <ListElementAction<AccountDetailsIncomeSchemaType>
+                      element={element}
+                      isDeleteModalOpen={isDeleteOpen}
+                      handleDeleteModal={handleDeleteOpen}
+                      isEditModalOpen={isEditOpen}
+                      handleEditModal={handleEditOpen}
+                      handleDeleteElement={handleDeleteIncome}
+                      titleDeleteModal='Delete Income'
+                      titleEditModal='EditModal'
+                      contentEditModal={
+                        <AccountIncomeForm
+                          onClose={handleEditOpen}
+                          editForm={true}
+                          income={element}
+                          account_id={account_id}
+                        />
+                      }
                     />
-                  </IncomeListElement>
+                  </ListElement>
                 ))}
               </BaseTable>
             )
