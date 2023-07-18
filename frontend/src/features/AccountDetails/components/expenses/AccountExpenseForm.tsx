@@ -24,7 +24,6 @@ const AccountExpenseForm: React.FC<IAccountExpenseForm> = ({
   const {
     handleAddExpense, 
     handleEditExpense,
-    handleDeleteExpense,
     errors,
     handleSubmit,
     register,
