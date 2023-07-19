@@ -1,13 +1,17 @@
 import { configureStore, combineReducers, PreloadedState } from '@reduxjs/toolkit';
 
 import UserReducer from './User/UserSlice';
-import IncomeReducer from './Income/IncomeSlice';
+import IncomesReducer from './Incomes/IncomesSlice';
 import AccountsReducer from './Accounts/AccountsSlice';
+import AccountDetailsIncomesReducer from './AccountsDetails/incomes/AccountDetailsIncomesSlice';
+import AccountDetailsExpensesReducer from './AccountsDetails/expenses/AccountDetailsExpensesSlice';
 
 const rootReducer = combineReducers({
   auth: UserReducer,
-  income: IncomeReducer,
-  accounts: AccountsReducer
+  income: IncomesReducer,
+  accounts: AccountsReducer,
+  accountDetailsIncomes: AccountDetailsIncomesReducer,
+  accountDetailsExpenses: AccountDetailsExpensesReducer
 })
 
 export function setupStore (preloadedState?: PreloadedState<RootState>){

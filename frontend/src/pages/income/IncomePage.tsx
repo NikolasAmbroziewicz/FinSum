@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { AppDispatch } from 'src/store/main';
 import { useDispatch } from 'react-redux';
 
-import { getIncome } from 'src/store/Income/IncomeSlice';
+import { getIncome } from 'src/store/Incomes/IncomesSlice';
 
 import BaseButton from 'src/shared/components/Button/base/BaseButton';
 import BaseModal from 'src/shared/components/Modals/BaseModal';

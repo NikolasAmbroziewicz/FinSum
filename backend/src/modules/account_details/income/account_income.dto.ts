@@ -7,9 +7,6 @@ export class AccountIncomeDto {
   @IsString()
   title: string;
 
-  @IsString()
-  currency: string;
-
   @IsDateString()
   date: Date;
 }

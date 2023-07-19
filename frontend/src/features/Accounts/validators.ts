@@ -1,4 +1,4 @@
-import { object, string, TypeOf, date, number } from 'zod';
+import { object, string, TypeOf, number } from 'zod';
 
 export const accountSchema = object({
   id: number().optional(),

@@ -113,7 +113,6 @@ export class AccountsService {
         return new ForbiddenException("Account Does not exist");
       }
     } catch (e: any) {
-      console.log('error in file', e)
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2025') {
           throw new ForbiddenException('Account Does not exist');

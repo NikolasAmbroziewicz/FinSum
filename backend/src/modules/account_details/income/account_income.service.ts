@@ -102,7 +102,6 @@ export class AccountIncomeService {
         ...updatedIncome
       }
     } catch (e: any) {
-      console.log('error')
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2025') {
           throw new ForbiddenException('Expense does not exist');

@@ -4,15 +4,15 @@ import H4 from 'src/shared/components/Headers/H4';
 import { Position } from 'src/shared/components/Headers/Header.types';
 import { useDate } from 'src/shared/hooks/useDate';
 
-interface IIncomeListElementMobile {
+interface IListElementMobile {
   amount: string;
-  currency: string;
+  currency?: string;
   date: Date;
   title: string;
   children: JSX.Element;
 }
 
-const IncomeListElementMobile: React.FC<IIncomeListElementMobile> = ({
+const ListElementMobile: React.FC<IListElementMobile> = ({
   amount,
   currency,
   date,
@@ -22,11 +22,11 @@ const IncomeListElementMobile: React.FC<IIncomeListElementMobile> = ({
   const { dateFormat } = useDate();
 
   const displayAmount = () => {
-    return `${amount} ${currency}`;
+    return `${amount} ${currency && currency}`;
   };
 
   const displayDate = () => {
-    return `Date: ${dateFormat(date)}`;
+    return dateFormat(date);
   };
 
   return (
@@ -43,4 +43,4 @@ const IncomeListElementMobile: React.FC<IIncomeListElementMobile> = ({
   );
 };
 
-export default IncomeListElementMobile;
+export default ListElementMobile;

@@ -1,37 +1,37 @@
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 
 import BaseButton from 'src/shared/components/Button/base/BaseButton';
 import BaseInput from 'src/shared/components/Input/base/BaseInput';
-import ButtonDropdownMenu from 'src/shared/components/Dropdown/ButtonDropdownMenu';
-
-import FormElement from 'src/shared/components/Form/FormElement';
 import IncomeFormCalendar from 'src/shared/components/Calendar/IncomeFormCalendar';
+import FormElement from 'src/shared/components/Form/FormElement';
 
-import { useIncome } from '../hooks/useIncome';
+import { useAccountIncome } from 'src/features/AccountDetails/hooks/useAccountIncome';
+import { AccountDetailsIncomeSchemaType } from 'src/features/AccountDetails/validators/AccountDetailsIncomes'
 
-import { supportedCurrency } from 'src/shared/data/SupportedCurrencies';
-import { IncomeSchemaType } from '../validators';
-
-interface IIncomeForm {
+interface IAccountIncomeForm {
   onClose: () => void;
   editForm: boolean;
-  income?: IncomeSchemaType;
+  income?: AccountDetailsIncomeSchemaType;
+  account_id: number
 }
 
-const IncomeForm: React.FC<IIncomeForm> = ({ onClose, editForm, income }) => {
+const AccountIncomeForm: React.FC<IAccountIncomeForm> = ({ 
+  account_id,
+  editForm,
+  income,
+  onClose,
+}) => {
   const {
-    handleAddIncome,
+    handleAddIncome, 
     handleEditIncome,
     errors,
     handleSubmit,
     register,
     setValue,
     getValues
-  } = useIncome({ onClose });
-
-  const handleValue = (val: string) => {
-    setValue('currency', val, { shouldValidate: true });
-  };
+  } = useAccountIncome({
+    onClose: onClose,
+  })
 
   const handleDateValue = (val: Date) => {
     setValue('date', val, { shouldValidate: true });
@@ -43,14 +43,16 @@ const IncomeForm: React.FC<IIncomeForm> = ({ onClose, editForm, income }) => {
       setValue('title', income.title);
       setValue('date', new Date(income.date));
       setValue('amount', income.amount);
-      setValue('currency', income.currency, { shouldValidate: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <form
-      onSubmit={handleSubmit(editForm ? handleEditIncome : handleAddIncome)}
+    <form onSubmit={
+      handleSubmit(editForm ? 
+        (data) => handleEditIncome(data): 
+        (data) => handleAddIncome(data, account_id)
+      )}
       className="flex flex-col gap-4 w-screen mx-4"
     >
       <FormElement value="Title" error={errors.title?.message}>
@@ -77,17 +79,9 @@ const IncomeForm: React.FC<IIncomeForm> = ({ onClose, editForm, income }) => {
           setDate={handleDateValue}
         />
       </FormElement>
-      <FormElement value="Currency" error={errors.currency?.message}>
-        <ButtonDropdownMenu
-          dropdownContent={supportedCurrency}
-          handleValue={handleValue}
-          value={getValues('currency')}
-          error={!!errors.currency?.message}
-        />
-      </FormElement>
       <BaseButton type="submit">Submit</BaseButton>
     </form>
-  );
-};
+  )
+}
 
-export default IncomeForm;
+export default AccountIncomeForm

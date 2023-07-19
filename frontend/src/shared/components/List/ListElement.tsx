@@ -1,15 +1,15 @@
 import { useDate } from 'src/shared/hooks/useDate';
 import { useScreen } from 'src/shared/hooks/useScreen';
 
-interface IIncomeListElement {
+interface IListElement {
   amount: string;
-  currency: string;
+  currency?: string;
   date: Date;
   title: string;
   children: JSX.Element;
 }
 
-const IncomeListElement: React.FC<IIncomeListElement> = ({
+const ListElement: React.FC<IListElement> = ({
   amount,
   children,
   currency,
@@ -27,7 +27,11 @@ const IncomeListElement: React.FC<IIncomeListElement> = ({
     <tr className="border-b-2 border-gray-100">
       <td className={`${tableHeaderStyles()} text-gray-600`}>{title}</td>
       <td className={`${tableHeaderStyles()} text-gray-600`}>{amount}</td>
-      <td className={`${tableHeaderStyles()} text-gray-600`}>{currency}</td>
+      {
+        currency && (
+          <td className={`${tableHeaderStyles()} text-gray-600`}>{currency}</td>
+        )
+      }
       <td className={`${tableHeaderStyles()} text-gray-600`}>
         {dateFormat(date)}
       </td>
@@ -36,4 +40,4 @@ const IncomeListElement: React.FC<IIncomeListElement> = ({
   );
 };
 
-export default IncomeListElement;
+export default ListElement;
