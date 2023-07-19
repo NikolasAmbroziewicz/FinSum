@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
   income: IncomesReducer,
   accounts: AccountsReducer,
   accountDetailsIncomes: AccountDetailsIncomesReducer,
-  AccountDetailsExpenses: AccountDetailsExpensesReducer
+  accountDetailsExpenses: AccountDetailsExpensesReducer
 })
 
 export function setupStore (preloadedState?: PreloadedState<RootState>){

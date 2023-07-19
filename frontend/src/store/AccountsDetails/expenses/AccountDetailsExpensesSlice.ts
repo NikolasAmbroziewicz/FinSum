@@ -109,7 +109,7 @@ const accountDetailsExpensesSlice = createSlice({
   }
 })
 
-export const getAllExpenses = (state: RootState) => state.AccountDetailsExpenses.expenses
-export const getLoadingStatus = (state: RootState) => state.AccountDetailsExpenses.isLoading
+export const getAllExpenses = (state: RootState) => state.accountDetailsExpenses.expenses
+export const getLoadingStatus = (state: RootState) => state.accountDetailsExpenses.isLoading
 
 export default accountDetailsExpensesSlice.reducer
