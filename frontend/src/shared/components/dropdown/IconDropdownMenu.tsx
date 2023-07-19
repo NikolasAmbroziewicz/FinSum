@@ -28,7 +28,7 @@ const IconDropdownMenu = forwardRef<IIconDropdownMenuRef, IIconDropdownMenu>(
 
     return (
       <>
-        <button className="flex justify-end" onClick={handleMenuOpen}>
+        <button className="flex justify-end" onClick={handleMenuOpen} data-test='drop-down-menu-toggler'>
           <BiDotsVerticalRounded className="text-xl cursor-pointer"  />
         </button>
         {menuOpen && (

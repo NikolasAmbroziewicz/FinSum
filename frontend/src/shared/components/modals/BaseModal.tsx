@@ -10,6 +10,7 @@ interface IBaseModal {
   title: string;
   content: string | JSX.Element;
   action?: JSX.Element;
+  dataTest?: string
 }
 
 const BaseModal: React.FC<IBaseModal> = ({
@@ -17,12 +18,14 @@ const BaseModal: React.FC<IBaseModal> = ({
   onClose,
   title,
   content,
-  action
+  action,
+  dataTest="baseModal"
 }) => {
   return (
     <>
       {isOpen && (
         <div
+          data-test={dataTest}
           className={`${
             isOpen ? 'fixed' : 'none'
           } inset-0 z-100 overflow-x-hidden overflow-y-auto bg-sky-500/[.2] z-[2]`}

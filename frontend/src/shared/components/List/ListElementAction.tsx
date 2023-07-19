@@ -52,13 +52,13 @@ export default function ListElementAction<T extends { id?: number | undefined }>
     {
       id: 1,
       content: 'Edit',
-      icon: <AiFillEdit />,
+      icon: <AiFillEdit data-test="editIcon" />,
       handler: handleEditAction
     },
     {
       id: 2,
       content: 'Delete',
-      icon: <AiOutlineClose />,
+      icon: <AiOutlineClose data-test="deleteIcon" />,
       handler: handleDeleteAction
     }
   ];
@@ -68,6 +68,7 @@ export default function ListElementAction<T extends { id?: number | undefined }>
     <IconDropdownMenu ref={incomeMenuRef} dropdownContent={dropdownContent} />
     {isDeleteModalOpen && (
       <BaseModal
+        dataTest="deleteModal"
         isOpen={isDeleteModalOpen}
         onClose={handleDeleteModal}
         title={titleDeleteModal}
@@ -79,6 +80,7 @@ export default function ListElementAction<T extends { id?: number | undefined }>
         action={
           <>
             <BaseButton
+              dataTest='confirmDeleteButton'
               color={ButtonTheme.base}
               styles="w-[45%]"
               handler={() => handleDeleteElement(element.id as number)}
@@ -86,6 +88,7 @@ export default function ListElementAction<T extends { id?: number | undefined }>
               Yes
             </BaseButton>
             <BaseButton
+              dataTest='declineDeleteButton'
               color={ButtonTheme.error}
               styles="w-[45%]"
               handler={() => handleDeleteModal()}
@@ -98,6 +101,7 @@ export default function ListElementAction<T extends { id?: number | undefined }>
     )}
     {isEditModalOpen && (
       <BaseModal
+        dataTest="editModal"
         isOpen={isEditModalOpen}
         onClose={handleEditModal}
         title={titleEditModal}
