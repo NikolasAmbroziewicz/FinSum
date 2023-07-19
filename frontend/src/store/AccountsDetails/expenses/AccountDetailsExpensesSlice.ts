@@ -52,7 +52,7 @@ const initialState: AccountExpensesState = {
   isLoading: false
 }
 
-const accountDetailsExpenses = createSlice({
+const accountDetailsExpensesSlice = createSlice({
   name: 'accountDetailsExpenses',
   initialState: initialState,
   reducers: {},
@@ -112,4 +112,4 @@ const accountDetailsExpenses = createSlice({
 export const getAllExpenses = (state: RootState) => state.AccountDetailsExpenses.expenses
 export const getLoadingStatus = (state: RootState) => state.AccountDetailsExpenses.isLoading
 
-export default accountDetailsExpenses.reducer
+export default accountDetailsExpensesSlice.reducer

@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 
-import { getAllIncomes, getLoadingStatus } from 'src/store/AccountsDetails/incomes/AccountDetailsIncomes'
+import { getAllIncomes, getLoadingStatus } from 'src/store/AccountsDetails/incomes/AccountDetailsIncomesSlice'
 
 import AccountIncomeForm from './AccountIncomeForm';
 

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 import { useDispatch } from "react-redux"
 
 import { AppDispatch } from 'src/store/main';
-import { getAccountExpenses } from 'src/store/AccountsDetails/expenses/AccountDetailsExpenses'
+import { getAccountExpenses } from 'src/store/AccountsDetails/expenses/AccountDetailsExpensesSlice'
 
 import H2 from "src/shared/components/Headers/H2"
 import BaseButton from "src/shared/components/Button/base/BaseButton"

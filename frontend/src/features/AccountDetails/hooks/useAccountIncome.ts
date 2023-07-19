@@ -13,7 +13,7 @@ import {
   addAccountIncome,
   deleteAccountIncome,
   editAccountIncome
-} from 'src/store/AccountsDetails/incomes/AccountDetailsIncomes'
+} from 'src/store/AccountsDetails/incomes/AccountDetailsIncomesSlice'
 
 interface IUseAccountIncome {
   onClose?: () => void,

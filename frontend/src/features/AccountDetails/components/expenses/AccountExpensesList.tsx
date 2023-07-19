@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 
-import { getAllExpenses, getLoadingStatus } from 'src/store/AccountsDetails/expenses/AccountDetailsExpenses'
+import { getAllExpenses, getLoadingStatus } from 'src/store/AccountsDetails/expenses/AccountDetailsExpensesSlice'
 
 import AccountExpenseForm from './AccountExpenseForm';
 

@@ -13,7 +13,7 @@ import {
 addAccountExpense,
 deleteAccountExpense,
 editAccountExpense
-} from 'src/store/AccountsDetails/expenses/AccountDetailsExpenses'
+} from 'src/store/AccountsDetails/expenses/AccountDetailsExpensesSlice'
 
 interface IUseAccountExpense {
   onClose?: () => void,

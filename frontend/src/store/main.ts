@@ -3,8 +3,8 @@ import { configureStore, combineReducers, PreloadedState } from '@reduxjs/toolki
 import UserReducer from './User/UserSlice';
 import IncomesReducer from './Incomes/IncomesSlice';
 import AccountsReducer from './Accounts/AccountsSlice';
-import AccountDetailsIncomesReducer from './AccountsDetails/incomes/AccountDetailsIncomes';
-import AccountDetailsExpensesReducer from './AccountsDetails/expenses/AccountDetailsExpenses';
+import AccountDetailsIncomesReducer from './AccountsDetails/incomes/AccountDetailsIncomesSlice';
+import AccountDetailsExpensesReducer from './AccountsDetails/expenses/AccountDetailsExpensesSlice';
 
 const rootReducer = combineReducers({
   auth: UserReducer,
