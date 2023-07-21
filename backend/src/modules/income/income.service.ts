@@ -3,7 +3,7 @@ import { Prisma } from '@prisma/client';
 
 import { PrismaService } from '../../prisma/prisma.service';
 
-import { IcomeDto } from './Income.dto';
+import { IcomeDto } from './income.dto';
 
 import { IncomeResponse } from './income.type';
 import { UserWithTokens } from '../auth/auth.type';
