@@ -1,6 +1,6 @@
 import { configureStore, combineReducers, PreloadedState } from '@reduxjs/toolkit';
 
-import UserReducer from './User/UserSlice';
+import UserReducer from './User/userSlice';
 import IncomesReducer from './Incomes/IncomesSlice';
 import AccountsReducer from './Accounts/AccountsSlice';
 import AccountDetailsIncomesReducer from './AccountsDetails/incomes/AccountDetailsIncomesSlice';

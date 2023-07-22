@@ -5,7 +5,7 @@ import {
   add_income,
   edit_income,
   delete_income
-} from 'src/features/Income/api/IncomeApi';
+} from 'src/features/Income/api/incomeApi'
 
 import { IncomeSchemaType } from 'src/features/Income/validators';
 

@@ -1,5 +1,5 @@
 import { useAuthHeader, apiBase } from 'src/api/httpCommon';
-import { IncomeSchemaType } from '../validators';
+import { IncomeSchemaType } from 'src/features/Income/validators';
 
 export const get_income = async (date: Date) => {
   return apiBase()
