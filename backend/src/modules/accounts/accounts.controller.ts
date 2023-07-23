@@ -1,12 +1,12 @@
-import { 
+import {
   Controller,
   Delete,
-  Post, 
-  Get, 
-  Put, 
+  Post,
+  Get,
+  Put,
   Body,
   Query,
-  ForbiddenException
+  ForbiddenException,
 } from '@nestjs/common';
 
 import { GetCurrentUser } from '../../common/decorators/getCurrentUser.decorator';
@@ -15,7 +15,7 @@ import { AccountsService } from './accounts.service';
 import { AccountsDto } from './accounts.dto';
 
 import { UserWithTokens } from '../auth/auth.type';
-import { AccountsResponse } from './accounts.type'
+import { AccountsResponse } from './accounts.type';
 
 @Controller('accounts')
 export class AccountsController {
@@ -26,23 +26,28 @@ export class AccountsController {
     @Body() account: AccountsDto,
     @GetCurrentUser() user: UserWithTokens,
   ): Promise<AccountsResponse> {
-    return this.accountsService.addAccounts(account, user)
+    return this.accountsService.addAccounts(account, user);
   }
 
   @Get('v1/get-accounts')
   getAccounts(
-    @GetCurrentUser() user: UserWithTokens
+    @GetCurrentUser() user: UserWithTokens,
   ): Promise<AccountsResponse[]> {
-    return this.accountsService.getAccounts(user)
+    return this.accountsService.getAccounts(user);
   }
 
   @Delete('v1/delete-account')
-  deleteIncome(@Query('id') id: number): Promise<AccountsResponse | ForbiddenException> {
-    return this.accountsService.deleteAccount(Number(id))
+  deleteIncome(
+    @Query('id') id: number,
+  ): Promise<AccountsResponse | ForbiddenException> {
+    return this.accountsService.deleteAccount(Number(id));
   }
 
   @Put('v1/edit-account')
-  editIncome(@Body() income: AccountsDto, @Query('id') id: number): Promise<AccountsResponse | ForbiddenException>  {
-    return this.accountsService.editAccount(income, Number(id))
+  editIncome(
+    @Body() income: AccountsDto,
+    @Query('id') id: number,
+  ): Promise<AccountsResponse | ForbiddenException> {
+    return this.accountsService.editAccount(income, Number(id));
   }
 }

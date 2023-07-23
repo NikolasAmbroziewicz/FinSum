@@ -146,7 +146,7 @@ describe('AuthService > methods > refreshTokens', () => {
 
   it('should throw error when no accessToken', async () => {
     const UserWithTokensPayload = generateTokens();
-    findUniqueUserMock.mockResolvedValueOnce({ id: 1})
+    findUniqueUserMock.mockResolvedValueOnce({ id: 1 });
 
     await expect(
       service.refreshTokens({
@@ -156,9 +156,9 @@ describe('AuthService > methods > refreshTokens', () => {
     ).rejects.toEqual(new ForbiddenException('Unauthorized'));
   });
 
-  it('Should throw error when there is no user', async  () => {
+  it('Should throw error when there is no user', async () => {
     const UserWithTokensPayload = generateTokens();
-    findUniqueUserMock.mockResolvedValueOnce({ id: null})
+    findUniqueUserMock.mockResolvedValueOnce({ id: null });
 
     await expect(
       service.refreshTokens({
@@ -166,11 +166,11 @@ describe('AuthService > methods > refreshTokens', () => {
         accessToken: null,
       }),
     ).rejects.toEqual(new ForbiddenException('Unauthorized'));
-  })
+  });
 
   it('should return accessToken and refreshToken when accessToken is not expired and is valid', async () => {
     const UserWithTokensPayload = generateTokens();
-    findUniqueUserMock.mockResolvedValueOnce({ id: 1})
+    findUniqueUserMock.mockResolvedValueOnce({ id: 1 });
 
     const serviceMethod = await service.refreshTokens(UserWithTokensPayload);
 
@@ -182,7 +182,7 @@ describe('AuthService > methods > refreshTokens', () => {
 
   it('should return null when access token is invalid', async () => {
     const UserWithTokensPayload = generateTokens();
-    findUniqueUserMock.mockResolvedValueOnce({ id: 1})
+    findUniqueUserMock.mockResolvedValueOnce({ id: 1 });
 
     const serviceMethod = await service.refreshTokens({
       ...UserWithTokensPayload,
@@ -197,7 +197,7 @@ describe('AuthService > methods > refreshTokens', () => {
 
   it('should return new accessToken when is expired', async () => {
     const UserWithTokensPayload = generateTokens('-10s');
-    findUniqueUserMock.mockResolvedValueOnce({ id: 1})
+    findUniqueUserMock.mockResolvedValueOnce({ id: 1 });
 
     const serviceMethod = await service.refreshTokens(UserWithTokensPayload);
 

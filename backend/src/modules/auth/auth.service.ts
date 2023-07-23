@@ -109,7 +109,7 @@ export class AuthService {
     if (!accessToken || !user.id) {
       throw new ForbiddenException('Unauthorized');
     }
-    
+
     const { valid, expired } = this.tokensService.verifyJWT(accessToken);
 
     if (valid && !expired) {

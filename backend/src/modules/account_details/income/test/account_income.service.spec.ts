@@ -9,7 +9,7 @@ import {
   addedIncomeInput,
   userWithToken,
   editIncome,
-  editIncomeInput
+  editIncomeInput,
 } from './mocks';
 
 let service: AccountIncomeService;
@@ -55,10 +55,7 @@ describe('AccountIncomeService > methods > addIncome', () => {
   it('Should return added income when data is correct', async () => {
     createIncomeMock.mockResolvedValue(addedIncome);
 
-    const serviceMethod = await service.addIncome(
-      addedIncomeInput,
-      '10',
-    );
+    const serviceMethod = await service.addIncome(addedIncomeInput, '10');
 
     expect(serviceMethod).toEqual(addedIncome);
   });
@@ -118,7 +115,10 @@ describe('AccountIncomeService > methods > editIncome', () => {
     updateIncomeMock.mockImplementation(
       () => new ForbiddenException('Income does not exist'),
     );
-    const serviceMethod = (await service.editIncome(editIncomeInput, '9')) as any;
+    const serviceMethod = (await service.editIncome(
+      editIncomeInput,
+      '9',
+    )) as any;
 
     expect(serviceMethod.message).toEqual('Income does not exist');
   });

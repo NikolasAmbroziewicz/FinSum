@@ -6,12 +6,12 @@ import { PrismaService } from '../../../prisma/prisma.service';
 
 import {
   addAccountData,
-  accountResponse, 
+  accountResponse,
   accountEditResponse,
   userWithToken,
   editAccountData,
-  findAllaccountResponse
-} from './mocks'
+  findAllaccountResponse,
+} from './mocks';
 
 let service: AccountsService;
 
@@ -33,9 +33,9 @@ beforeEach(async () => {
             findMany: findManyAccountMock,
             delete: deleteAccountMock,
             update: updateAccountMock,
-          }
-        }
-      }
+          },
+        },
+      },
     ],
   }).compile();
 
@@ -54,16 +54,16 @@ describe('AccountsService > methods > addAccount', () => {
   });
 
   it('Should return added account when data is correct', async () => {
-    createAccountMock.mockReturnValueOnce(accountResponse)
+    createAccountMock.mockReturnValueOnce(accountResponse);
 
     const serviceMethod = await service.addAccounts(
       addAccountData,
-      userWithToken
-    )
-    
-    expect(serviceMethod).toEqual(accountResponse)
-  })
-})
+      userWithToken,
+    );
+
+    expect(serviceMethod).toEqual(accountResponse);
+  });
+});
 
 describe('AccountsService > methods > getAccounts', () => {
   it('should be defined', () => {
@@ -71,15 +71,13 @@ describe('AccountsService > methods > getAccounts', () => {
   });
 
   it('Should return all accounts', async () => {
-    findManyAccountMock.mockResolvedValueOnce(findAllaccountResponse)
+    findManyAccountMock.mockResolvedValueOnce(findAllaccountResponse);
 
-    const serviceMethod = await service.getAccounts(
-      userWithToken
-    )
+    const serviceMethod = await service.getAccounts(userWithToken);
 
-    expect(serviceMethod).toEqual(findAllaccountResponse)
-  })
-})
+    expect(serviceMethod).toEqual(findAllaccountResponse);
+  });
+});
 
 describe('AccountsService > methods > deleteAccount', () => {
   it('should be defined', () => {
@@ -87,23 +85,23 @@ describe('AccountsService > methods > deleteAccount', () => {
   });
 
   it('Should remove account from database and return ', async () => {
-    deleteAccountMock.mockResolvedValueOnce(accountResponse)
+    deleteAccountMock.mockResolvedValueOnce(accountResponse);
 
-    const serviceMethod = await service.deleteAccount(1)
+    const serviceMethod = await service.deleteAccount(1);
 
-    expect(serviceMethod).toEqual(accountResponse)
-  })
+    expect(serviceMethod).toEqual(accountResponse);
+  });
 
   it('Should throw error when account does not exist in database', async () => {
     deleteAccountMock.mockImplementation(
-      () => new ForbiddenException('Account Does not exist')
-    )
+      () => new ForbiddenException('Account Does not exist'),
+    );
 
     const serviceMethod = (await service.deleteAccount(1)) as any;
 
-    expect(serviceMethod.response.message).toEqual('Account Does not exist')
-  })
-})
+    expect(serviceMethod.response.message).toEqual('Account Does not exist');
+  });
+});
 
 describe('AccountsService > methods > editAccount', () => {
   it('should be defined', () => {
@@ -111,20 +109,23 @@ describe('AccountsService > methods > editAccount', () => {
   });
 
   it('Should edit and return account', async () => {
-    updateAccountMock.mockResolvedValue(accountEditResponse)
+    updateAccountMock.mockResolvedValue(accountEditResponse);
 
-    const serviceMethod = await service.editAccount(editAccountData, 1)
+    const serviceMethod = await service.editAccount(editAccountData, 1);
 
-    expect(serviceMethod).toEqual(accountEditResponse)
-  })
+    expect(serviceMethod).toEqual(accountEditResponse);
+  });
 
   it('Should return Error when account does not exist in database', async () => {
     updateAccountMock.mockImplementation(
-      () => new ForbiddenException('Account Does not exist')
-    )
+      () => new ForbiddenException('Account Does not exist'),
+    );
 
-    const serviceMethod = (await service.editAccount(editAccountData, 1)) as any
+    const serviceMethod = (await service.editAccount(
+      editAccountData,
+      1,
+    )) as any;
 
-    expect(serviceMethod.message).toEqual('Account Does not exist')
-  })
-})
+    expect(serviceMethod.message).toEqual('Account Does not exist');
+  });
+});

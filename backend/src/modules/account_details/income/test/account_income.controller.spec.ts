@@ -2,15 +2,14 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ForbiddenException } from '@nestjs/common';
 
 import { AccountIncome } from '../account_income.controller';
-import { AccountIncomeService } from '../account_income.service'
-
+import { AccountIncomeService } from '../account_income.service';
 
 import {
   userWithToken,
   addedIncomeInput,
   addedIncome,
   editIncome,
-  editIncomeInput
+  editIncomeInput,
 } from './mocks';
 
 let controller: AccountIncome;
@@ -31,7 +30,7 @@ beforeEach(async () => {
       getIncomes: getIncomesMock,
       addIncome: addIncomeMock,
       deleteIncome: deleteIncomeMock,
-      editIncome: editIncomeMock
+      editIncome: editIncomeMock,
     })
     .compile();
 
@@ -52,14 +51,11 @@ describe('AccountIncomeController > methods > addIncome', () => {
   it('should return income', async () => {
     addIncomeMock.mockResolvedValue(addedIncome);
 
-    const controllerMethod = await controller.addIncome(
-      addedIncomeInput,
-      '10',
-    );
+    const controllerMethod = await controller.addIncome(addedIncomeInput, '10');
 
     expect(controllerMethod).toEqual(addedIncome);
   });
-})
+});
 
 describe('AccountIncomeController > methods > getIncomes', () => {
   it('Should be defined', () => {
@@ -73,7 +69,7 @@ describe('AccountIncomeController > methods > getIncomes', () => {
 
     expect(controllerMethod).toEqual([addedIncome, addedIncome]);
   });
-})
+});
 
 describe('AccountIncomeController > methods > deleteIncome', () => {
   it('Should be defined', () => {
@@ -97,10 +93,9 @@ describe('AccountIncomeController > methods > deleteIncome', () => {
 
     expect(controllerMethod.message).toEqual('Income does not exist');
   });
-})
+});
 
 describe('AccountIncomeController > methods > editIncome', () => {
-
   it('Should be defined', () => {
     expect(controller.editIncome).toBeDefined();
   });
@@ -125,4 +120,4 @@ describe('AccountIncomeController > methods > editIncome', () => {
 
     expect(controllerMethod.message).toEqual('Income does not exist');
   });
-})
+});

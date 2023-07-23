@@ -31,3 +31,29 @@ jobs:
         run: yarn
       - name: Run Tests
         run: yarn test
+
+  linter:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./backend/
+    
+    strategy:
+      matrix:
+        node-version: [16.17]
+
+    env:
+      MODE: 'dev'
+
+    steps:
+      - name: Checkkout
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install Dependecny
+        run: yarn
+      - name: Run Linter
+        run: yarn lint
