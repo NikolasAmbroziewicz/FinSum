@@ -3,8 +3,7 @@ import { createRef } from 'react'
 import { render, act } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
 
-import IconDropdownMenu from './IconDropdownMenu'
-import { IIconDropdownMenuRef } from 'src/shared/components/dropdown/IconDropdownMenu';
+import IconDropdownMenu, { IIconDropdownMenuRef } from 'src/shared/components/Dropdown/IconDropdownMenu';
 import { dropdownContent } from './mocks/mocks'
 
 describe('IconDropdownMenu > handler', () => {

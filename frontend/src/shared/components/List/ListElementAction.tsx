@@ -2,11 +2,10 @@ import { useRef } from 'react';
 
 import BaseModal from 'src/shared/components/Modals/BaseModal';
 import BaseButton from 'src/shared/components/Button/base/BaseButton';
-import IconDropdownMenu from 'src/shared/components/Dropdown/IconDropdownMenu';
+import IconDropdownMenu, { IIconDropdownMenuRef } from 'src/shared/components/Dropdown/IconDropdownMenu';
 
 import { ButtonTheme } from 'src/shared/components/Button/base/types';
 import { DropdownContent } from 'src/shared/components/Dropdown/types';
-import { IIconDropdownMenuRef } from 'src/shared/components/Dropdown/IconDropdownMenu';
 
 import { AiFillEdit, AiOutlineClose } from 'react-icons/ai';
 
