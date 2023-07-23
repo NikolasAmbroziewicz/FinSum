@@ -43,6 +43,6 @@ export const useLogin = () => {
     errors,
     register,
     handleSubmit,
-    handleFormSubmit,
+    handleFormSubmit
   };
 };

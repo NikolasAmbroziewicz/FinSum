@@ -1,15 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { useLocalStorage } from 'src/shared/hooks/useLocalStorage';
 
-import { signUp, singIn, refreshToken } from 'src/features/Auth/api/authApi';
+import { useAuthApi } from 'src/features/Auth/api/authApi';
 import {
   loginSchemaType,
   registerSchemaType
 } from 'src/features/Auth/validators';
 
-import type { RootState } from '../main'
+import type { RootState } from '../main';
 import { UserStore } from './types';
-
 
 const initialState: UserStore = {
   isAuthenticated: false,
@@ -24,6 +23,7 @@ export const signUpUser = createAsyncThunk(
   'user/register',
   async (data: registerSchemaType) => {
     const { setToLocalStorage } = useLocalStorage();
+    const { signUp } = useAuthApi();
 
     const res: UserStore = await signUp(data);
     setToLocalStorage('user', res.tokens);
@@ -36,8 +36,9 @@ export const signInUser = createAsyncThunk(
   'user/login',
   async (data: loginSchemaType) => {
     const { setToLocalStorage } = useLocalStorage();
+    const { signIn } = useAuthApi();
 
-    const res: UserStore = await singIn(data);
+    const res: UserStore = await signIn(data);
     setToLocalStorage('user', res.tokens);
 
     return res;
@@ -48,6 +49,7 @@ export const refreshTokens = createAsyncThunk(
   'user/refreshTokens',
   async () => {
     const { setToLocalStorage } = useLocalStorage();
+    const { refreshToken } = useAuthApi();
 
     const res = await refreshToken();
 

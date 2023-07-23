@@ -30,7 +30,8 @@ const IncomeList: React.FC<IIncomeList> = ({ startDate }) => {
 
   const { isMobileScreen } = useScreen();
   const { isOpen: isEditOpen, handleOpenModal: handleEditOpen } = useModal();
-  const { isOpen: isDeleteOpen, handleOpenModal: handleDeleteOpen } = useModal();
+  const { isOpen: isDeleteOpen, handleOpenModal: handleDeleteOpen } =
+    useModal();
 
   const { handleDeleteIncome } = useIncome({
     onClose: handleDeleteOpen
@@ -62,10 +63,10 @@ const IncomeList: React.FC<IIncomeList> = ({ startDate }) => {
                     isEditModalOpen={isEditOpen}
                     handleEditModal={handleEditOpen}
                     handleDeleteElement={handleDeleteIncome}
-                    titleDeleteModal='Delete Income'
-                    titleEditModal='EditModal'
+                    titleDeleteModal="Delete Income"
+                    titleEditModal="EditModal"
                     contentEditModal={
-                      <IncomeForm 
+                      <IncomeForm
                         onClose={handleEditOpen}
                         editForm={true}
                         income={element}
@@ -95,10 +96,10 @@ const IncomeList: React.FC<IIncomeList> = ({ startDate }) => {
                     isEditModalOpen={isEditOpen}
                     handleEditModal={handleEditOpen}
                     handleDeleteElement={handleDeleteIncome}
-                    titleDeleteModal='Delete Income'
-                    titleEditModal='EditModal'
+                    titleDeleteModal="Delete Income"
+                    titleEditModal="EditModal"
                     contentEditModal={
-                      <IncomeForm 
+                      <IncomeForm
                         onClose={handleEditOpen}
                         editForm={true}
                         income={element}

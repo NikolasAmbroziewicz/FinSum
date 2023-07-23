@@ -33,16 +33,20 @@ const PasswordInput: React.FC<IPasswordInput> = ({
         error={error}
       />
       {passwordVissible ? (
-        <button type='button' data-test='passwordVisibleIcon' onClick={handlePasswordVissibility}>
-          <FiEyeOff
-            className="absolute top-2.5 right-2 text-slate-600"
-          />
+        <button
+          type="button"
+          data-test="passwordVisibleIcon"
+          onClick={handlePasswordVissibility}
+        >
+          <FiEyeOff className="absolute top-2.5 right-2 text-slate-600" />
         </button>
       ) : (
-        <button type='button' data-test='passwordInvisibleIcon' onClick={handlePasswordVissibility}>
-          <FiEye
-            className="absolute top-2.5 right-2 text-slate-600"
-          />
+        <button
+          type="button"
+          data-test="passwordInvisibleIcon"
+          onClick={handlePasswordVissibility}
+        >
+          <FiEye className="absolute top-2.5 right-2 text-slate-600" />
         </button>
       )}
     </div>

@@ -28,8 +28,12 @@ const IconDropdownMenu = forwardRef<IIconDropdownMenuRef, IIconDropdownMenu>(
 
     return (
       <>
-        <button className="flex justify-end" onClick={handleMenuOpen} data-test='drop-down-menu-toggler'>
-          <BiDotsVerticalRounded className="text-xl cursor-pointer"  />
+        <button
+          className="flex justify-end"
+          onClick={handleMenuOpen}
+          data-test="drop-down-menu-toggler"
+        >
+          <BiDotsVerticalRounded className="text-xl cursor-pointer" />
         </button>
         {menuOpen && (
           <ul className="absolute right-0 mt-2 rounded-md bg-white border-slate-300 border-[1px] z-[1]">

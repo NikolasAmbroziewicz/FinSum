@@ -3,7 +3,7 @@ import { object, string, TypeOf, number } from 'zod';
 export const accountSchema = object({
   id: number().optional(),
   title: string().min(1, 'Name is required'),
-  currency: string().min(1, 'Currency is Required'),
+  currency: string().min(1, 'Currency is Required')
 });
 
 export type AccountSchemaType = TypeOf<typeof accountSchema>;

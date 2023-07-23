@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import { NavData } from './GlobalNavigation';
 
-import {useNavigation} from './useNavigation'
+import { useNavigation } from './useNavigation';
 
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import MainLogo from 'src/shared/images/MainLogo.svg';
@@ -11,10 +11,8 @@ interface IDesktopNavigation {
   navData: NavData[];
 }
 
-const MobileNavigation: React.FC<IDesktopNavigation> = ({
-  navData
-}) => {
-  const { isOpen, handleNavOpen, activeRoute } = useNavigation()
+const MobileNavigation: React.FC<IDesktopNavigation> = ({ navData }) => {
+  const { isOpen, handleNavOpen, activeRoute } = useNavigation();
 
   return (
     <nav className="bg-sky-600 z-[10]" data-test="mobileNavigation">
@@ -40,10 +38,12 @@ const MobileNavigation: React.FC<IDesktopNavigation> = ({
           } overflow-hidden bg-sky-600 bg-opacity-100  transition-all duration-500`}
           data-test="navList"
         >
-          <button className="flex justify-end m-3" onClick={handleNavOpen} data-test="iconClose">
-            <AiOutlineClose
-              className="text-white text-xl self-end"
-            />
+          <button
+            className="flex justify-end m-3"
+            onClick={handleNavOpen}
+            data-test="iconClose"
+          >
+            <AiOutlineClose className="text-white text-xl self-end" />
           </button>
           <div>
             {navData.map((data) => (

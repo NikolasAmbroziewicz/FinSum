@@ -1,10 +1,10 @@
-import { renderHook, act, } from '@testing-library/react'
-import { describe, expect, it, vi} from 'vitest'
+import { renderHook, act } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 
-import { useRegister } from './useRegister'
+import { useRegister } from './useRegister';
 
-const mockUseNaviagate = vi.fn()
-const mockUseDispatch = vi.fn()
+const mockUseNaviagate = vi.fn();
+const mockUseDispatch = vi.fn();
 
 const registerValue = {
   name: 'Test2',
@@ -12,58 +12,60 @@ const registerValue = {
   email: 'test@com.pl',
   password: 'Test1234',
   passwordConfirmation: 'Test1234'
-}
+};
 
 vi.mock('react-redux', () => ({
   ...vi.importMock('react-redux'),
   useDispatch: vi.fn().mockReturnValue(() => ({
     unwrap: mockUseDispatch
   }))
-}))
+}));
 
 vi.mock('react-router-dom', () => ({
   ...vi.importMock('react-router-dom'),
   useNavigate: vi.fn().mockImplementation(() => mockUseNaviagate)
-}))
+}));
 
 describe('useRegister > handleFormSubmit', () => {
   it('DispatchAction and Navigate to Dashboard', async () => {
-    mockUseDispatch.mockImplementation(() => {})
-    const { result } = renderHook(() => useRegister())
+    mockUseDispatch.mockImplementation(() => {});
+    const { result } = renderHook(() => useRegister());
 
     await act(() => {
-      result.current.handleFormSubmit(registerValue)
-    })
+      result.current.handleFormSubmit(registerValue);
+    });
 
-    expect(mockUseDispatch).toBeCalled()
-    expect(mockUseNaviagate).toBeCalledWith('/dashboard')
-  })
+    expect(mockUseDispatch).toBeCalled();
+    expect(mockUseNaviagate).toBeCalledWith('/dashboard');
+  });
 
-  it('Display Error Message when data is incorrect',async () => {
+  it('Display Error Message when data is incorrect', async () => {
     mockUseDispatch.mockRejectedValueOnce({
-      response: { 
-        data: { 
+      response: {
+        data: {
           message: 'Data Incorrect'
         }
       }
-    })
-    const { result } = renderHook(() => useRegister())
+    });
+    const { result } = renderHook(() => useRegister());
 
     await act(() => {
-      result.current.handleFormSubmit(registerValue)
-    })
+      result.current.handleFormSubmit(registerValue);
+    });
 
-    expect(result.current.registerError).toEqual('Data Incorrect')
-  })
+    expect(result.current.registerError).toEqual('Data Incorrect');
+  });
 
   it('Dispaly Error Message when something is wrong with connection or with server', async () => {
-    mockUseDispatch.mockRejectedValue({})
-    const { result } = renderHook(() => useRegister())
+    mockUseDispatch.mockRejectedValue({});
+    const { result } = renderHook(() => useRegister());
 
     await act(() => {
-      result.current.handleFormSubmit(registerValue)
-    })
+      result.current.handleFormSubmit(registerValue);
+    });
 
-    expect(result.current.registerError).toEqual('Upps Something went Wrong! Try Again Later or Check your internet Connection.')
-  })
-})
+    expect(result.current.registerError).toEqual(
+      'Upps Something went Wrong! Try Again Later or Check your internet Connection.'
+    );
+  });
+});

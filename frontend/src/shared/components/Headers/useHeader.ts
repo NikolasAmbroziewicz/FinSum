@@ -1,9 +1,6 @@
 import { Variant, Position } from './Header.types';
 
-export const useHeader = (
-  variant: Variant,
-  position: Position
-) => {
+export const useHeader = (variant: Variant, position: Position) => {
   const textColor = () => {
     return variant === Variant.dark ? 'text-gray-600' : 'text-stone-50';
   };
@@ -18,10 +15,9 @@ export const useHeader = (
         return 'text-right';
     }
   };
-  
 
   return {
     textPosition,
     textColor
-  }
-}
+  };
+};

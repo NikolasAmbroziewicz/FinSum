@@ -3,10 +3,7 @@ import { useScreen } from 'src/shared/hooks/useScreen';
 import DesktopNavigation from 'src/shared/components/Navigation/DesktopNavigation';
 import MobileNaviagtion from 'src/shared/components/Navigation/MobileNavigation';
 
-import {
-  AiOutlineStock,
-  AiOutlineHome
-} from 'react-icons/ai';
+import { AiOutlineStock, AiOutlineHome } from 'react-icons/ai';
 import { BiBitcoin, BiMoney, BiWalletAlt } from 'react-icons/bi';
 import { GiTwoCoins } from 'react-icons/gi';
 
@@ -54,13 +51,9 @@ const GlobalNavigation = () => {
   return (
     <>
       {isMobileScreen() ? (
-        <MobileNaviagtion
-          navData={navData}
-        />
+        <MobileNaviagtion navData={navData} />
       ) : (
-        <DesktopNavigation
-          navData={navData}
-        />
+        <DesktopNavigation navData={navData} />
       )}
     </>
   );

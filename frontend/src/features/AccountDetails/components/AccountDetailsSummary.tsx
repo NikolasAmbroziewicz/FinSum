@@ -1,9 +1,5 @@
 const AccountDetailsSummary = () => {
-  return (
-    <div>
-      Account Sumamry
-    </div>
-  )
-}
+  return <div>Account Sumamry</div>;
+};
 
-export default AccountDetailsSummary
+export default AccountDetailsSummary;

@@ -10,13 +10,13 @@ interface IBaseNavLayout {
 
 const BaseNavLayout: React.FC<IBaseNavLayout> = ({ children }) => {
   const { isMobileScreen } = useScreen();
-  
-  const { 
+
+  const {
     showNotification,
     notificationType,
     notificationValue,
-    handleShowNotification 
-  } = useNotificationContext()
+    handleShowNotification
+  } = useNotificationContext();
 
   return (
     <div
@@ -28,9 +28,13 @@ const BaseNavLayout: React.FC<IBaseNavLayout> = ({ children }) => {
       <div className="overflow-scroll  p-2 smplus:p-6 smplus:w-full grow">
         {children}
       </div>
-      {
-        showNotification && <BaseSnackbar message={notificationValue} type={notificationType} onClick={handleShowNotification} />
-      }
+      {showNotification && (
+        <BaseSnackbar
+          message={notificationValue}
+          type={notificationType}
+          onClick={handleShowNotification}
+        />
+      )}
     </div>
   );
 };

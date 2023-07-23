@@ -30,15 +30,15 @@ const IncomePage = () => {
   }, [startDate]);
 
   const handleDateSetDate = (date: Date) => {
-    setStartDate(date)
-  }
+    setStartDate(date);
+  };
 
   return (
     <div className="flex flex-col">
-      <PageHeader 
+      <PageHeader
         setStartDate={handleDateSetDate}
         startDate={startDate}
-        title='Income Page'
+        title="Income Page"
       >
         <BaseButton handler={handleOpenModal}>Add Income</BaseButton>
       </PageHeader>

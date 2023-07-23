@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import { NavData } from 'src/shared/components/Navigation/GlobalNavigation';
-import {useNavigation} from './useNavigation'
+import { useNavigation } from './useNavigation';
 
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 
@@ -11,10 +11,8 @@ interface IDesktopNavigation {
   navData: NavData[];
 }
 
-const DesktopNavigation: React.FC<IDesktopNavigation> = ({
-  navData
-}) => {
-  const { isOpen, handleNavOpen, activeRoute } = useNavigation()
+const DesktopNavigation: React.FC<IDesktopNavigation> = ({ navData }) => {
+  const { isOpen, handleNavOpen, activeRoute } = useNavigation();
 
   const navStyle = () => {
     return isOpen ? '200' : '60';

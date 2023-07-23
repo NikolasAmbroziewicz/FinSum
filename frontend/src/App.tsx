@@ -58,9 +58,7 @@ function App() {
             </BaseNavLayout>
           }
         />
-        <Route
-          path="accounts"
-        >
+        <Route path="accounts">
           <Route
             index
             element={
@@ -69,7 +67,7 @@ function App() {
               </BaseNavLayout>
             }
           />
-          <Route 
+          <Route
             path=":accountId"
             element={
               <BaseNavLayout>

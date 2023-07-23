@@ -7,7 +7,7 @@ const H4: React.FC<IHeaderProp> = ({
   position = Position.center,
   styles = ''
 }) => {
-  const { textColor, textPosition } = useHeader(variant, position)
+  const { textColor, textPosition } = useHeader(variant, position);
 
   return (
     <h4 className={`${textColor()} ${textPosition()} text-base ${styles}`}>

@@ -1,36 +1,43 @@
-import { describe, expect, it, vi } from 'vitest'
-import { render } from '@testing-library/react'
+import { describe, expect, it, vi } from 'vitest';
+import { render } from '@testing-library/react';
 
-import GlobalNavigation from './GlobalNavigation'
+import GlobalNavigation from './GlobalNavigation';
 
-vi.mock("react-router-dom", () => ({
+vi.mock('react-router-dom', () => ({
   useLocation: () => ({
-    pathname: "localhost:3000/example/path"
+    pathname: 'localhost:3000/example/path'
   }),
   Link: () => {}
 }));
 
-
 describe('GlobalNavigation > render', () => {
   it('Render MobileNavigation', () => {
-    Object.defineProperty(window, 'innerWidth', {writable: true, configurable: true, value: 580})
-    const wrapper = render(
-      <GlobalNavigation />
-    )
+    Object.defineProperty(window, 'innerWidth', {
+      writable: true,
+      configurable: true,
+      value: 580
+    });
+    const wrapper = render(<GlobalNavigation />);
 
-    const mobileNav = wrapper.container.querySelector('[data-test="mobileNavigation"]') 
+    const mobileNav = wrapper.container.querySelector(
+      '[data-test="mobileNavigation"]'
+    );
 
-    expect(mobileNav).toBeTruthy()
-  })
+    expect(mobileNav).toBeTruthy();
+  });
 
   it('Render DesktopNavigation', () => {
-    Object.defineProperty(window, 'innerWidth', {writable: true, configurable: true, value: 800})
-    const wrapper = render(
-      <GlobalNavigation />
-    )
+    Object.defineProperty(window, 'innerWidth', {
+      writable: true,
+      configurable: true,
+      value: 800
+    });
+    const wrapper = render(<GlobalNavigation />);
 
-    const mobileNav = wrapper.container.querySelector('[data-test="desktopNavigation"]') 
+    const mobileNav = wrapper.container.querySelector(
+      '[data-test="desktopNavigation"]'
+    );
 
-    expect(mobileNav).toBeTruthy()
-  })
-})
+    expect(mobileNav).toBeTruthy();
+  });
+});

@@ -27,11 +27,9 @@ const ListElement: React.FC<IListElement> = ({
     <tr className="border-b-2 border-gray-100">
       <td className={`${tableHeaderStyles()} text-gray-600`}>{title}</td>
       <td className={`${tableHeaderStyles()} text-gray-600`}>{amount}</td>
-      {
-        currency && (
-          <td className={`${tableHeaderStyles()} text-gray-600`}>{currency}</td>
-        )
-      }
+      {currency && (
+        <td className={`${tableHeaderStyles()} text-gray-600`}>{currency}</td>
+      )}
       <td className={`${tableHeaderStyles()} text-gray-600`}>
         {dateFormat(date)}
       </td>

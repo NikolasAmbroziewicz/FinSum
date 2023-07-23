@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 export const useNavigation = () => {
@@ -12,10 +12,10 @@ export const useNavigation = () => {
   const activeRoute = (path: string): string => {
     return location.pathname.includes(path) ? 'bg-sky-700' : 'bg-inherit';
   };
- 
+
   return {
     activeRoute,
     handleNavOpen,
     isOpen
-  }
-}
+  };
+};

@@ -6,7 +6,7 @@ export interface IBaseButton {
   type?: 'button' | 'submit' | 'reset' | undefined;
   color?: ButtonTheme;
   styles?: string;
-  dataTest?: string
+  dataTest?: string;
 }
 
 const BaseButton: React.FC<IBaseButton> = ({
@@ -15,7 +15,7 @@ const BaseButton: React.FC<IBaseButton> = ({
   type,
   styles = '',
   children,
-  dataTest="base-button"
+  dataTest = 'base-button'
 }) => {
   const buttonColor = () => {
     return color === ButtonTheme.base

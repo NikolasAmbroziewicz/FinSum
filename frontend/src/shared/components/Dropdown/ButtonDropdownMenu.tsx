@@ -50,7 +50,10 @@ const BaseDropdownMenu: React.FC<IBaseDropdownMenu> = ({
         {menuOpen ? (
           <BiChevronUp data-test="iconUp" className="text-slate-600 text-2xl" />
         ) : (
-          <BiChevronDown data-test="iconDown" className="text-slate-600 text-2xl" />
+          <BiChevronDown
+            data-test="iconDown"
+            className="text-slate-600 text-2xl"
+          />
         )}
       </button>
 

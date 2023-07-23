@@ -5,33 +5,26 @@ import PasswordInput from './PasswordInput';
 
 describe('PasswordInput > handlers', () => {
   it('Show hidden icon password by default', () => {
-    const wrapper = render(
-      <PasswordInput 
-        id="test"
-        placeholder="test"
-      />
-    )
+    const wrapper = render(<PasswordInput id="test" placeholder="test" />);
 
-    const icon = wrapper.container.querySelector('[data-test="passwordInvisibleIcon"]')
+    const icon = wrapper.container.querySelector(
+      '[data-test="passwordInvisibleIcon"]'
+    );
 
-    expect(icon).toBeTruthy()
-  })
+    expect(icon).toBeTruthy();
+  });
 
-  it('Show icon password by default',async () => {
-    const wrapper = render(
-      <PasswordInput 
-        id="test"
-        placeholder="test"
-      />
-    )
-
+  it('Show icon password by default', async () => {
+    const wrapper = render(<PasswordInput id="test" placeholder="test" />);
 
     await act(() => {
-      wrapper.container.querySelector('button')?.click()
-    }) 
-    
-    const icon = wrapper.container.querySelector('[data-test="passwordVisibleIcon"]')
+      wrapper.container.querySelector('button')?.click();
+    });
 
-    expect(icon).toBeTruthy()
-  })
-})
+    const icon = wrapper.container.querySelector(
+      '[data-test="passwordVisibleIcon"]'
+    );
+
+    expect(icon).toBeTruthy();
+  });
+});

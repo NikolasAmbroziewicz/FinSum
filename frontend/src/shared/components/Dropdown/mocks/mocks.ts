@@ -21,4 +21,4 @@ export const dropdownContent: DropdownContent[] = [
     id: 5,
     content: 'GBP'
   }
-]
+];

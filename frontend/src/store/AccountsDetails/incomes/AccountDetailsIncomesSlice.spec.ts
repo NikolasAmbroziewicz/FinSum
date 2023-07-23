@@ -1,9 +1,14 @@
-import axios from 'axios'
-import MockAdapter from 'axios-mock-adapter'
-import { describe, expect, it, vi }  from 'vitest'
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+import { describe, expect, it, vi } from 'vitest';
 
-import { setupStore, StoreType } from '../../main'
-import { addAccountIncome, deleteAccountIncome, editAccountIncome, getAccountIncomes } from './AccountDetailsIncomesSlice'
+import { setupStore, StoreType } from '../../main';
+import {
+  addAccountIncome,
+  deleteAccountIncome,
+  editAccountIncome,
+  getAccountIncomes
+} from './AccountDetailsIncomesSlice';
 
 vi.mock('src/shared/hooks/useLocalStorage', () => ({
   useLocalStorage: () => ({
@@ -16,15 +21,15 @@ vi.mock('src/shared/hooks/useLocalStorage', () => ({
 
 describe('accountDetailsIncomesSlice > default state', () => {
   it('Should initially set income to empty Array', () => {
-    const state = setupStore().getState().accountDetailsIncomes
-    expect(state.incomes).toEqual([])
-  })
+    const state = setupStore().getState().accountDetailsIncomes;
+    expect(state.incomes).toEqual([]);
+  });
 
   it('Should initially set income loading status to false', () => {
-    const state = setupStore().getState().accountDetailsIncomes
-    expect(state.isLoading).toBeFalsy()
-  })
-})
+    const state = setupStore().getState().accountDetailsIncomes;
+    expect(state.isLoading).toBeFalsy();
+  });
+});
 
 describe('accountDetailsIncomesSlice > addAccountIncome', () => {
   let mock: any;
@@ -32,19 +37,19 @@ describe('accountDetailsIncomesSlice > addAccountIncome', () => {
 
   const mockAddAccountDetailsIncomes = {
     title: 'Test',
-    amount: "123",
-    date: new Date("2023-05-29T11:04:20.338Z"),
-  }
+    amount: '123',
+    date: new Date('2023-05-29T11:04:20.338Z')
+  };
 
   const mockAddAccountDetailsIncomesResponse = {
     title: 'Test',
-    amount: "123",
-    date: "2023-05-29T11:04:20.338Z",
-  }
-  
+    amount: '123',
+    date: '2023-05-29T11:04:20.338Z'
+  };
+
   beforeEach(() => {
-    testStore = setupStore()
-  })
+    testStore = setupStore();
+  });
 
   beforeAll(() => {
     mock = new MockAdapter(axios);
@@ -55,21 +60,33 @@ describe('accountDetailsIncomesSlice > addAccountIncome', () => {
   });
 
   it('Add Account Incomes to store', async () => {
-    mock.onPost('http://localhost:8080/account-income/v1/add-income?account_id=1').reply(200, mockAddAccountDetailsIncomes);
+    mock
+      .onPost('http://localhost:8080/account-income/v1/add-income?account_id=1')
+      .reply(200, mockAddAccountDetailsIncomes);
 
-    await testStore.dispatch(addAccountIncome({ account_id: 1, data: mockAddAccountDetailsIncomes }))
+    await testStore.dispatch(
+      addAccountIncome({ account_id: 1, data: mockAddAccountDetailsIncomes })
+    );
 
-    expect(testStore.getState().accountDetailsIncomes.incomes[0]).toMatchObject(mockAddAccountDetailsIncomesResponse)
-  })
+    expect(testStore.getState().accountDetailsIncomes.incomes[0]).toMatchObject(
+      mockAddAccountDetailsIncomesResponse
+    );
+  });
 
   it('Do not add Account Incomes to store', async () => {
-    mock.onPost('http://localhost:8080/account-income/v1/add-income?account_id=1').networkErrorOnce();
+    mock
+      .onPost('http://localhost:8080/account-income/v1/add-income?account_id=1')
+      .networkErrorOnce();
 
-    await testStore.dispatch(addAccountIncome({ account_id: 1, data: mockAddAccountDetailsIncomes }))
+    await testStore.dispatch(
+      addAccountIncome({ account_id: 1, data: mockAddAccountDetailsIncomes })
+    );
 
-    expect(testStore.getState().accountDetailsIncomes.incomes).toMatchObject([])
-  })
-})
+    expect(testStore.getState().accountDetailsIncomes.incomes).toMatchObject(
+      []
+    );
+  });
+});
 
 describe('accountDetailsIncomesSlice > getAccountIncomes', () => {
   let mock: any;
@@ -78,21 +95,21 @@ describe('accountDetailsIncomesSlice > getAccountIncomes', () => {
   const mockGetAccountIncomes = [
     {
       title: 'Test',
-      currency: "USD",
-      amount: "123",
-      date: "2023-05-29T11:04:20.338Z",
+      currency: 'USD',
+      amount: '123',
+      date: '2023-05-29T11:04:20.338Z'
     },
     {
       title: 'Test123',
-      currency: "PLN",
-      amount: "1233",
-      date: "2023-06-29T11:04:20.338Z",
-    },
-  ]
-  
+      currency: 'PLN',
+      amount: '1233',
+      date: '2023-06-29T11:04:20.338Z'
+    }
+  ];
+
   beforeEach(() => {
-    testStore = setupStore()
-  })
+    testStore = setupStore();
+  });
 
   beforeAll(() => {
     mock = new MockAdapter(axios);
@@ -103,21 +120,27 @@ describe('accountDetailsIncomesSlice > getAccountIncomes', () => {
   });
 
   it('Get Incomes from Store', async () => {
-    mock.onGet('http://localhost:8080/account-income/v1/get-incomes?account_id=1').reply(200, mockGetAccountIncomes)
+    mock
+      .onGet('http://localhost:8080/account-income/v1/get-incomes?account_id=1')
+      .reply(200, mockGetAccountIncomes);
 
-    await testStore.dispatch(getAccountIncomes(1))
+    await testStore.dispatch(getAccountIncomes(1));
 
-    expect(testStore.getState().accountDetailsIncomes.incomes).toEqual(mockGetAccountIncomes)
-  })
+    expect(testStore.getState().accountDetailsIncomes.incomes).toEqual(
+      mockGetAccountIncomes
+    );
+  });
 
   it('Do not get Incomes from Store', async () => {
-    mock.onGet('http://localhost:8080/account-income/v1/get-incomes?account_id=1').networkErrorOnce()
+    mock
+      .onGet('http://localhost:8080/account-income/v1/get-incomes?account_id=1')
+      .networkErrorOnce();
 
-    await testStore.dispatch(getAccountIncomes(1))
+    await testStore.dispatch(getAccountIncomes(1));
 
-    expect(testStore.getState().accountDetailsIncomes.incomes).toEqual([])
-  })
-})
+    expect(testStore.getState().accountDetailsIncomes.incomes).toEqual([]);
+  });
+});
 
 describe('accountDetailsIncomesSlice > editAccountIncome', () => {
   let mock: any;
@@ -135,58 +158,68 @@ describe('accountDetailsIncomesSlice > editAccountIncome', () => {
     const storeValue = {
       id: 123,
       title: 'Test',
-      amount: "123",
-      date: new Date("2023-05-29T11:04:20.334Z"),
-    }
-    
+      amount: '123',
+      date: new Date('2023-05-29T11:04:20.334Z')
+    };
+
     const testStore = setupStore({
       accountDetailsIncomes: {
         incomes: [storeValue],
         isLoading: false
-      },
-    })
+      }
+    });
 
     const mockEditAccountIncome = {
       id: 123,
       title: 'Test1111',
-      amount: "123",
-      date: new Date("2023-05-29T11:04:20.338Z"),
-    }
+      amount: '123',
+      date: new Date('2023-05-29T11:04:20.338Z')
+    };
 
     const mockEditAccountIncomeResponse = {
       id: 123,
       title: 'Test1111',
-      amount: "123",
-      date: "2023-05-29T11:04:20.338Z",
-    }
+      amount: '123',
+      date: '2023-05-29T11:04:20.338Z'
+    };
 
-    mock.onPut(`http://localhost:8080/account-income/v1/edit-income?income_id=123`).reply(200, mockEditAccountIncomeResponse);
+    mock
+      .onPut(
+        `http://localhost:8080/account-income/v1/edit-income?income_id=123`
+      )
+      .reply(200, mockEditAccountIncomeResponse);
 
-    expect(testStore.getState().accountDetailsIncomes.incomes[0]).toMatchObject(storeValue)
+    expect(testStore.getState().accountDetailsIncomes.incomes[0]).toMatchObject(
+      storeValue
+    );
 
-    await testStore.dispatch(editAccountIncome(mockEditAccountIncome))
+    await testStore.dispatch(editAccountIncome(mockEditAccountIncome));
 
-    expect(testStore.getState().accountDetailsIncomes.incomes[0]).toMatchObject(mockEditAccountIncomeResponse)
-  })
+    expect(testStore.getState().accountDetailsIncomes.incomes[0]).toMatchObject(
+      mockEditAccountIncomeResponse
+    );
+  });
 
   it('Do not Get Edited Account Incomes from Store', async () => {
     //given
-    const testStore = setupStore()
-    mock.onPut('http://localhost:8080/account-income/v1/edit-income?income_id=1').networkErrorOnce();
+    const testStore = setupStore();
+    mock
+      .onPut('http://localhost:8080/account-income/v1/edit-income?income_id=1')
+      .networkErrorOnce();
     const mockAddAccountIncome = {
       title: 'Test',
-      currency: "USD",
-      amount: "123",
-      date: new Date("2023-05-29T11:04:20.338Z"),
-    }
+      currency: 'USD',
+      amount: '123',
+      date: new Date('2023-05-29T11:04:20.338Z')
+    };
 
     //then
-    await testStore.dispatch(editAccountIncome(mockAddAccountIncome))
+    await testStore.dispatch(editAccountIncome(mockAddAccountIncome));
 
     //expect
     expect(testStore.getState().income.income).toMatchObject([]);
-  })
-})
+  });
+});
 
 describe('accountDetailsIncomesSlice > deleteAccountIncome', () => {
   let mock: any;
@@ -204,48 +237,62 @@ describe('accountDetailsIncomesSlice > deleteAccountIncome', () => {
     const storeValue = {
       id: 123,
       title: 'Test',
-      amount: "123",
-      date: new Date("2023-05-29T11:04:20.334Z"),
-    }
+      amount: '123',
+      date: new Date('2023-05-29T11:04:20.334Z')
+    };
 
     const testStore = setupStore({
       accountDetailsIncomes: {
         incomes: [storeValue],
         isLoading: false
       }
-    })
+    });
 
-    mock.onDelete('http://localhost:8080/account-income/v1/delete-income?income_id=123').networkErrorOnce();
+    mock
+      .onDelete(
+        'http://localhost:8080/account-income/v1/delete-income?income_id=123'
+      )
+      .networkErrorOnce();
 
-    expect(testStore.getState().accountDetailsIncomes.incomes[0]).toMatchObject(storeValue)
+    expect(testStore.getState().accountDetailsIncomes.incomes[0]).toMatchObject(
+      storeValue
+    );
 
-    await testStore.dispatch(deleteAccountIncome(123))
+    await testStore.dispatch(deleteAccountIncome(123));
 
-    expect(testStore.getState().accountDetailsIncomes.incomes[0]).toMatchObject(storeValue)
-  })
+    expect(testStore.getState().accountDetailsIncomes.incomes[0]).toMatchObject(
+      storeValue
+    );
+  });
 
   it('Should delete AccountIncome from Store', async () => {
     //given
     const storeValue = {
       id: 123,
       title: 'Test',
-      amount: "123",
-      date: new Date("2023-05-29T11:04:20.334Z"),
-    }
+      amount: '123',
+      date: new Date('2023-05-29T11:04:20.334Z')
+    };
 
     const testStore = setupStore({
       accountDetailsIncomes: {
         incomes: [storeValue],
         isLoading: false
       }
-    })
+    });
 
-    mock.onDelete('http://localhost:8080/account-income/v1/delete-income?income_id=123').reply(200, storeValue);
+    mock
+      .onDelete(
+        'http://localhost:8080/account-income/v1/delete-income?income_id=123'
+      )
+      .reply(200, storeValue);
 
-    expect(testStore.getState().accountDetailsIncomes.incomes[0]).toMatchObject(storeValue)
+    expect(testStore.getState().accountDetailsIncomes.incomes[0]).toMatchObject(
+      storeValue
+    );
 
-    await testStore.dispatch(deleteAccountIncome(123))
+    await testStore.dispatch(deleteAccountIncome(123));
 
-    expect(testStore.getState().accountDetailsIncomes.incomes).toEqual([])
-  })
-})
+    expect(testStore.getState().accountDetailsIncomes.incomes).toEqual([]);
+  });
+});

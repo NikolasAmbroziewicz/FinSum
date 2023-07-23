@@ -7,7 +7,7 @@ const H1: React.FC<IHeaderProp> = ({
   variant = Variant.dark,
   styles = ''
 }) => {
-  const {textColor, textPosition} = useHeader(variant, position)
+  const { textColor, textPosition } = useHeader(variant, position);
 
   return (
     <h1 className={`${textColor()} ${textPosition()} text-3xl ${styles}`}>

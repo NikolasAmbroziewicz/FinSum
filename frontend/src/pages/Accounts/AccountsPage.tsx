@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 
 import { AppDispatch } from 'src/store/main';
 import { useDispatch } from 'react-redux';
@@ -15,22 +15,20 @@ import AccountsList from 'src/features/Accounts/components/AccountsList';
 import { useModal } from 'src/shared/components/Modals/hooks/useModal';
 
 const AccountsPage = () => {
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<AppDispatch>();
   const { handleOpenModal, isOpen } = useModal();
-  
+
   useEffect(() => {
     const loadAccounts = async () => {
-      await dispatch(getAccounts())
-    }
+      await dispatch(getAccounts());
+    };
 
-    loadAccounts()
-  })
+    loadAccounts();
+  });
 
   return (
     <div className="flex flex-col h-full">
-      <PageHeader 
-        title='Accounts'
-      >
+      <PageHeader title="Accounts">
         <BaseButton handler={handleOpenModal}>Add Accounts</BaseButton>
       </PageHeader>
       <AccountsList />

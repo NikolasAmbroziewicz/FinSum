@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 
 import BaseButton from 'src/shared/components/Button/base/BaseButton';
 import BaseInput from 'src/shared/components/Input/base/BaseInput';
@@ -6,23 +6,23 @@ import IncomeFormCalendar from 'src/shared/components/Calendar/IncomeFormCalenda
 import FormElement from 'src/shared/components/Form/FormElement';
 
 import { useAccountIncome } from 'src/features/AccountDetails/hooks/useAccountIncome';
-import { AccountDetailsIncomeSchemaType } from 'src/features/AccountDetails/validators/AccountDetailsIncomes'
+import { AccountDetailsIncomeSchemaType } from 'src/features/AccountDetails/validators/AccountDetailsIncomes';
 
 interface IAccountIncomeForm {
   onClose: () => void;
   editForm: boolean;
   income?: AccountDetailsIncomeSchemaType;
-  account_id: number
+  account_id: number;
 }
 
-const AccountIncomeForm: React.FC<IAccountIncomeForm> = ({ 
+const AccountIncomeForm: React.FC<IAccountIncomeForm> = ({
   account_id,
   editForm,
   income,
-  onClose,
+  onClose
 }) => {
   const {
-    handleAddIncome, 
+    handleAddIncome,
     handleEditIncome,
     errors,
     handleSubmit,
@@ -30,8 +30,8 @@ const AccountIncomeForm: React.FC<IAccountIncomeForm> = ({
     setValue,
     getValues
   } = useAccountIncome({
-    onClose: onClose,
-  })
+    onClose: onClose
+  });
 
   const handleDateValue = (val: Date) => {
     setValue('date', val, { shouldValidate: true });
@@ -48,10 +48,11 @@ const AccountIncomeForm: React.FC<IAccountIncomeForm> = ({
   }, []);
 
   return (
-    <form onSubmit={
-      handleSubmit(editForm ? 
-        (data) => handleEditIncome(data): 
-        (data) => handleAddIncome(data, account_id)
+    <form
+      onSubmit={handleSubmit(
+        editForm
+          ? (data) => handleEditIncome(data)
+          : (data) => handleAddIncome(data, account_id)
       )}
       className="flex flex-col gap-4 w-screen mx-4"
     >
@@ -81,7 +82,7 @@ const AccountIncomeForm: React.FC<IAccountIncomeForm> = ({
       </FormElement>
       <BaseButton type="submit">Submit</BaseButton>
     </form>
-  )
-}
+  );
+};
 
-export default AccountIncomeForm
+export default AccountIncomeForm;

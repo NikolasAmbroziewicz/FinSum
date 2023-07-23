@@ -1,116 +1,115 @@
-import { act, renderHook } from '@testing-library/react'
-import { beforeEach, describe, expect, it, vi }  from 'vitest'
+import { act, renderHook } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { useIncome } from './useIncome'
+import { useIncome } from './useIncome';
 
-const mockOnClose = vi.fn()
-const mockHandleNotification = vi.fn()
-const mockUseDispatch = vi.fn()
+const mockOnClose = vi.fn();
+const mockHandleNotification = vi.fn();
+const mockUseDispatch = vi.fn();
 
 const mockIncome = {
-  id:1 ,
+  id: 1,
   title: 'Test1',
   currency: 'USD',
   amount: '112',
   date: new Date('Mon Jun 12 2020 13:00:00')
-}
+};
 
 vi.mock('react-redux', () => ({
   ...vi.importMock('react-redux'),
   useDispatch: vi.fn().mockImplementation(() => mockUseDispatch)
-}))
+}));
 
 vi.mock('src/context/NotificationContext', () => ({
   useNotificationContext: () => ({
     handleNotification: mockHandleNotification
   })
-}))
+}));
 
 describe('useIncome > handleAddIncome', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-
   it('Dispatch addIncome action', () => {
-    const { result } = renderHook(() => useIncome({}))
+    const { result } = renderHook(() => useIncome({}));
 
     act(() => {
-      result.current.handleAddIncome(mockIncome)
-    })
+      result.current.handleAddIncome(mockIncome);
+    });
 
-    expect(mockUseDispatch).toHaveBeenCalled()
-    expect(mockHandleNotification).not.toHaveBeenCalled()
-    expect(mockOnClose).not.toHaveBeenCalled()
-  })
+    expect(mockUseDispatch).toHaveBeenCalled();
+    expect(mockHandleNotification).not.toHaveBeenCalled();
+    expect(mockOnClose).not.toHaveBeenCalled();
+  });
 
   it('Handle onClose action and handleNotification from NotificationContext', () => {
-    const { result } = renderHook(() => useIncome({onClose: mockOnClose}))  
+    const { result } = renderHook(() => useIncome({ onClose: mockOnClose }));
 
     act(() => {
-      result.current.handleAddIncome(mockIncome)
-    })
+      result.current.handleAddIncome(mockIncome);
+    });
 
-    expect(mockUseDispatch).toHaveBeenCalled()
-    expect(mockHandleNotification).toHaveBeenCalled()
-    expect(mockOnClose).toHaveBeenCalled()
-  })
-})
+    expect(mockUseDispatch).toHaveBeenCalled();
+    expect(mockHandleNotification).toHaveBeenCalled();
+    expect(mockOnClose).toHaveBeenCalled();
+  });
+});
 
 describe('useIncome > handleEditIncome', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
   it('Dispatch editIncome action', () => {
-    const { result } = renderHook(() => useIncome({}))
+    const { result } = renderHook(() => useIncome({}));
 
     act(() => {
-      result.current.handleEditIncome(mockIncome)
-    })
-  
-    expect(mockUseDispatch).toHaveBeenCalled()
-    expect(mockHandleNotification).not.toHaveBeenCalled()
-    expect(mockOnClose).not.toHaveBeenCalled()
-  })
+      result.current.handleEditIncome(mockIncome);
+    });
+
+    expect(mockUseDispatch).toHaveBeenCalled();
+    expect(mockHandleNotification).not.toHaveBeenCalled();
+    expect(mockOnClose).not.toHaveBeenCalled();
+  });
 
   it('Handle onClose action and handleNotification from NotificationContext', () => {
-    const { result } = renderHook(() => useIncome({onClose: mockOnClose}))
+    const { result } = renderHook(() => useIncome({ onClose: mockOnClose }));
 
     act(() => {
-      result.current.handleEditIncome(mockIncome)
-    })
-  
-    expect(mockUseDispatch).toHaveBeenCalled()
-    expect(mockHandleNotification).toHaveBeenCalled()
-    expect(mockOnClose).toHaveBeenCalled()
-  })
-})
+      result.current.handleEditIncome(mockIncome);
+    });
+
+    expect(mockUseDispatch).toHaveBeenCalled();
+    expect(mockHandleNotification).toHaveBeenCalled();
+    expect(mockOnClose).toHaveBeenCalled();
+  });
+});
 
 describe('useIncome > handleDeleteIncome', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
   it('Dispatch deleteAction action', () => {
-    const { result } = renderHook(() => useIncome({}))
+    const { result } = renderHook(() => useIncome({}));
 
     act(() => {
-      result.current.handleDeleteIncome(2)
-    })
-  
-    expect(mockUseDispatch).toHaveBeenCalled()
-    expect(mockHandleNotification).not.toHaveBeenCalled()
-    expect(mockOnClose).not.toHaveBeenCalled()
-  })
+      result.current.handleDeleteIncome(2);
+    });
+
+    expect(mockUseDispatch).toHaveBeenCalled();
+    expect(mockHandleNotification).not.toHaveBeenCalled();
+    expect(mockOnClose).not.toHaveBeenCalled();
+  });
 
   it('Handle onClose action and handleNotification from NotificationContext', () => {
-    const { result } = renderHook(() => useIncome({onClose: mockOnClose}))
+    const { result } = renderHook(() => useIncome({ onClose: mockOnClose }));
 
     act(() => {
-      result.current.handleDeleteIncome(2)
-    })
-  
-    expect(mockUseDispatch).toHaveBeenCalled()
-    expect(mockHandleNotification).toHaveBeenCalled()
-    expect(mockOnClose).toHaveBeenCalled()
-  })
-})
+      result.current.handleDeleteIncome(2);
+    });
+
+    expect(mockUseDispatch).toHaveBeenCalled();
+    expect(mockHandleNotification).toHaveBeenCalled();
+    expect(mockOnClose).toHaveBeenCalled();
+  });
+});

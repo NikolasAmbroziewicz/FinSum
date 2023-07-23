@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 
 import BaseButton from 'src/shared/components/Button/base/BaseButton';
 import BaseInput from 'src/shared/components/Input/base/BaseInput';
@@ -6,23 +6,23 @@ import IncomeFormCalendar from 'src/shared/components/Calendar/IncomeFormCalenda
 import FormElement from 'src/shared/components/Form/FormElement';
 
 import { useAccountExpense } from 'src/features/AccountDetails/hooks/useAccountExpense';
-import { AccountDetailsExpenseSchemaType } from 'src/features/AccountDetails/validators/AccountDetailsExpenses'
+import { AccountDetailsExpenseSchemaType } from 'src/features/AccountDetails/validators/AccountDetailsExpenses';
 
 interface IAccountExpenseForm {
   onClose: () => void;
   editForm: boolean;
   income?: AccountDetailsExpenseSchemaType;
-  account_id: number
+  account_id: number;
 }
 
 const AccountExpenseForm: React.FC<IAccountExpenseForm> = ({
   account_id,
   editForm,
   income,
-  onClose,
+  onClose
 }) => {
   const {
-    handleAddExpense, 
+    handleAddExpense,
     handleEditExpense,
     errors,
     handleSubmit,
@@ -30,8 +30,8 @@ const AccountExpenseForm: React.FC<IAccountExpenseForm> = ({
     setValue,
     getValues
   } = useAccountExpense({
-    onClose: onClose,
-  })
+    onClose: onClose
+  });
 
   const handleDateValue = (val: Date) => {
     setValue('date', val, { shouldValidate: true });
@@ -49,10 +49,10 @@ const AccountExpenseForm: React.FC<IAccountExpenseForm> = ({
 
   return (
     <form
-    onSubmit={
-      handleSubmit(editForm ? 
-        (data) => handleEditExpense(data): 
-        (data) => handleAddExpense(data, account_id)
+      onSubmit={handleSubmit(
+        editForm
+          ? (data) => handleEditExpense(data)
+          : (data) => handleAddExpense(data, account_id)
       )}
       className="flex flex-col gap-4 w-screen mx-4"
     >
@@ -82,7 +82,7 @@ const AccountExpenseForm: React.FC<IAccountExpenseForm> = ({
       </FormElement>
       <BaseButton type="submit">Submit</BaseButton>
     </form>
-  )
-}
+  );
+};
 
-export default AccountExpenseForm
+export default AccountExpenseForm;

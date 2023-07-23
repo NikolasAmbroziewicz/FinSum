@@ -21,7 +21,7 @@ interface IUseIncome {
 
 export const useIncome = ({ onClose = undefined }: IUseIncome) => {
   const dispatch = useDispatch<AppDispatch>();
-  const { handleNotification } = useNotificationContext()
+  const { handleNotification } = useNotificationContext();
 
   const {
     register,
@@ -39,9 +39,9 @@ export const useIncome = ({ onClose = undefined }: IUseIncome) => {
   const handleAddIncome = (value: IncomeSchemaType) => {
     dispatch(addIncome(value));
 
-  if (onClose) {
+    if (onClose) {
       onClose();
-      handleNotification('Income has been Added.', SnackbarType.success)
+      handleNotification('Income has been Added.', SnackbarType.success);
     }
   };
 
@@ -50,7 +50,7 @@ export const useIncome = ({ onClose = undefined }: IUseIncome) => {
 
     if (onClose) {
       onClose();
-      handleNotification('Income has been Edited.', SnackbarType.neutral)
+      handleNotification('Income has been Edited.', SnackbarType.neutral);
     }
   };
 
@@ -59,7 +59,7 @@ export const useIncome = ({ onClose = undefined }: IUseIncome) => {
 
     if (onClose) {
       onClose();
-      handleNotification('Income has been Removed.', SnackbarType.danger)
+      handleNotification('Income has been Removed.', SnackbarType.danger);
     }
   };
 

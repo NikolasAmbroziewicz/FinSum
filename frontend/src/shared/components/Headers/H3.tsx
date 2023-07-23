@@ -7,7 +7,7 @@ const H3: React.FC<IHeaderProp> = ({
   position = Position.center,
   styles = ''
 }) => {
-  const { textColor, textPosition} = useHeader(variant, position)
+  const { textColor, textPosition } = useHeader(variant, position);
 
   return (
     <h3 className={`${textColor()} ${textPosition()} text-xl ${styles}`}>

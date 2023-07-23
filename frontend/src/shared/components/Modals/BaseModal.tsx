@@ -10,7 +10,7 @@ interface IBaseModal {
   title: string;
   content: string | JSX.Element;
   action?: JSX.Element;
-  dataTest?: string
+  dataTest?: string;
 }
 
 const BaseModal: React.FC<IBaseModal> = ({
@@ -19,7 +19,7 @@ const BaseModal: React.FC<IBaseModal> = ({
   title,
   content,
   action,
-  dataTest="baseModal"
+  dataTest = 'baseModal'
 }) => {
   return (
     <>
