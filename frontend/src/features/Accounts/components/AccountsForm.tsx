@@ -1,13 +1,13 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 
-import { useAccount } from "../hooks/useAccounts"
+import { useAccount } from '../hooks/useAccounts';
 
 import BaseButton from 'src/shared/components/Button/base/BaseButton';
 import BaseInput from 'src/shared/components/Input/base/BaseInput';
 import FormElement from 'src/shared/components/Form/FormElement';
 import ButtonDropdownMenu from 'src/shared/components/Dropdown/ButtonDropdownMenu';
 
-import { AccountSchemaType } from '../validators'
+import { AccountSchemaType } from '../validators';
 
 import { supportedCurrency } from 'src/shared/data/SupportedCurrencies';
 
@@ -17,7 +17,11 @@ interface IAccountsForm {
   income?: AccountSchemaType;
 }
 
-const AccountsForm: React.FC<IAccountsForm> = ({ onClose, editForm, income }) => {
+const AccountsForm: React.FC<IAccountsForm> = ({
+  onClose,
+  editForm,
+  income
+}) => {
   const {
     handleAddAccounts,
     handleEditAccounts,
@@ -26,7 +30,7 @@ const AccountsForm: React.FC<IAccountsForm> = ({ onClose, editForm, income }) =>
     register,
     setValue,
     getValues
-  } = useAccount({ onClose: onClose})
+  } = useAccount({ onClose: onClose });
 
   useEffect(() => {
     if (editForm && income) {
@@ -47,7 +51,7 @@ const AccountsForm: React.FC<IAccountsForm> = ({ onClose, editForm, income }) =>
       className="flex flex-col gap-4 w-screen mx-4"
     >
       <FormElement value="Title" error={errors.title?.message}>
-        <BaseInput 
+        <BaseInput
           id="name"
           type="text"
           placeholder="Title"
@@ -65,7 +69,7 @@ const AccountsForm: React.FC<IAccountsForm> = ({ onClose, editForm, income }) =>
       </FormElement>
       <BaseButton type="submit">Submit</BaseButton>
     </form>
-  )
-}
+  );
+};
 
-export default AccountsForm
+export default AccountsForm;

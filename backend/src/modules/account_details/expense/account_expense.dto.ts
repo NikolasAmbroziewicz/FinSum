@@ -1,4 +1,4 @@
-import { IsString, IsDateString } from 'class-validator'
+import { IsString, IsDateString } from 'class-validator';
 
 export class AccountExpenseDto {
   @IsString()
@@ -8,5 +8,5 @@ export class AccountExpenseDto {
   title: string;
 
   @IsDateString()
-  date: Date
+  date: Date;
 }

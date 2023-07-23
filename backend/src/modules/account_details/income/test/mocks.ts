@@ -1,4 +1,4 @@
-const mockDate = new Date('2020-12-12')
+const mockDate = new Date('2020-12-12');
 
 export const userWithToken = {
   userId: 1,
@@ -20,7 +20,7 @@ export const editIncomeInput = {
   amount: '7000',
   currency: 'PLN',
   title: 'University',
-  date: mockDate
+  date: mockDate,
 };
 
 export const addedIncome = {

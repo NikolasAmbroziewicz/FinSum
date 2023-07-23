@@ -11,28 +11,25 @@ export class AccountIncomeService {
   constructor(private prisma: PrismaService) {}
 
   async getIncomes(account_id: string) {
-    const parsedAccountId = Number(account_id)
+    const parsedAccountId = Number(account_id);
 
     const allIncomes = await this.prisma.cash.findMany({
       where: {
         account: {
-          id: parsedAccountId
-        }
-      }
-    })
+          id: parsedAccountId,
+        },
+      },
+    });
 
-    return allIncomes
+    return allIncomes;
   }
 
-  async addIncome(
-    income: AccountIncomeDto,
-    account_id: string
-  ) {
-    const { date, title, amount} = income
+  async addIncome(income: AccountIncomeDto, account_id: string) {
+    const { date, title, amount } = income;
 
     const parsedDate = new Date(date);
     const parsedAmount = Number(amount);
-    const parsedAccountId = Number(account_id)
+    const parsedAccountId = Number(account_id);
 
     const addedIncome = await this.prisma.cash.create({
       data: {
@@ -41,32 +38,30 @@ export class AccountIncomeService {
         amount: parsedAmount,
         account: {
           connect: {
-            id: parsedAccountId
-          }
-        }
-      }
-    })
+            id: parsedAccountId,
+          },
+        },
+      },
+    });
 
     return {
-      ...addedIncome
-    }
+      ...addedIncome,
+    };
   }
 
-  async deleteIncome(
-    income_id: string
-  ) {
+  async deleteIncome(income_id: string) {
     try {
-      const parsedExpenseId = Number(income_id)
+      const parsedExpenseId = Number(income_id);
 
       const deletedIncome = await this.prisma.cash.delete({
         where: {
-          id: parsedExpenseId
-        }
-      })
+          id: parsedExpenseId,
+        },
+      });
 
       return {
-        ...deletedIncome
-      }
+        ...deletedIncome,
+      };
     } catch (e: any) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2025') {
@@ -76,16 +71,13 @@ export class AccountIncomeService {
     }
   }
 
-  async editIncome(
-    income: AccountIncomeDto,
-    income_id: string
-  ) {
+  async editIncome(income: AccountIncomeDto, income_id: string) {
     try {
-      const { date, title, amount} = income
+      const { date, title, amount } = income;
 
       const parsedDate = new Date(date);
       const parsedAmount = Number(amount);
-      const parsedIncomeId = Number(income_id)
+      const parsedIncomeId = Number(income_id);
 
       const updatedIncome = await this.prisma.cash.update({
         data: {
@@ -94,13 +86,13 @@ export class AccountIncomeService {
           amount: parsedAmount,
         },
         where: {
-          id: parsedIncomeId
-        }
-      })
+          id: parsedIncomeId,
+        },
+      });
 
       return {
-        ...updatedIncome
-      }
+        ...updatedIncome,
+      };
     } catch (e: any) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2025') {

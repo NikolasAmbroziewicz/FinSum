@@ -4,7 +4,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
 import { AppDispatch } from 'src/store/main';
-import { AccountDetailsIncomeSchemaType, accountDetailsIncomeSchema } from '../validators/AccountDetailsIncomes'
+import {
+  AccountDetailsIncomeSchemaType,
+  accountDetailsIncomeSchema
+} from '../validators/AccountDetailsIncomes';
 
 import { useNotificationContext } from 'src/context/NotificationContext';
 import { SnackbarType } from 'src/shared/components/Snackbar/type';
@@ -13,14 +16,16 @@ import {
   addAccountIncome,
   deleteAccountIncome,
   editAccountIncome
-} from 'src/store/AccountsDetails/incomes/AccountDetailsIncomesSlice'
+} from 'src/store/AccountsDetails/incomes/AccountDetailsIncomesSlice';
 
 interface IUseAccountIncome {
-  onClose?: () => void,
+  onClose?: () => void;
 }
-export const useAccountIncome = ({ onClose = undefined }: IUseAccountIncome) => {
+export const useAccountIncome = ({
+  onClose = undefined
+}: IUseAccountIncome) => {
   const dispatch = useDispatch<AppDispatch>();
-  const { handleNotification } = useNotificationContext()
+  const { handleNotification } = useNotificationContext();
 
   const {
     register,
@@ -35,31 +40,34 @@ export const useAccountIncome = ({ onClose = undefined }: IUseAccountIncome) => 
     }
   });
 
-  const handleAddIncome = (value: AccountDetailsIncomeSchemaType, account_id: number) => {
-    dispatch(addAccountIncome({data: value, account_id: account_id}));
+  const handleAddIncome = (
+    value: AccountDetailsIncomeSchemaType,
+    account_id: number
+  ) => {
+    dispatch(addAccountIncome({ data: value, account_id: account_id }));
 
     if (onClose) {
       onClose();
-      handleNotification('Income has been Added.', SnackbarType.success)
+      handleNotification('Income has been Added.', SnackbarType.success);
     }
-  }
+  };
 
   const handleEditIncome = (value: AccountDetailsIncomeSchemaType) => {
-    dispatch(editAccountIncome(value))
+    dispatch(editAccountIncome(value));
 
     if (onClose) {
       onClose();
-      handleNotification('Income has been Added.', SnackbarType.success)
+      handleNotification('Income has been Added.', SnackbarType.success);
     }
-  }
+  };
 
   const handleDeleteIncome = (value: number) => {
-    dispatch(deleteAccountIncome(value))
+    dispatch(deleteAccountIncome(value));
     if (onClose) {
       onClose();
-      handleNotification('Income has been Added.', SnackbarType.success)
+      handleNotification('Income has been Added.', SnackbarType.success);
     }
-  }
+  };
 
   return {
     handleAddIncome,
@@ -70,5 +78,5 @@ export const useAccountIncome = ({ onClose = undefined }: IUseAccountIncome) => 
     register,
     setValue,
     getValues
-  }
-}
+  };
+};

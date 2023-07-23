@@ -1,6 +1,6 @@
-import { AccountSchemaType } from 'src/features/Accounts/validators'
+import { AccountSchemaType } from 'src/features/Accounts/validators';
 
 export interface AccountsState {
-  accounts: AccountSchemaType[],
-  isLoading: boolean
+  accounts: AccountSchemaType[];
+  isLoading: boolean;
 }

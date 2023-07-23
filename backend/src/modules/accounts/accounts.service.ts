@@ -6,7 +6,7 @@ import { PrismaService } from '../../prisma/prisma.service';
 import { AccountsDto } from './accounts.dto';
 
 import { UserWithTokens } from '../auth/auth.type';
-import { AccountsResponse } from './accounts.type'
+import { AccountsResponse } from './accounts.type';
 
 @Injectable()
 export class AccountsService {
@@ -14,10 +14,10 @@ export class AccountsService {
 
   async addAccounts(
     account: AccountsDto,
-    user: UserWithTokens
+    user: UserWithTokens,
   ): Promise<AccountsResponse> {
-    const { email } = user
-    const { title, currency } = account
+    const { email } = user;
+    const { title, currency } = account;
 
     const addedAccount = await this.prisma.account.create({
       data: {
@@ -25,59 +25,57 @@ export class AccountsService {
         currency: currency,
         user: {
           connect: {
-            email: email
-          }
-        }
+            email: email,
+          },
+        },
       },
-    })
+    });
 
     return {
       id: addedAccount.id,
       currency: addedAccount.currency,
-      title: addedAccount.title
-    }
+      title: addedAccount.title,
+    };
   }
 
-  async getAccounts (
-    user: UserWithTokens
-  ): Promise<AccountsResponse[]>{
-    const { email } = user
+  async getAccounts(user: UserWithTokens): Promise<AccountsResponse[]> {
+    const { email } = user;
 
     const allAccounts = await this.prisma.account.findMany({
       where: {
         user: {
-          email: email
-        }
-      }
-    })
+          email: email,
+        },
+      },
+    });
 
     return allAccounts.map((account) => ({
       id: account.id,
       currency: account.currency,
-      title: account.title
-    }))
+      title: account.title,
+    }));
   }
 
-  async deleteAccount (
-    id: number
+  async deleteAccount(
+    id: number,
   ): Promise<AccountsResponse | ForbiddenException> {
     try {
       const deleteAccount = await this.prisma.account.delete({
         where: {
-          id: id
-        }
-      })
+          id: id,
+        },
+      });
 
-      if(deleteAccount.id) {
+      if (deleteAccount.id) {
         return {
           id: deleteAccount.id,
           currency: deleteAccount.currency,
-          title: deleteAccount.title
-        }
+          title: deleteAccount.title,
+        };
       } else {
-        return new ForbiddenException("Account Does not exist");
+        return new ForbiddenException('Account Does not exist');
       }
-    } catch(e: any) {
+    } catch (e: any) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2025') {
           throw new ForbiddenException('Account Does not exist');
@@ -86,31 +84,31 @@ export class AccountsService {
     }
   }
 
-  async editAccount (
+  async editAccount(
     account: AccountsDto,
-    id: number
+    id: number,
   ): Promise<AccountsResponse | ForbiddenException> {
     try {
-      const { title, currency } = account
+      const { title, currency } = account;
 
       const updatedAccounts = await this.prisma.account.update({
         data: {
           title: title,
-          currency: currency
+          currency: currency,
         },
         where: {
-          id: id
-        }
-      })
+          id: id,
+        },
+      });
 
-      if(updatedAccounts.id) {
+      if (updatedAccounts.id) {
         return {
           id: updatedAccounts.id,
           currency: updatedAccounts.currency,
-          title: updatedAccounts.title
-        }
+          title: updatedAccounts.title,
+        };
       } else {
-        return new ForbiddenException("Account Does not exist");
+        return new ForbiddenException('Account Does not exist');
       }
     } catch (e: any) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {

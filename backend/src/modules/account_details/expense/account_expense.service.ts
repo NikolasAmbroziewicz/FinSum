@@ -3,38 +3,33 @@ import { Prisma } from '@prisma/client';
 
 import { PrismaService } from '../../../prisma/prisma.service';
 
-import { AccountExpenseDto } from './account_expense.dto'
+import { AccountExpenseDto } from './account_expense.dto';
 import { UserWithTokens } from '../../auth/auth.type';
 
 @Injectable()
 export class AccountExpenseService {
   constructor(private prisma: PrismaService) {}
 
-  async getExpenses (
-    account_id: string
-  ) {
-    const parsedAccountId = Number(account_id)
+  async getExpenses(account_id: string) {
+    const parsedAccountId = Number(account_id);
 
     const allExpenses = await this.prisma.expense.findMany({
       where: {
         account: {
-          id: parsedAccountId
+          id: parsedAccountId,
         },
-      }
-    })
+      },
+    });
 
-    return allExpenses
+    return allExpenses;
   }
 
-  async addExpense(
-    expense: AccountExpenseDto,
-    account_id: string
-  ) {
-    const { title, date, amount } = expense
+  async addExpense(expense: AccountExpenseDto, account_id: string) {
+    const { title, date, amount } = expense;
 
     const parsedDate = new Date(date);
     const parsedAmount = Number(amount);
-    const parsedAccountId = Number(account_id)
+    const parsedAccountId = Number(account_id);
 
     const addedExpense = await this.prisma.expense.create({
       data: {
@@ -43,32 +38,30 @@ export class AccountExpenseService {
         amount: parsedAmount,
         account: {
           connect: {
-            id: parsedAccountId
-          }
-        }
-      }
-    })
+            id: parsedAccountId,
+          },
+        },
+      },
+    });
 
     return {
-      ...addedExpense
-    }
+      ...addedExpense,
+    };
   }
 
-  async deleteExpense(
-    expense_id: string
-  ) {
+  async deleteExpense(expense_id: string) {
     try {
-      const parsedExpenseId = Number(expense_id)
+      const parsedExpenseId = Number(expense_id);
 
       const deletedExpense = this.prisma.expense.delete({
         where: {
-          id: parsedExpenseId
-        }
-      })
-  
+          id: parsedExpenseId,
+        },
+      });
+
       return {
-        ...deletedExpense
-      }
+        ...deletedExpense,
+      };
     } catch (e: any) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2025') {
@@ -78,16 +71,13 @@ export class AccountExpenseService {
     }
   }
 
-  async editExpense(
-    expense: AccountExpenseDto,
-    expense_id: string
-  ) {
+  async editExpense(expense: AccountExpenseDto, expense_id: string) {
     try {
-      const { title, date, amount } = expense
+      const { title, date, amount } = expense;
 
       const parsedDate = new Date(date);
       const parsedAmount = Number(amount);
-      const parsedExpenseId = Number(expense_id)
+      const parsedExpenseId = Number(expense_id);
 
       const updatedExpense = this.prisma.expense.update({
         data: {
@@ -96,13 +86,13 @@ export class AccountExpenseService {
           amount: parsedAmount,
         },
         where: {
-          id: parsedExpenseId
-        }
-      })
+          id: parsedExpenseId,
+        },
+      });
 
       return {
-        ...updatedExpense
-      }
+        ...updatedExpense,
+      };
     } catch (e: any) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2025') {

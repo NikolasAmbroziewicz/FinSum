@@ -1,29 +1,26 @@
 export const addAccountData = {
   title: 'Test Title',
-  currency: 'USD'
-}
+  currency: 'USD',
+};
 
 export const editAccountData = {
   title: 'Test Title 1',
-  currency: 'USD'
-}
+  currency: 'USD',
+};
 
 export const accountResponse = {
   id: 1,
   title: 'Test Ttile',
   currency: 'USD',
-}
+};
 
-export const findAllaccountResponse = [
-  accountResponse,
-  accountResponse
-]
+export const findAllaccountResponse = [accountResponse, accountResponse];
 
 export const accountEditResponse = {
   id: 1,
   title: 'Test Ttile 1',
   currency: 'PLN',
-}
+};
 
 export const userWithToken = {
   userId: 1,

@@ -2,8 +2,8 @@ import { IsString } from 'class-validator';
 
 export class AccountsDto {
   @IsString()
-  title: string
+  title: string;
 
   @IsString()
-  currency: string
+  currency: string;
 }

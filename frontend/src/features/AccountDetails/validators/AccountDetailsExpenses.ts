@@ -9,6 +9,8 @@ export const accountDetailsExpenseSchema = object({
   date: date({
     required_error: 'Please select a date and time'
   })
-})
+});
 
-export type AccountDetailsExpenseSchemaType = TypeOf<typeof accountDetailsExpenseSchema>;
+export type AccountDetailsExpenseSchemaType = TypeOf<
+  typeof accountDetailsExpenseSchema
+>;

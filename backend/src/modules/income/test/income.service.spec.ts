@@ -10,7 +10,7 @@ import {
   userWithToken,
   editIncome,
   editIncomeInput,
-  mockDate
+  mockDate,
 } from './mocks';
 
 let service: IncomeService;
