@@ -10,16 +10,19 @@ import { UserWithTokens } from '../../auth/auth.type';
 export class AccountExpenseService {
   constructor(private prisma: PrismaService) {}
 
-  async getExpenses(account_id: string) {
+  async getExpenses(account_id: string, date: Date) {
     const parsedAccountId = Number(account_id);
+    
+    const currentMonth = new Date(date).getMonth()
+    const currentYear = new Date(date).getFullYear()
 
-    const allExpenses = await this.prisma.expense.findMany({
-      where: {
-        account: {
-          id: parsedAccountId,
-        },
-      },
-    });
+    const allExpenses = await this.prisma.$queryRawUnsafe(`
+      SELECT *
+      FROM expense
+      WHERE expense.account_id = ${parsedAccountId} AND 
+        EXTRACT('MONTH' FROM expense.date) = ${currentMonth + 1} AND
+        EXTRACT('YEAR' FROM expense.date) = ${currentYear};
+    `)
 
     return allExpenses;
   }

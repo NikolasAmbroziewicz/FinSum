@@ -17,8 +17,11 @@ export class AccountIncome {
   constructor(private accountIncomeService: AccountIncomeService) {}
 
   @Get('v1/get-incomes')
-  getIncomes(@Query('account_id') account_id: string) {
-    return this.accountIncomeService.getIncomes(account_id);
+  getIncomes(
+    @Query('account_id') account_id: string,
+    @Query('date') date: Date  
+  ) {
+    return this.accountIncomeService.getIncomes(account_id, date);
   }
 
   @Post('v1/add-income')
