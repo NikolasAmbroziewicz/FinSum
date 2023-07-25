@@ -5,7 +5,7 @@ import { AccountIncome } from '../account_income.controller';
 import { AccountIncomeService } from '../account_income.service';
 
 import {
-  userWithToken,
+  mockDate,
   addedIncomeInput,
   addedIncome,
   editIncome,
@@ -65,7 +65,7 @@ describe('AccountIncomeController > methods > getIncomes', () => {
   it('should return list of income', async () => {
     getIncomesMock.mockResolvedValue([addedIncome, addedIncome]);
 
-    const controllerMethod = await controller.getIncomes('10');
+    const controllerMethod = await controller.getIncomes('10', mockDate);
 
     expect(controllerMethod).toEqual([addedIncome, addedIncome]);
   });

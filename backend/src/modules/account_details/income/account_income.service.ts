@@ -4,8 +4,6 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { AccountIncomeDto } from './account_income.dto';
 
-import { UserWithTokens } from '../../auth/auth.type';
-
 @Injectable()
 export class AccountIncomeService {
   constructor(private prisma: PrismaService) {}
