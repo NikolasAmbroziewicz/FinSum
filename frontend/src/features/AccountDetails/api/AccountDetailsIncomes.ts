@@ -4,9 +4,9 @@ import { AccountDetailsIncomeSchemaType } from '../validators/AccountDetailsInco
 export const useDetailsIncomes = () => {
   const authHeader = useAuthHeader();
 
-  const get_account_incomes = async (account_id: number) => {
+  const get_account_incomes = async (account_id: number, date: Date) => {
     return apiBase()
-      .get(`/account-income/v1/get-incomes?account_id=${account_id}`, {
+      .get(`/account-income/v1/get-incomes?account_id=${account_id}&date=${date}`, {
         headers: {
           ...authHeader
         }
@@ -66,60 +66,3 @@ export const useDetailsIncomes = () => {
     get_account_incomes
   };
 };
-
-// export const get_account_incomes = async (account_id: number) => {
-//   return apiBase()
-//     .get(`/account-income/v1/get-incomes?account_id=${account_id}`, {
-//       headers: {
-//         ...useAuthHeader()
-//       }
-//     })
-//     .then((res) => res.data);
-// };
-
-// export const add_account_income = async (
-//   account_id: number,
-//   data: AccountDetailsIncomeSchemaType
-// ) => {
-//   return apiBase()
-//     .post(
-//       `/account-income/v1/add-income?account_id=${account_id}`,
-//       {
-//         ...data
-//       },
-//       {
-//         headers: {
-//           ...useAuthHeader()
-//         }
-//       }
-//     )
-//     .then((res) => res.data);
-// };
-
-// export const edit_account_income = async (
-//   data: AccountDetailsIncomeSchemaType
-// ) => {
-//   return apiBase()
-//     .put(
-//       `/account-income/v1/edit-income?income_id=${data.id}`,
-//       {
-//         ...data
-//       },
-//       {
-//         headers: {
-//           ...useAuthHeader()
-//         }
-//       }
-//     )
-//     .then((res) => res.data);
-// };
-
-// export const delete_account_income = async (income_id: number) => {
-//   return apiBase()
-//     .delete(`/account-income/v1/delete-income?income_id=${income_id}`, {
-//       headers: {
-//         ...useAuthHeader()
-//       }
-//     })
-//     .then((res) => res.data);
-// };

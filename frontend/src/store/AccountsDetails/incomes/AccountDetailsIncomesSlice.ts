@@ -52,11 +52,12 @@ export const editAccountIncome = createAsyncThunk(
 
 export const getAccountIncomes = createAsyncThunk(
   'accountDetailsIncomes/getIncomes',
-  async (account_id: number) => {
+  async ({ account_id, date } : {account_id: number, date: Date}) => {
     const { get_account_incomes } = useDetailsIncomes();
 
     const res: AccountDetailsIncomeSchemaType[] = await get_account_incomes(
-      account_id
+      account_id,
+      date
     );
 
     return res;

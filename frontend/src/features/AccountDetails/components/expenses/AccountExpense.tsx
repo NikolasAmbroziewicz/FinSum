@@ -14,16 +14,22 @@ import AccountExpensesList from './AccountExpensesList';
 
 import { useModal } from 'src/shared/components/Modals/hooks/useModal';
 
-const AccountExpense = () => {
+interface IAccountExpense {
+  startDate: Date
+}
+
+const AccountExpense: React.FC<IAccountExpense> = ({ startDate }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { handleOpenModal, isOpen } = useModal();
   const params = useParams();
 
   useEffect(() => {
-    dispatch(getAccountExpenses(Number(params['accountId'])));
-
+    dispatch(getAccountExpenses({
+      account_id: Number(params['accountId']),
+      date: startDate
+    }))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [startDate]);
 
   return (
     <div>
