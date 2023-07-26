@@ -93,6 +93,8 @@ describe('accountDetailsExpensesSlice > addAccountExpense', () => {
 });
 
 describe('accountDetailsExpensesSlice > getAccountExpenses', () => {
+  const mockDate = new Date('2023-04-19');
+
   let mock: any;
   let testStore: StoreType;
 
@@ -126,11 +128,11 @@ describe('accountDetailsExpensesSlice > getAccountExpenses', () => {
   it('Get Expenses from Store', async () => {
     mock
       .onGet(
-        'http://localhost:8080/account-expense/v1/get-expenses?account_id=1'
+        'http://localhost:8080/account-expense/v1/get-expenses?account_id=1&date=Wed Apr 19 2023 02:00:00 GMT+0200 (Central European Summer Time)'
       )
       .reply(200, mockGetAccountExpenses);
 
-    await testStore.dispatch(getAccountExpenses(1));
+    await testStore.dispatch(getAccountExpenses({ account_id: 1, date: mockDate }));
 
     expect(testStore.getState().accountDetailsExpenses.expenses).toEqual(
       mockGetAccountExpenses
@@ -140,11 +142,11 @@ describe('accountDetailsExpensesSlice > getAccountExpenses', () => {
   it('Do not get Expenses from Store', async () => {
     mock
       .onGet(
-        'http://localhost:8080/account-expense/v1/get-expenses?account_id=1'
+        'http://localhost:8080/account-expense/v1/get-expenses?account_id=1&date=Wed Apr 19 2023 02:00:00 GMT+0200 (Central European Summer Time)'
       )
       .networkErrorOnce();
 
-    await testStore.dispatch(getAccountExpenses(1));
+    await testStore.dispatch(getAccountExpenses({account_id: 1, date: mockDate}));
 
     expect(testStore.getState().accountDetailsExpenses.expenses).toEqual([]);
   });
