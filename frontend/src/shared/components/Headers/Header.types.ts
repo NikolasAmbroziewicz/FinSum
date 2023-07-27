@@ -10,7 +10,7 @@ export enum Position {
 }
 
 export interface IHeaderProp {
-  children: JSX.Element | string;
+  children: JSX.Element | string | string[];
   variant?: Variant;
   position?: Position;
   styles?: string;
