@@ -25,10 +25,12 @@ import { AccountDetailsExpenseSchemaType } from 'src/features/AccountDetails/val
 
 interface IAccountExpensesList {
   account_id: number;
+  date: Date
 }
 
 const AccountExpensesList: React.FC<IAccountExpensesList> = ({
-  account_id
+  account_id,
+  date
 }) => {
   const expenses = useSelector(getAllExpenses);
   const loading = useSelector(getLoadingStatus);
@@ -39,7 +41,9 @@ const AccountExpensesList: React.FC<IAccountExpensesList> = ({
     useModal();
 
   const { handleDeleteExpense } = useAccountExpense({
-    onClose: handleDeleteOpen
+    onClose: handleDeleteOpen,
+    account_id: account_id,
+    date: date
   });
 
   return (
@@ -72,6 +76,7 @@ const AccountExpensesList: React.FC<IAccountExpensesList> = ({
                         editForm={true}
                         income={element}
                         account_id={account_id}
+                        date={date}
                       />
                     }
                   />
@@ -105,6 +110,7 @@ const AccountExpensesList: React.FC<IAccountExpensesList> = ({
                         editForm={true}
                         income={element}
                         account_id={account_id}
+                        date={date}
                       />
                     }
                   />

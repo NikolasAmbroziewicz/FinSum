@@ -25,9 +25,10 @@ import { AccountDetailsIncomeSchemaType } from 'src/features/AccountDetails/vali
 
 interface IAccountIncomesList {
   account_id: number;
+  startDate: Date
 }
 
-const AccountIncomesList: React.FC<IAccountIncomesList> = ({ account_id }) => {
+const AccountIncomesList: React.FC<IAccountIncomesList> = ({ account_id, startDate }) => {
   const income = useSelector(getAllIncomes);
   const loading = useSelector(getLoadingStatus);
 
@@ -37,7 +38,9 @@ const AccountIncomesList: React.FC<IAccountIncomesList> = ({ account_id }) => {
     useModal();
 
   const { handleDeleteIncome } = useAccountIncome({
-    onClose: handleDeleteOpen
+    onClose: handleDeleteOpen,
+    account_id: account_id,
+    date: startDate
   });
 
   return (
@@ -70,6 +73,7 @@ const AccountIncomesList: React.FC<IAccountIncomesList> = ({ account_id }) => {
                         editForm={true}
                         income={element}
                         account_id={account_id}
+                        startDate={startDate}
                       />
                     }
                   />
@@ -103,6 +107,7 @@ const AccountIncomesList: React.FC<IAccountIncomesList> = ({ account_id }) => {
                         editForm={true}
                         income={element}
                         account_id={account_id}
+                        startDate={startDate}
                       />
                     }
                   />

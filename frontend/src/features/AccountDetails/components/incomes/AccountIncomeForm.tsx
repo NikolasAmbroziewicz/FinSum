@@ -13,13 +13,15 @@ interface IAccountIncomeForm {
   editForm: boolean;
   income?: AccountDetailsIncomeSchemaType;
   account_id: number;
+  startDate: Date
 }
 
 const AccountIncomeForm: React.FC<IAccountIncomeForm> = ({
   account_id,
   editForm,
   income,
-  onClose
+  onClose,
+  startDate
 }) => {
   const {
     handleAddIncome,
@@ -30,7 +32,9 @@ const AccountIncomeForm: React.FC<IAccountIncomeForm> = ({
     setValue,
     getValues
   } = useAccountIncome({
-    onClose: onClose
+    onClose: onClose,
+    account_id: account_id,
+    date: startDate
   });
 
   const handleDateValue = (val: Date) => {
@@ -52,7 +56,7 @@ const AccountIncomeForm: React.FC<IAccountIncomeForm> = ({
       onSubmit={handleSubmit(
         editForm
           ? (data) => handleEditIncome(data)
-          : (data) => handleAddIncome(data, account_id)
+          : (data) => handleAddIncome(data)
       )}
       className="flex flex-col gap-4 w-screen mx-4"
     >

@@ -15,7 +15,7 @@ import AccountIncomesList from './AccountIncomesList';
 import { useModal } from 'src/shared/components/Modals/hooks/useModal';
 
 interface IAccountIncome {
-  startDate: Date
+  startDate: Date,
 }
 
 const AccountIncome: React.FC<IAccountIncome> = ({ startDate }) => {
@@ -39,7 +39,10 @@ const AccountIncome: React.FC<IAccountIncome> = ({ startDate }) => {
           <BaseButton handler={handleOpenModal}>Add Income</BaseButton>
         </div>
       </div>
-      <AccountIncomesList account_id={Number(params['accountId'])} />
+      <AccountIncomesList 
+        account_id={Number(params['accountId'])}  
+        startDate={startDate}
+      />
       <BaseModal
         isOpen={isOpen}
         onClose={handleOpenModal}
@@ -49,6 +52,7 @@ const AccountIncome: React.FC<IAccountIncome> = ({ startDate }) => {
             onClose={handleOpenModal}
             editForm={false}
             account_id={Number(params['accountId'])}
+            startDate={startDate}
           />
         }
       />

@@ -13,13 +13,15 @@ interface IAccountExpenseForm {
   editForm: boolean;
   income?: AccountDetailsExpenseSchemaType;
   account_id: number;
+  date: Date
 }
 
 const AccountExpenseForm: React.FC<IAccountExpenseForm> = ({
   account_id,
   editForm,
   income,
-  onClose
+  onClose,
+  date
 }) => {
   const {
     handleAddExpense,
@@ -30,7 +32,9 @@ const AccountExpenseForm: React.FC<IAccountExpenseForm> = ({
     setValue,
     getValues
   } = useAccountExpense({
-    onClose: onClose
+    onClose: onClose,
+    account_id: account_id,
+    date: date,
   });
 
   const handleDateValue = (val: Date) => {
@@ -52,7 +56,7 @@ const AccountExpenseForm: React.FC<IAccountExpenseForm> = ({
       onSubmit={handleSubmit(
         editForm
           ? (data) => handleEditExpense(data)
-          : (data) => handleAddExpense(data, account_id)
+          : (data) => handleAddExpense(data)
       )}
       className="flex flex-col gap-4 w-screen mx-4"
     >

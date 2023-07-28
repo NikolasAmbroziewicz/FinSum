@@ -18,11 +18,19 @@ import {
   editAccountIncome
 } from 'src/store/AccountsDetails/incomes/AccountDetailsIncomesSlice';
 
+import {
+  getAccountSummary
+} from 'src/store/AccountsDetails/summary/AccountDetailsSummarySlice'
+
 interface IUseAccountIncome {
   onClose?: () => void;
+  account_id: number,
+  date: Date
 }
 export const useAccountIncome = ({
-  onClose = undefined
+  onClose = undefined,
+  account_id,
+  date
 }: IUseAccountIncome) => {
   const dispatch = useDispatch<AppDispatch>();
   const { handleNotification } = useNotificationContext();
@@ -40,11 +48,21 @@ export const useAccountIncome = ({
     }
   });
 
-  const handleAddIncome = (
-    value: AccountDetailsIncomeSchemaType,
-    account_id: number
+  const handleAddIncome = async (
+    value: AccountDetailsIncomeSchemaType
   ) => {
-    dispatch(addAccountIncome({ data: value, account_id: account_id }));
+    await dispatch(addAccountIncome({ data: value, account_id: account_id }));
+    await dispatch(getAccountSummary({ date: date, account_id: account_id }))
+    
+    if (onClose) {
+      onClose();
+      handleNotification('Income has been Added.', SnackbarType.success);
+    }
+  };
+
+  const handleEditIncome = async (value: AccountDetailsIncomeSchemaType) => {
+    await dispatch(editAccountIncome(value));
+    await dispatch(getAccountSummary({ date: date, account_id: account_id }))
 
     if (onClose) {
       onClose();
@@ -52,17 +70,10 @@ export const useAccountIncome = ({
     }
   };
 
-  const handleEditIncome = (value: AccountDetailsIncomeSchemaType) => {
-    dispatch(editAccountIncome(value));
+  const handleDeleteIncome = async (value: number) => {
+    await dispatch(deleteAccountIncome(value));
+    await dispatch(getAccountSummary({ date: date, account_id: account_id }))
 
-    if (onClose) {
-      onClose();
-      handleNotification('Income has been Added.', SnackbarType.success);
-    }
-  };
-
-  const handleDeleteIncome = (value: number) => {
-    dispatch(deleteAccountIncome(value));
     if (onClose) {
       onClose();
       handleNotification('Income has been Added.', SnackbarType.success);

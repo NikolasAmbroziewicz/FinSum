@@ -37,7 +37,7 @@ const AccountExpense: React.FC<IAccountExpense> = ({ startDate }) => {
         <H2>Expenses</H2>
         <BaseButton handler={handleOpenModal}>Add Expense</BaseButton>
       </div>
-      <AccountExpensesList account_id={Number(params['accountId'])} />
+      <AccountExpensesList account_id={Number(params['accountId'])} date={startDate} />
       <BaseModal
         isOpen={isOpen}
         onClose={handleOpenModal}
@@ -47,6 +47,7 @@ const AccountExpense: React.FC<IAccountExpense> = ({ startDate }) => {
             onClose={handleOpenModal}
             editForm={false}
             account_id={Number(params['accountId'])}
+            date={startDate}
           />
         }
       />
