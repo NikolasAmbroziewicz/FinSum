@@ -18,14 +18,12 @@ import {
   editAccountIncome
 } from 'src/store/AccountsDetails/incomes/AccountDetailsIncomesSlice';
 
-import {
-  getAccountSummary
-} from 'src/store/AccountsDetails/summary/AccountDetailsSummarySlice'
+import { getAccountSummary } from 'src/store/AccountsDetails/summary/AccountDetailsSummarySlice';
 
 interface IUseAccountIncome {
   onClose?: () => void;
-  account_id: number,
-  date: Date
+  account_id: number;
+  date: Date;
 }
 export const useAccountIncome = ({
   onClose = undefined,
@@ -48,12 +46,10 @@ export const useAccountIncome = ({
     }
   });
 
-  const handleAddIncome = async (
-    value: AccountDetailsIncomeSchemaType
-  ) => {
+  const handleAddIncome = async (value: AccountDetailsIncomeSchemaType) => {
     await dispatch(addAccountIncome({ data: value, account_id: account_id }));
-    await dispatch(getAccountSummary({ date: date, account_id: account_id }))
-    
+    await dispatch(getAccountSummary({ date: date, account_id: account_id }));
+
     if (onClose) {
       onClose();
       handleNotification('Income has been Added.', SnackbarType.success);
@@ -62,7 +58,7 @@ export const useAccountIncome = ({
 
   const handleEditIncome = async (value: AccountDetailsIncomeSchemaType) => {
     await dispatch(editAccountIncome(value));
-    await dispatch(getAccountSummary({ date: date, account_id: account_id }))
+    await dispatch(getAccountSummary({ date: date, account_id: account_id }));
 
     if (onClose) {
       onClose();
@@ -72,7 +68,7 @@ export const useAccountIncome = ({
 
   const handleDeleteIncome = async (value: number) => {
     await dispatch(deleteAccountIncome(value));
-    await dispatch(getAccountSummary({ date: date, account_id: account_id }))
+    await dispatch(getAccountSummary({ date: date, account_id: account_id }));
 
     if (onClose) {
       onClose();

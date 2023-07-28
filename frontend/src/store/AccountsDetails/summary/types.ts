@@ -1,12 +1,12 @@
 export type AccountDetails = {
-  total_income: number,
-  total_expense: number,
+  total_income: number;
+  total_expense: number;
   account: {
-    currency: string
-  }
-}
+    currency: string;
+  };
+};
 
 export type AccountDetailState = {
-  details: AccountDetails,
-  isLoading: boolean
-}
+  details: AccountDetails;
+  isLoading: boolean;
+};

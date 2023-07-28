@@ -8,18 +8,19 @@ import { useModal } from 'src/shared/components/Modals/hooks/useModal';
 import { AccountDetailsExpenseSchemaType } from 'src/features/AccountDetails/validators/AccountDetailsExpenses';
 
 interface IAccountExpenseListAction {
-  account_id: number,
-  date: Date,
-  expense: AccountDetailsExpenseSchemaType
+  account_id: number;
+  date: Date;
+  expense: AccountDetailsExpenseSchemaType;
 }
 
-const AccountExpenseListAction: React.FC<IAccountExpenseListAction> =({
+const AccountExpenseListAction: React.FC<IAccountExpenseListAction> = ({
   account_id,
   date,
   expense
 }) => {
   const { isOpen: isEditOpen, handleOpenModal: handleEditOpen } = useModal();
-  const { isOpen: isDeleteOpen, handleOpenModal: handleDeleteOpen } =useModal();
+  const { isOpen: isDeleteOpen, handleOpenModal: handleDeleteOpen } =
+    useModal();
 
   const { handleDeleteExpense } = useAccountExpense({
     onClose: handleDeleteOpen,
@@ -47,7 +48,7 @@ const AccountExpenseListAction: React.FC<IAccountExpenseListAction> =({
         />
       }
     />
-  )
-}
+  );
+};
 
-export default AccountExpenseListAction
+export default AccountExpenseListAction;

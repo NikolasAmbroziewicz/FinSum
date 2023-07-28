@@ -8,14 +8,19 @@ import { useModal } from 'src/shared/components/Modals/hooks/useModal';
 import { AccountDetailsIncomeSchemaType } from 'src/features/AccountDetails/validators/AccountDetailsIncomes';
 
 interface IAccountIncomeListAction {
-  account_id: number,
-  date: Date,
-  income: AccountDetailsIncomeSchemaType
+  account_id: number;
+  date: Date;
+  income: AccountDetailsIncomeSchemaType;
 }
 
-const AccountIncomeListAction: React.FC<IAccountIncomeListAction> = ({ account_id, date, income}) => {
+const AccountIncomeListAction: React.FC<IAccountIncomeListAction> = ({
+  account_id,
+  date,
+  income
+}) => {
   const { isOpen: isEditOpen, handleOpenModal: handleEditOpen } = useModal();
-  const { isOpen: isDeleteOpen, handleOpenModal: handleDeleteOpen } =useModal();
+  const { isOpen: isDeleteOpen, handleOpenModal: handleDeleteOpen } =
+    useModal();
 
   const { handleDeleteIncome } = useAccountIncome({
     onClose: handleDeleteOpen,
@@ -43,7 +48,7 @@ const AccountIncomeListAction: React.FC<IAccountIncomeListAction> = ({ account_i
         />
       }
     />
-  )
-}
+  );
+};
 
-export default AccountIncomeListAction
+export default AccountIncomeListAction;

@@ -45,9 +45,7 @@ const IncomeList: React.FC<IIncomeList> = ({ startDate }) => {
                   amount={element.amount}
                   date={element.date}
                 >
-                  <IncomeListAction 
-                    income={element}
-                  />
+                  <IncomeListAction income={element} />
                 </ListElementMobile>
               ))}
             </div>
@@ -64,9 +62,7 @@ const IncomeList: React.FC<IIncomeList> = ({ startDate }) => {
                   amount={element.amount}
                   date={element.date}
                 >
-                  <IncomeListAction 
-                    income={element}
-                  />
+                  <IncomeListAction income={element} />
                 </ListElement>
               ))}
             </BaseTable>

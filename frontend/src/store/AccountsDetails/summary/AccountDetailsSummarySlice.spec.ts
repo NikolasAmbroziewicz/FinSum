@@ -4,7 +4,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { describe, expect, it, vi } from 'vitest';
 import { setupStore, StoreType } from '../../main';
 
-import { getAccountSummary } from './AccountDetailsSummarySlice'
+import { getAccountSummary } from './AccountDetailsSummarySlice';
 
 vi.mock('src/shared/hooks/useLocalStorage', () => ({
   useLocalStorage: () => ({
@@ -21,15 +21,15 @@ const initialStore = {
   account: {
     currency: ''
   }
-}
+};
 
 describe('accountDetailsSummarySlice > default state', () => {
   it('Should initially have correct store value', () => {
-    const state = setupStore().getState().accountDetailsSummary
+    const state = setupStore().getState().accountDetailsSummary;
 
-    expect(state.details).toMatchObject(initialStore)
-  })
-})
+    expect(state.details).toMatchObject(initialStore);
+  });
+});
 
 describe('accountDetailsSummarySlice > getAccountSummary', () => {
   let mock: any;
@@ -54,27 +54,36 @@ describe('accountDetailsSummarySlice > getAccountSummary', () => {
       account: {
         currency: 'USD'
       }
-    }
+    };
 
-    mock.onGet(
-      'http://localhost:8080/account-summary/v1/get-summary?account_id=13&date=Wed Apr 19 2023 02:00:00 GMT+0200 (Central European Summer Time)'
-    )
-    .reply(200, mockResponse);
+    mock
+      .onGet(
+        'http://localhost:8080/account-summary/v1/get-summary?account_id=13&date=Wed Apr 19 2023 02:00:00 GMT+0200 (Central European Summer Time)'
+      )
+      .reply(200, mockResponse);
 
-    await testStore.dispatch(getAccountSummary({ account_id: 13, date: new Date('2023-04-19')}))
+    await testStore.dispatch(
+      getAccountSummary({ account_id: 13, date: new Date('2023-04-19') })
+    );
 
-    expect(
-      testStore.getState().accountDetailsSummary.details
-    ).toEqual(mockResponse)
-  })
+    expect(testStore.getState().accountDetailsSummary.details).toEqual(
+      mockResponse
+    );
+  });
 
   it('Should not add Account Summary to Store', async () => {
-    mock.onGet(
-      'http://localhost:8080/account-summary/v1/get-summary?account_id=13&date=Wed Apr 19 2023 02:00:00 GMT+0200 (Central European Summer Time)'
-    ).networkErrorOnce()
+    mock
+      .onGet(
+        'http://localhost:8080/account-summary/v1/get-summary?account_id=13&date=Wed Apr 19 2023 02:00:00 GMT+0200 (Central European Summer Time)'
+      )
+      .networkErrorOnce();
 
-    await testStore.dispatch(getAccountSummary({ account_id: 13, date: new Date('2023-04-19')}))
+    await testStore.dispatch(
+      getAccountSummary({ account_id: 13, date: new Date('2023-04-19') })
+    );
 
-    expect(testStore.getState().accountDetailsSummary.details).toEqual(initialStore)
-  })
-})
+    expect(testStore.getState().accountDetailsSummary.details).toEqual(
+      initialStore
+    );
+  });
+});

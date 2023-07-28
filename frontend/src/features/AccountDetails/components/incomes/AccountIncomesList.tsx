@@ -19,10 +19,13 @@ import { LoadingPosition } from 'src/shared/components/Loading/types';
 
 interface IAccountIncomesList {
   account_id: number;
-  startDate: Date
+  startDate: Date;
 }
 
-const AccountIncomesList: React.FC<IAccountIncomesList> = ({ account_id, startDate }) => {
+const AccountIncomesList: React.FC<IAccountIncomesList> = ({
+  account_id,
+  startDate
+}) => {
   const income = useSelector(getAllIncomes);
   const loading = useSelector(getLoadingStatus);
 
@@ -42,8 +45,8 @@ const AccountIncomesList: React.FC<IAccountIncomesList> = ({ account_id, startDa
                   title={element.title}
                   amount={element.amount}
                   date={element.date}
-                > 
-                  <AccountIncomeListAction 
+                >
+                  <AccountIncomeListAction
                     account_id={account_id}
                     date={startDate}
                     income={element}
@@ -63,7 +66,7 @@ const AccountIncomesList: React.FC<IAccountIncomesList> = ({ account_id, startDa
                   amount={element.amount}
                   date={element.date}
                 >
-                  <AccountIncomeListAction 
+                  <AccountIncomeListAction
                     account_id={account_id}
                     date={startDate}
                     income={element}

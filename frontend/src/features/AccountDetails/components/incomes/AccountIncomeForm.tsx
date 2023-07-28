@@ -13,7 +13,7 @@ interface IAccountIncomeForm {
   editForm: boolean;
   income?: AccountDetailsIncomeSchemaType;
   account_id: number;
-  startDate: Date
+  startDate: Date;
 }
 
 const AccountIncomeForm: React.FC<IAccountIncomeForm> = ({

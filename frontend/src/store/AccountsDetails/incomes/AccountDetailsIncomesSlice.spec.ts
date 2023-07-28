@@ -123,10 +123,14 @@ describe('accountDetailsIncomesSlice > getAccountIncomes', () => {
 
   it('Get Incomes from Store', async () => {
     mock
-      .onGet('http://localhost:8080/account-income/v1/get-incomes?account_id=1&date=Wed Apr 19 2023 02:00:00 GMT+0200 (Central European Summer Time)')
+      .onGet(
+        'http://localhost:8080/account-income/v1/get-incomes?account_id=1&date=Wed Apr 19 2023 02:00:00 GMT+0200 (Central European Summer Time)'
+      )
       .reply(200, mockGetAccountIncomes);
 
-    await testStore.dispatch(getAccountIncomes({account_id: 1, date: mockDate}));
+    await testStore.dispatch(
+      getAccountIncomes({ account_id: 1, date: mockDate })
+    );
 
     expect(testStore.getState().accountDetailsIncomes.incomes).toEqual(
       mockGetAccountIncomes
@@ -135,10 +139,14 @@ describe('accountDetailsIncomesSlice > getAccountIncomes', () => {
 
   it('Do not get Incomes from Store', async () => {
     mock
-      .onGet('http://localhost:8080/account-income/v1/get-incomes?account_id=1&date=Wed Apr 19 2023 02:00:00 GMT+0200 (Central European Summer Time)')
+      .onGet(
+        'http://localhost:8080/account-income/v1/get-incomes?account_id=1&date=Wed Apr 19 2023 02:00:00 GMT+0200 (Central European Summer Time)'
+      )
       .networkErrorOnce();
 
-    await testStore.dispatch(getAccountIncomes({account_id: 1, date: mockDate}));
+    await testStore.dispatch(
+      getAccountIncomes({ account_id: 1, date: mockDate })
+    );
 
     expect(testStore.getState().accountDetailsIncomes.incomes).toEqual([]);
   });

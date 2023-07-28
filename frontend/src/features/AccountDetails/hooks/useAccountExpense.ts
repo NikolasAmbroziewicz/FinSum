@@ -18,14 +18,12 @@ import {
   editAccountExpense
 } from 'src/store/AccountsDetails/expenses/AccountDetailsExpensesSlice';
 
-import {
-  getAccountSummary
-} from 'src/store/AccountsDetails/summary/AccountDetailsSummarySlice'
+import { getAccountSummary } from 'src/store/AccountsDetails/summary/AccountDetailsSummarySlice';
 
 interface IUseAccountExpense {
   onClose?: () => void;
-  date: Date,
-  account_id: number
+  date: Date;
+  account_id: number;
 }
 
 export const useAccountExpense = ({
@@ -49,11 +47,9 @@ export const useAccountExpense = ({
     }
   });
 
-  const handleAddExpense = async (
-    value: AccountDetailsExpenseSchemaType
-  ) => {
+  const handleAddExpense = async (value: AccountDetailsExpenseSchemaType) => {
     await dispatch(addAccountExpense({ data: value, account_id: account_id }));
-    await dispatch(getAccountSummary({ date: date, account_id: account_id}))
+    await dispatch(getAccountSummary({ date: date, account_id: account_id }));
 
     if (onClose) {
       onClose();
@@ -63,7 +59,7 @@ export const useAccountExpense = ({
 
   const handleEditExpense = async (value: AccountDetailsExpenseSchemaType) => {
     await dispatch(editAccountExpense(value));
-    await dispatch(getAccountSummary({ date: date, account_id: account_id}))
+    await dispatch(getAccountSummary({ date: date, account_id: account_id }));
 
     if (onClose) {
       onClose();
@@ -73,7 +69,7 @@ export const useAccountExpense = ({
 
   const handleDeleteExpense = async (value: number) => {
     await dispatch(deleteAccountExpense(value));
-    await dispatch(getAccountSummary({ date: date, account_id: account_id}))
+    await dispatch(getAccountSummary({ date: date, account_id: account_id }));
 
     if (onClose) {
       onClose();

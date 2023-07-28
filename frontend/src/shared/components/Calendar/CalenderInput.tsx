@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import { forwardRef } from 'react';
 
 const CalendarInput = forwardRef(({ value, onClick }: any, ref: any) => (
   <button
@@ -10,4 +10,4 @@ const CalendarInput = forwardRef(({ value, onClick }: any, ref: any) => (
   </button>
 ));
 
-export default CalendarInput
+export default CalendarInput;

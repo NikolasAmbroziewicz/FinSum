@@ -13,7 +13,7 @@ interface IAccountExpenseForm {
   editForm: boolean;
   income?: AccountDetailsExpenseSchemaType;
   account_id: number;
-  date: Date
+  date: Date;
 }
 
 const AccountExpenseForm: React.FC<IAccountExpenseForm> = ({
@@ -34,7 +34,7 @@ const AccountExpenseForm: React.FC<IAccountExpenseForm> = ({
   } = useAccountExpense({
     onClose: onClose,
     account_id: account_id,
-    date: date,
+    date: date
   });
 
   const handleDateValue = (val: Date) => {

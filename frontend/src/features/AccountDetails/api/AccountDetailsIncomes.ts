@@ -6,11 +6,14 @@ export const useDetailsIncomes = () => {
 
   const get_account_incomes = async (account_id: number, date: Date) => {
     return apiBase()
-      .get(`/account-income/v1/get-incomes?account_id=${account_id}&date=${date}`, {
-        headers: {
-          ...authHeader
+      .get(
+        `/account-income/v1/get-incomes?account_id=${account_id}&date=${date}`,
+        {
+          headers: {
+            ...authHeader
+          }
         }
-      })
+      )
       .then((res) => res.data);
   };
 

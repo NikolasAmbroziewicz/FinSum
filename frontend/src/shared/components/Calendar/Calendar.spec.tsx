@@ -93,4 +93,4 @@ describe('Calendar > handleMonth', () => {
       new Date('2020-07-12 13:00:00')
     );
   });
-})
+});

@@ -19,7 +19,7 @@ import AccountExpenseListAction from './AccountExpenseListAction';
 
 interface IAccountExpensesList {
   account_id: number;
-  date: Date
+  date: Date;
 }
 
 const AccountExpensesList: React.FC<IAccountExpensesList> = ({
@@ -46,7 +46,7 @@ const AccountExpensesList: React.FC<IAccountExpensesList> = ({
                   amount={element.amount}
                   date={element.date}
                 >
-                  <AccountExpenseListAction 
+                  <AccountExpenseListAction
                     date={date}
                     expense={element}
                     account_id={account_id}
@@ -66,7 +66,7 @@ const AccountExpensesList: React.FC<IAccountExpensesList> = ({
                   amount={element.amount}
                   date={element.date}
                 >
-                  <AccountExpenseListAction 
+                  <AccountExpenseListAction
                     date={date}
                     expense={element}
                     account_id={account_id}

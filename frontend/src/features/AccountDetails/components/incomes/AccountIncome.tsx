@@ -15,7 +15,7 @@ import AccountIncomesList from './AccountIncomesList';
 import { useModal } from 'src/shared/components/Modals/hooks/useModal';
 
 interface IAccountIncome {
-  startDate: Date,
+  startDate: Date;
 }
 
 const AccountIncome: React.FC<IAccountIncome> = ({ startDate }) => {
@@ -24,10 +24,12 @@ const AccountIncome: React.FC<IAccountIncome> = ({ startDate }) => {
   const params = useParams();
 
   useEffect(() => {
-    dispatch(getAccountIncomes({
-      date: startDate,
-      account_id: Number(params['accountId'])
-    }));
+    dispatch(
+      getAccountIncomes({
+        date: startDate,
+        account_id: Number(params['accountId'])
+      })
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDate]);
 
@@ -39,8 +41,8 @@ const AccountIncome: React.FC<IAccountIncome> = ({ startDate }) => {
           <BaseButton handler={handleOpenModal}>Add Income</BaseButton>
         </div>
       </div>
-      <AccountIncomesList 
-        account_id={Number(params['accountId'])}  
+      <AccountIncomesList
+        account_id={Number(params['accountId'])}
         startDate={startDate}
       />
       <BaseModal

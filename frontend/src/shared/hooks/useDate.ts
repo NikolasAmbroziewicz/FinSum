@@ -7,7 +7,7 @@ export const useDate = () => {
 
   const dateMonthYear = (date: Date) => {
     return moment(date).format('MMMM YYYY');
-  }
+  };
 
   return {
     dateFormat,

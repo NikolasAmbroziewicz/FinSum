@@ -132,7 +132,9 @@ describe('accountDetailsExpensesSlice > getAccountExpenses', () => {
       )
       .reply(200, mockGetAccountExpenses);
 
-    await testStore.dispatch(getAccountExpenses({ account_id: 1, date: mockDate }));
+    await testStore.dispatch(
+      getAccountExpenses({ account_id: 1, date: mockDate })
+    );
 
     expect(testStore.getState().accountDetailsExpenses.expenses).toEqual(
       mockGetAccountExpenses
@@ -146,7 +148,9 @@ describe('accountDetailsExpensesSlice > getAccountExpenses', () => {
       )
       .networkErrorOnce();
 
-    await testStore.dispatch(getAccountExpenses({account_id: 1, date: mockDate}));
+    await testStore.dispatch(
+      getAccountExpenses({ account_id: 1, date: mockDate })
+    );
 
     expect(testStore.getState().accountDetailsExpenses.expenses).toEqual([]);
   });

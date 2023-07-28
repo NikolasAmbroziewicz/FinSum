@@ -8,7 +8,7 @@ import { useIncome } from 'src/features/Income/hooks/useIncome';
 import { useModal } from 'src/shared/components/Modals/hooks/useModal';
 
 interface IIncomeListAction {
-  income: IncomeSchemaType
+  income: IncomeSchemaType;
 }
 
 const IncomeListAction: React.FC<IIncomeListAction> = ({ income }) => {
@@ -16,9 +16,9 @@ const IncomeListAction: React.FC<IIncomeListAction> = ({ income }) => {
   const { isOpen: isDeleteOpen, handleOpenModal: handleDeleteOpen } =
     useModal();
 
-    const { handleDeleteIncome } = useIncome({
-      onClose: handleDeleteOpen
-    });
+  const { handleDeleteIncome } = useIncome({
+    onClose: handleDeleteOpen
+  });
 
   return (
     <ListElementAction<IncomeSchemaType>
@@ -31,14 +31,10 @@ const IncomeListAction: React.FC<IIncomeListAction> = ({ income }) => {
       titleDeleteModal="Delete Income"
       titleEditModal="EditModal"
       contentEditModal={
-        <IncomeForm
-          onClose={handleEditOpen}
-          editForm={true}
-          income={income}
-        />
+        <IncomeForm onClose={handleEditOpen} editForm={true} income={income} />
       }
     />
-  )
-}
+  );
+};
 
-export default IncomeListAction
+export default IncomeListAction;

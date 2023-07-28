@@ -1,18 +1,18 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { AccountDetailState, AccountDetails } from './types'
+import { AccountDetailState, AccountDetails } from './types';
 import type { RootState } from '../../main';
 
-import { useAccountDetailsSummary } from 'src/features/AccountDetails/api/AccountDetailsSummary'
+import { useAccountDetailsSummary } from 'src/features/AccountDetails/api/AccountDetailsSummary';
 
 export const getAccountSummary = createAsyncThunk(
   'accountSummary/getAccountSummary',
-  async({ account_id, date }: { account_id: number, date: Date }) => {
-    const { getSummaryAccount } = useAccountDetailsSummary()
+  async ({ account_id, date }: { account_id: number; date: Date }) => {
+    const { getSummaryAccount } = useAccountDetailsSummary();
 
-    const res: AccountDetails = await getSummaryAccount(account_id, date)
+    const res: AccountDetails = await getSummaryAccount(account_id, date);
 
-    return res
+    return res;
   }
 );
 
@@ -25,7 +25,7 @@ const initialState: AccountDetailState = {
     }
   },
   isLoading: false
-}
+};
 
 const accountDetailsSummarySlice = createSlice({
   name: 'accountDetailsSummary',
@@ -34,18 +34,19 @@ const accountDetailsSummarySlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(getAccountSummary.fulfilled, (state, action) => {
-        state.details = action.payload
-        state.isLoading = false
+        state.details = action.payload;
+        state.isLoading = false;
       })
       .addCase(getAccountSummary.rejected, (state) => {
-        state.isLoading = false
+        state.isLoading = false;
       })
       .addCase(getAccountSummary.pending, (state) => {
-        state.isLoading = true
-      })
+        state.isLoading = true;
+      });
   }
-})
+});
 
-export const getAccountSummaryDetails = (state: RootState) => state.accountDetailsSummary.details
+export const getAccountSummaryDetails = (state: RootState) =>
+  state.accountDetailsSummary.details;
 
-export default accountDetailsSummarySlice.reducer
+export default accountDetailsSummarySlice.reducer;
