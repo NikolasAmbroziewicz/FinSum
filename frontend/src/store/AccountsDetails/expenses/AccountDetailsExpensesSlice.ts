@@ -62,7 +62,7 @@ export const getAccountExpenses = createAsyncThunk(
       account_id,
       date
     );
-    console.log('here2')
+    console.log('here2', res)
 
     return res;
   }
