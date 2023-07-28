@@ -5,23 +5,17 @@ import {
   getLoadingStatus
 } from 'src/store/AccountsDetails/incomes/AccountDetailsIncomesSlice';
 
-import AccountIncomeForm from './AccountIncomeForm';
+import AccountIncomeListAction from './AccountIncomeListAction';
 
 import NotFound from 'src/shared/components/NotFound/NotFound';
 import Loading from 'src/shared/components/Loading/Loading';
 import BaseTable from 'src/shared/components/Table/BaseTable';
-
 import ListElement from 'src/shared/components/List/ListElement';
 import ListElementMobile from 'src/shared/components/List/ListElementMobile';
-import ListElementAction from 'src/shared/components/List/ListElementAction';
-
-import { useAccountIncome } from 'src/features/AccountDetails/hooks/useAccountIncome';
 
 import { useScreen } from 'src/shared/hooks/useScreen';
-import { useModal } from 'src/shared/components/Modals/hooks/useModal';
 
 import { LoadingPosition } from 'src/shared/components/Loading/types';
-import { AccountDetailsIncomeSchemaType } from 'src/features/AccountDetails/validators/AccountDetailsIncomes';
 
 interface IAccountIncomesList {
   account_id: number;
@@ -33,15 +27,6 @@ const AccountIncomesList: React.FC<IAccountIncomesList> = ({ account_id, startDa
   const loading = useSelector(getLoadingStatus);
 
   const { isMobileScreen } = useScreen();
-  const { isOpen: isEditOpen, handleOpenModal: handleEditOpen } = useModal();
-  const { isOpen: isDeleteOpen, handleOpenModal: handleDeleteOpen } =
-    useModal();
-
-  const { handleDeleteIncome } = useAccountIncome({
-    onClose: handleDeleteOpen,
-    account_id: account_id,
-    date: startDate
-  });
 
   return (
     <div className="h-full my-4">
@@ -57,25 +42,11 @@ const AccountIncomesList: React.FC<IAccountIncomesList> = ({ account_id, startDa
                   title={element.title}
                   amount={element.amount}
                   date={element.date}
-                >
-                  <ListElementAction<AccountDetailsIncomeSchemaType>
-                    element={element}
-                    isDeleteModalOpen={isDeleteOpen}
-                    handleDeleteModal={handleDeleteOpen}
-                    isEditModalOpen={isEditOpen}
-                    handleEditModal={handleEditOpen}
-                    handleDeleteElement={handleDeleteIncome}
-                    titleDeleteModal="Delete Income"
-                    titleEditModal="EditModal"
-                    contentEditModal={
-                      <AccountIncomeForm
-                        onClose={handleEditOpen}
-                        editForm={true}
-                        income={element}
-                        account_id={account_id}
-                        startDate={startDate}
-                      />
-                    }
+                > 
+                  <AccountIncomeListAction 
+                    account_id={account_id}
+                    date={startDate}
+                    income={element}
                   />
                 </ListElementMobile>
               ))}
@@ -92,24 +63,10 @@ const AccountIncomesList: React.FC<IAccountIncomesList> = ({ account_id, startDa
                   amount={element.amount}
                   date={element.date}
                 >
-                  <ListElementAction<AccountDetailsIncomeSchemaType>
-                    element={element}
-                    isDeleteModalOpen={isDeleteOpen}
-                    handleDeleteModal={handleDeleteOpen}
-                    isEditModalOpen={isEditOpen}
-                    handleEditModal={handleEditOpen}
-                    handleDeleteElement={handleDeleteIncome}
-                    titleDeleteModal="Delete Income"
-                    titleEditModal="EditModal"
-                    contentEditModal={
-                      <AccountIncomeForm
-                        onClose={handleEditOpen}
-                        editForm={true}
-                        income={element}
-                        account_id={account_id}
-                        startDate={startDate}
-                      />
-                    }
+                  <AccountIncomeListAction 
+                    account_id={account_id}
+                    date={startDate}
+                    income={element}
                   />
                 </ListElement>
               ))}
