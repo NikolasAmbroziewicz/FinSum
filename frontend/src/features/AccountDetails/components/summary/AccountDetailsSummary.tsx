@@ -9,7 +9,6 @@ import { AppDispatch } from 'src/store/main';
 import { getAccountSummary, getAccountSummaryDetails } from 'src/store/AccountsDetails/summary/AccountDetailsSummarySlice'
 
 import H1 from 'src/shared/components/Headers/H1';
-import H2 from 'src/shared/components/Headers/H2';
 import Calendar from "src/shared/components/Calendar/Calendar";
 
 import { useDate } from 'src/shared/hooks/useDate';
@@ -39,8 +38,10 @@ const AccountDetailsSummary: React.FC<IAccountDetailsSummary> = ({ setStartDate,
   }, [startDate])
 
   const data = {
+    labels: ['Incomes', 'Expenses'],
     datasets: [
       {
+        label: summary.account.currency,
         data: [summary.total_income, summary.total_expense],
         backgroundColor: [
           '#bef264',
@@ -56,13 +57,13 @@ const AccountDetailsSummary: React.FC<IAccountDetailsSummary> = ({ setStartDate,
   };
 
   const mobileScreen = () => {
-    return isMobileScreen() ? 'flex-col items-center' : 'flex-row'
+    return isMobileScreen() ? 'flex-col items-center' : 'flex-row justify-center'
   }
 
   return (
     <div>
       <div>
-        <H1>Account Summart for {dateMonthYear(startDate)}</H1>
+        <H1>Account Summary for {dateMonthYear(startDate)}</H1>
         <div className='flex justify-end my-4'>
           <span>Date:</span>
           <Calendar yearCalendar={false} setStartDate={setStartDate} startDate={startDate} />
@@ -71,14 +72,6 @@ const AccountDetailsSummary: React.FC<IAccountDetailsSummary> = ({ setStartDate,
       <div className={`flex ${mobileScreen()} max-w-[600px] m-auto`}>
         <div className='max-w-[300px]'>
           <Doughnut data={data} />
-        </div>
-        <div className='flex flex-col max-w-[300px] mx-auto py-2'>
-          <span className='text-lime-600 text-xl'>
-            Total Incomes: {summary.total_income} {summary.account.currency}
-          </span>
-          <span className='text-red-600 text-xl'>
-            Total Expense: {summary.total_expense} {summary.account.currency}
-          </span>
         </div>
       </div>
     </div>
