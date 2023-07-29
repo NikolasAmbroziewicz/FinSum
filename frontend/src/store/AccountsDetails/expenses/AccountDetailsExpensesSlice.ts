@@ -55,14 +55,12 @@ export const editAccountExpense = createAsyncThunk(
 export const getAccountExpenses = createAsyncThunk(
   'accountDetailsExpense/getAccountExpenses',
   async ({ account_id, date }: { account_id: number; date: Date }) => {
-    console.log('here')
     const { get_account_expenses } = useDetailsExpenses();
-    console.log('here1')
+
     const res: AccountDetailsExpenseSchemaType[] = await get_account_expenses(
       account_id,
       date
     );
-    console.log('here2', res)
 
     return res;
   }

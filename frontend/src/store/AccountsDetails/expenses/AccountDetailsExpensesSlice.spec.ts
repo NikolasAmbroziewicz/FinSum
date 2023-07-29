@@ -1,5 +1,3 @@
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
 import { describe, expect, it, vi } from 'vitest';
 
 import { setupStore, StoreType } from '../../main';
@@ -20,11 +18,17 @@ vi.mock('src/shared/hooks/useLocalStorage', () => ({
 }));
 
 // mocks
+const addAccountExpenseMock = vi.fn()
+const editAccountExpenseMock = vi.fn()
+const deleteAccountExpenseMock = vi.fn()
 const getAccountExpensesMock = vi.fn()
 
 vi.mock('src/features/AccountDetails/api/AccountDetailsExpenses', () => ({
   useDetailsExpenses: () => ({
-    get_account_expenses: getAccountExpensesMock
+    add_account_expense: addAccountExpenseMock,
+    delete_account_expense: deleteAccountExpenseMock,
+    edit_account_expense: editAccountExpenseMock,
+    get_account_expenses: getAccountExpensesMock,
   })
 }))
 
@@ -40,71 +44,53 @@ describe('accountDetailsExpensesSlice > default state', () => {
   });
 });
 
-// describe('accountDetailsExpensesSlice > addAccountExpense', () => {
-//   let mock: any;
-//   let testStore: StoreType;
+describe('accountDetailsExpensesSlice > addAccountExpense', () => {
+  let testStore: StoreType;
 
-//   const mockAddAccountDetailsExpenses = {
-//     title: 'Test',
-//     amount: '123',
-//     date: new Date('2023-05-29T11:04:20.338Z')
-//   };
+  const mockAddAccountDetailsExpenses = {
+    title: 'Test',
+    amount: '123',
+    date: new Date('2023-05-29T11:04:20.338Z')
+  };
 
-//   const mockAddAccountDetailsExpensesResponse = {
-//     title: 'Test',
-//     amount: '123',
-//     date: '2023-05-29T11:04:20.338Z'
-//   };
+  const mockAddAccountDetailsExpensesResponse = {
+    title: 'Test',
+    amount: '123',
+    date: '2023-05-29T11:04:20.338Z'
+  };
 
-//   beforeEach(() => {
-//     testStore = setupStore();
-//   });
+  beforeEach(() => {
+    testStore = setupStore();
+  });
 
-//   beforeAll(() => {
-//     mock = new MockAdapter(axios);
-//   });
+  it('Add Account Expenses to store', async () => {
+    addAccountExpenseMock.mockResolvedValueOnce(mockAddAccountDetailsExpensesResponse)
 
-//   afterEach(() => {
-//     mock.reset();
-//   });
+    await testStore.dispatch(
+      addAccountExpense({ account_id: 1, data: mockAddAccountDetailsExpenses })
+    );
 
-//   it('Add Account Expenses to store', async () => {
-//     mock
-//       .onPost(
-//         'http://localhost:8080/account-expense/v1/add-expense?account_id=1'
-//       )
-//       .reply(200, mockAddAccountDetailsExpenses);
+    expect(
+      testStore.getState().accountDetailsExpenses.expenses[0]
+    ).toMatchObject(mockAddAccountDetailsExpensesResponse);
+  });
 
-//     await testStore.dispatch(
-//       addAccountExpense({ account_id: 1, data: mockAddAccountDetailsExpenses })
-//     );
+  it('Do not add Account Expenses to store', async () => {
+    addAccountExpenseMock.mockRejectedValueOnce({})
 
-//     expect(
-//       testStore.getState().accountDetailsExpenses.expenses[0]
-//     ).toMatchObject(mockAddAccountDetailsExpensesResponse);
-//   });
 
-//   it('Do not add Account Expenses to store', async () => {
-//     mock
-//       .onPost(
-//         'http://localhost:8080/account-expense/v1/add-expense?account_id=1'
-//       )
-//       .networkErrorOnce();
+    await testStore.dispatch(
+      addAccountExpense({ account_id: 1, data: mockAddAccountDetailsExpenses })
+    );
 
-//     await testStore.dispatch(
-//       addAccountExpense({ account_id: 1, data: mockAddAccountDetailsExpenses })
-//     );
-
-//     expect(testStore.getState().accountDetailsExpenses.expenses).toMatchObject(
-//       []
-//     );
-//   });
-// });
+    expect(testStore.getState().accountDetailsExpenses.expenses).toMatchObject(
+      []
+    );
+  });
+});
 
 describe('accountDetailsExpensesSlice > getAccountExpenses', () => {
   const mockDate = new Date('2023-04-19');
-
-  let mock: any;
   let testStore: StoreType;
 
   const mockGetAccountExpenses = [
@@ -126,22 +112,8 @@ describe('accountDetailsExpensesSlice > getAccountExpenses', () => {
     testStore = setupStore();
   });
 
-  beforeAll(() => {
-    mock = new MockAdapter(axios);
-  });
-
-  afterEach(() => {
-    mock.reset();
-  });
-
   it('Get Expenses from Store', async () => {
-    // mock
-    //   .onGet(
-    //     'http://localhost:8080/account-expense/v1/get-expenses?account_id=1&date=Wed Apr 19 2023 02:00:00 GMT+0200 (Central European Summer Time)'
-    //   )
-    //   .reply(200, mockGetAccountExpenses);
-    
-      getAccountExpensesMock.mockResolvedValueOnce(mockGetAccountExpenses)
+    getAccountExpensesMock.mockResolvedValueOnce(mockGetAccountExpenses)
 
     await testStore.dispatch(
       getAccountExpenses({ account_id: 1, date: mockDate })
@@ -152,174 +124,135 @@ describe('accountDetailsExpensesSlice > getAccountExpenses', () => {
     );
   });
 
-  // it('Do not get Expenses from Store', async () => {
-  //   mock
-  //     .onGet(
-  //       'http://localhost:8080/account-expense/v1/get-expenses?account_id=1&date=Wed Apr 19 2023 02:00:00 GMT+0200 (Central European Summer Time)'
-  //     )
-  //     .networkErrorOnce();
+  it('Do not get Expenses from Store', async () => {
+    getAccountExpensesMock.mockRejectedValueOnce(mockGetAccountExpenses)
 
-  //   await testStore.dispatch(
-  //     getAccountExpenses({ account_id: 1, date: mockDate })
-  //   );
+    await testStore.dispatch(
+      getAccountExpenses({ account_id: 1, date: mockDate })
+    );
 
-  //   expect(testStore.getState().accountDetailsExpenses.expenses).toEqual([]);
-  // });
+    expect(testStore.getState().accountDetailsExpenses.expenses).toEqual([]);
+  });
 });
 
-// describe('accountDetailsExpensesSlice > editAccountExpense', () => {
-//   let mock: any;
+describe('accountDetailsExpensesSlice > editAccountExpense', () => {
+  it('Get edited Account Expenses from Store', async () => {
+    //given
+    const storeValue = {
+      id: 123,
+      title: 'Test',
+      amount: '123',
+      date: new Date('2023-05-29T11:04:20.334Z')
+    };
 
-//   beforeAll(() => {
-//     mock = new MockAdapter(axios);
-//   });
+    const testStore = setupStore({
+      accountDetailsExpenses: {
+        expenses: [storeValue],
+        isLoading: false
+      }
+    });
 
-//   afterEach(() => {
-//     mock.reset();
-//   });
+    const mockEditAccountExpense = {
+      id: 123,
+      title: 'Test1111',
+      amount: '123',
+      date: new Date('2023-05-29T11:04:20.338Z')
+    };
 
-//   it('Get edited Account Expenses from Store', async () => {
-//     //given
-//     const storeValue = {
-//       id: 123,
-//       title: 'Test',
-//       amount: '123',
-//       date: new Date('2023-05-29T11:04:20.334Z')
-//     };
+    const mockEditAccountExpenseResponse = {
+      id: 123,
+      title: 'Test1111',
+      amount: '123',
+      date: '2023-05-29T11:04:20.338Z'
+    };
 
-//     const testStore = setupStore({
-//       accountDetailsExpenses: {
-//         expenses: [storeValue],
-//         isLoading: false
-//       }
-//     });
+    editAccountExpenseMock.mockResolvedValue(mockEditAccountExpenseResponse)
 
-//     const mockEditAccountExpense = {
-//       id: 123,
-//       title: 'Test1111',
-//       amount: '123',
-//       date: new Date('2023-05-29T11:04:20.338Z')
-//     };
+    expect(
+      testStore.getState().accountDetailsExpenses.expenses[0]
+    ).toMatchObject(storeValue);
 
-//     const mockEditAccountExpenseResponse = {
-//       id: 123,
-//       title: 'Test1111',
-//       amount: '123',
-//       date: '2023-05-29T11:04:20.338Z'
-//     };
+    await testStore.dispatch(editAccountExpense(mockEditAccountExpense));
 
-//     mock
-//       .onPut(
-//         `http://localhost:8080/account-expense/v1/edit-expense?expense_id=123`
-//       )
-//       .reply(200, mockEditAccountExpenseResponse);
+    expect(
+      testStore.getState().accountDetailsExpenses.expenses[0]
+    ).toMatchObject(mockEditAccountExpenseResponse);
+  });
 
-//     expect(
-//       testStore.getState().accountDetailsExpenses.expenses[0]
-//     ).toMatchObject(storeValue);
+  it('Do not Get Edited Account Expenses from Store', async () => {
+    //given
+    const testStore = setupStore();
+    editAccountExpenseMock.mockRejectedValueOnce({})
 
-//     await testStore.dispatch(editAccountExpense(mockEditAccountExpense));
+    const mockAddIncome = {
+      title: 'Test',
+      currency: 'USD',
+      amount: '123',
+      date: new Date('2023-05-29T11:04:20.338Z')
+    };
 
-//     expect(
-//       testStore.getState().accountDetailsExpenses.expenses[0]
-//     ).toMatchObject(mockEditAccountExpenseResponse);
-//   });
+    //then
+    await testStore.dispatch(editAccountExpense(mockAddIncome));
 
-//   it('Do not Get Edited Account Expenses from Store', async () => {
-//     //given
-//     const testStore = setupStore();
-//     mock
-//       .onPut(
-//         'http://localhost:8080/account-expense/v1/edit-expense?expense_id=1'
-//       )
-//       .networkErrorOnce();
-//     const mockAddIncome = {
-//       title: 'Test',
-//       currency: 'USD',
-//       amount: '123',
-//       date: new Date('2023-05-29T11:04:20.338Z')
-//     };
+    //expect
+    expect(testStore.getState().income.income).toMatchObject([]);
+  });
+});
 
-//     //then
-//     await testStore.dispatch(editAccountExpense(mockAddIncome));
+describe('accountDetailsExpensesSlice > deleteAccountExpense', () => {
+  it('Should not delete AccountExpense from Store', async () => {
+    //given
+    const storeValue = {
+      id: 123,
+      title: 'Test',
+      amount: '123',
+      date: new Date('2023-05-29T11:04:20.334Z')
+    };
 
-//     //expect
-//     expect(testStore.getState().income.income).toMatchObject([]);
-//   });
-// });
+    const testStore = setupStore({
+      accountDetailsExpenses: {
+        expenses: [storeValue],
+        isLoading: false
+      }
+    });
 
-// describe('accountDetailsExpensesSlice > deleteAccountExpense', () => {
-//   let mock: any;
+    deleteAccountExpenseMock.mockRejectedValueOnce({})
 
-//   beforeAll(() => {
-//     mock = new MockAdapter(axios);
-//   });
+    expect(
+      testStore.getState().accountDetailsExpenses.expenses[0]
+    ).toMatchObject(storeValue);
 
-//   afterEach(() => {
-//     mock.reset();
-//   });
+    await testStore.dispatch(deleteAccountExpense(123));
 
-//   it('Should not delete AccountExpense from Store', async () => {
-//     //given
-//     const storeValue = {
-//       id: 123,
-//       title: 'Test',
-//       amount: '123',
-//       date: new Date('2023-05-29T11:04:20.334Z')
-//     };
+    expect(
+      testStore.getState().accountDetailsExpenses.expenses[0]
+    ).toMatchObject(storeValue);
+  });
 
-//     const testStore = setupStore({
-//       accountDetailsExpenses: {
-//         expenses: [storeValue],
-//         isLoading: false
-//       }
-//     });
+  it('Should delete AccountExpense from Store', async () => {
+    //given
+    const storeValue = {
+      id: 123,
+      title: 'Test',
+      amount: '123',
+      date: new Date('2023-05-29T11:04:20.334Z')
+    };
 
-//     mock
-//       .onDelete(
-//         'http://localhost:8080/account-expense/v1/delete-expense?expense_id=123'
-//       )
-//       .networkErrorOnce();
+    const testStore = setupStore({
+      accountDetailsExpenses: {
+        expenses: [storeValue],
+        isLoading: false
+      }
+    });
 
-//     expect(
-//       testStore.getState().accountDetailsExpenses.expenses[0]
-//     ).toMatchObject(storeValue);
+    deleteAccountExpenseMock.mockResolvedValueOnce(storeValue)
 
-//     await testStore.dispatch(deleteAccountExpense(123));
+    expect(
+      testStore.getState().accountDetailsExpenses.expenses[0]
+    ).toMatchObject(storeValue);
 
-//     expect(
-//       testStore.getState().accountDetailsExpenses.expenses[0]
-//     ).toMatchObject(storeValue);
-//   });
+    await testStore.dispatch(deleteAccountExpense(123));
 
-//   it('Should delete AccountExpense from Store', async () => {
-//     //given
-//     const storeValue = {
-//       id: 123,
-//       title: 'Test',
-//       amount: '123',
-//       date: new Date('2023-05-29T11:04:20.334Z')
-//     };
-
-//     const testStore = setupStore({
-//       accountDetailsExpenses: {
-//         expenses: [storeValue],
-//         isLoading: false
-//       }
-//     });
-
-//     mock
-//       .onDelete(
-//         'http://localhost:8080/account-expense/v1/delete-expense?expense_id=123'
-//       )
-//       .reply(200, storeValue);
-
-//     expect(
-//       testStore.getState().accountDetailsExpenses.expenses[0]
-//     ).toMatchObject(storeValue);
-
-//     await testStore.dispatch(deleteAccountExpense(123));
-
-//     expect(testStore.getState().accountDetailsExpenses.expenses).toEqual([]);
-//   });
-// });
+    expect(testStore.getState().accountDetailsExpenses.expenses).toEqual([]);
+  });
+});
