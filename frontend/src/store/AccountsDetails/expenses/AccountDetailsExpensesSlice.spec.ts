@@ -18,19 +18,19 @@ vi.mock('src/shared/hooks/useLocalStorage', () => ({
 }));
 
 // mocks
-const addAccountExpenseMock = vi.fn()
-const editAccountExpenseMock = vi.fn()
-const deleteAccountExpenseMock = vi.fn()
-const getAccountExpensesMock = vi.fn()
+const addAccountExpenseMock = vi.fn();
+const editAccountExpenseMock = vi.fn();
+const deleteAccountExpenseMock = vi.fn();
+const getAccountExpensesMock = vi.fn();
 
 vi.mock('src/features/AccountDetails/api/AccountDetailsExpenses', () => ({
   useDetailsExpenses: () => ({
     add_account_expense: addAccountExpenseMock,
     delete_account_expense: deleteAccountExpenseMock,
     edit_account_expense: editAccountExpenseMock,
-    get_account_expenses: getAccountExpensesMock,
+    get_account_expenses: getAccountExpensesMock
   })
-}))
+}));
 
 describe('accountDetailsExpensesSlice > default state', () => {
   it('Should initially set income to empty Array', () => {
@@ -64,7 +64,9 @@ describe('accountDetailsExpensesSlice > addAccountExpense', () => {
   });
 
   it('Add Account Expenses to store', async () => {
-    addAccountExpenseMock.mockResolvedValueOnce(mockAddAccountDetailsExpensesResponse)
+    addAccountExpenseMock.mockResolvedValueOnce(
+      mockAddAccountDetailsExpensesResponse
+    );
 
     await testStore.dispatch(
       addAccountExpense({ account_id: 1, data: mockAddAccountDetailsExpenses })
@@ -76,8 +78,7 @@ describe('accountDetailsExpensesSlice > addAccountExpense', () => {
   });
 
   it('Do not add Account Expenses to store', async () => {
-    addAccountExpenseMock.mockRejectedValueOnce({})
-
+    addAccountExpenseMock.mockRejectedValueOnce({});
 
     await testStore.dispatch(
       addAccountExpense({ account_id: 1, data: mockAddAccountDetailsExpenses })
@@ -113,7 +114,7 @@ describe('accountDetailsExpensesSlice > getAccountExpenses', () => {
   });
 
   it('Get Expenses from Store', async () => {
-    getAccountExpensesMock.mockResolvedValueOnce(mockGetAccountExpenses)
+    getAccountExpensesMock.mockResolvedValueOnce(mockGetAccountExpenses);
 
     await testStore.dispatch(
       getAccountExpenses({ account_id: 1, date: mockDate })
@@ -125,7 +126,7 @@ describe('accountDetailsExpensesSlice > getAccountExpenses', () => {
   });
 
   it('Do not get Expenses from Store', async () => {
-    getAccountExpensesMock.mockRejectedValueOnce(mockGetAccountExpenses)
+    getAccountExpensesMock.mockRejectedValueOnce(mockGetAccountExpenses);
 
     await testStore.dispatch(
       getAccountExpenses({ account_id: 1, date: mockDate })
@@ -166,7 +167,7 @@ describe('accountDetailsExpensesSlice > editAccountExpense', () => {
       date: '2023-05-29T11:04:20.338Z'
     };
 
-    editAccountExpenseMock.mockResolvedValue(mockEditAccountExpenseResponse)
+    editAccountExpenseMock.mockResolvedValue(mockEditAccountExpenseResponse);
 
     expect(
       testStore.getState().accountDetailsExpenses.expenses[0]
@@ -182,7 +183,7 @@ describe('accountDetailsExpensesSlice > editAccountExpense', () => {
   it('Do not Get Edited Account Expenses from Store', async () => {
     //given
     const testStore = setupStore();
-    editAccountExpenseMock.mockRejectedValueOnce({})
+    editAccountExpenseMock.mockRejectedValueOnce({});
 
     const mockAddIncome = {
       title: 'Test',
@@ -216,7 +217,7 @@ describe('accountDetailsExpensesSlice > deleteAccountExpense', () => {
       }
     });
 
-    deleteAccountExpenseMock.mockRejectedValueOnce({})
+    deleteAccountExpenseMock.mockRejectedValueOnce({});
 
     expect(
       testStore.getState().accountDetailsExpenses.expenses[0]
@@ -245,7 +246,7 @@ describe('accountDetailsExpensesSlice > deleteAccountExpense', () => {
       }
     });
 
-    deleteAccountExpenseMock.mockResolvedValueOnce(storeValue)
+    deleteAccountExpenseMock.mockResolvedValueOnce(storeValue);
 
     expect(
       testStore.getState().accountDetailsExpenses.expenses[0]

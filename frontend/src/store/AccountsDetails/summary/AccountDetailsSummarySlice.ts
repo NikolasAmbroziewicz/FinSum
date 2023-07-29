@@ -8,9 +8,9 @@ import { useAccountDetailsSummary } from 'src/features/AccountDetails/api/Accoun
 export const getAccountSummary = createAsyncThunk(
   'accountSummary/getAccountSummary',
   async ({ account_id, date }: { account_id: number; date: Date }) => {
-    const { getSummaryAccount } = useAccountDetailsSummary();
+    const { get_summary_account } = useAccountDetailsSummary();
 
-    const res: AccountDetails = await getSummaryAccount(account_id, date);
+    const res: AccountDetails = await get_summary_account(account_id, date);
 
     return res;
   }

@@ -1,6 +1,3 @@
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
-
 import { describe, expect, it, vi } from 'vitest';
 import { setupStore, StoreType } from '../../main';
 
@@ -12,6 +9,14 @@ vi.mock('src/shared/hooks/useLocalStorage', () => ({
       accessToken: '',
       refreshToken: ''
     })
+  })
+}));
+
+const getSummaryAccountMock = vi.fn();
+
+vi.mock('src/features/AccountDetails/api/AccountDetailsSummary', () => ({
+  useAccountDetailsSummary: () => ({
+    get_summary_account: getSummaryAccountMock
   })
 }));
 
@@ -32,19 +37,10 @@ describe('accountDetailsSummarySlice > default state', () => {
 });
 
 describe('accountDetailsSummarySlice > getAccountSummary', () => {
-  let mock: any;
   let testStore: StoreType;
 
   beforeEach(() => {
     testStore = setupStore();
-  });
-
-  beforeAll(() => {
-    mock = new MockAdapter(axios);
-  });
-
-  afterEach(() => {
-    mock.reset();
   });
 
   it('Should add Account Summary to Store', async () => {
@@ -55,12 +51,7 @@ describe('accountDetailsSummarySlice > getAccountSummary', () => {
         currency: 'USD'
       }
     };
-
-    mock
-      .onGet(
-        'http://localhost:8080/account-summary/v1/get-summary?account_id=13&date=Wed Apr 19 2023 02:00:00 GMT+0200 (Central European Summer Time)'
-      )
-      .reply(200, mockResponse);
+    getSummaryAccountMock.mockResolvedValueOnce(mockResponse);
 
     await testStore.dispatch(
       getAccountSummary({ account_id: 13, date: new Date('2023-04-19') })
@@ -72,11 +63,7 @@ describe('accountDetailsSummarySlice > getAccountSummary', () => {
   });
 
   it('Should not add Account Summary to Store', async () => {
-    mock
-      .onGet(
-        'http://localhost:8080/account-summary/v1/get-summary?account_id=13&date=Wed Apr 19 2023 02:00:00 GMT+0200 (Central European Summer Time)'
-      )
-      .networkErrorOnce();
+    getSummaryAccountMock.mockRejectedValueOnce({});
 
     await testStore.dispatch(
       getAccountSummary({ account_id: 13, date: new Date('2023-04-19') })

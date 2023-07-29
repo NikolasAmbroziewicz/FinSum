@@ -18,19 +18,19 @@ vi.mock('src/shared/hooks/useLocalStorage', () => ({
 }));
 
 // mocks
-const addAccountIncomeMock = vi.fn()
-const editAccountIncomeMock = vi.fn()
-const deleteAccountIncomeMock = vi.fn()
-const getAccountIncomesMock = vi.fn()
+const addAccountIncomeMock = vi.fn();
+const editAccountIncomeMock = vi.fn();
+const deleteAccountIncomeMock = vi.fn();
+const getAccountIncomesMock = vi.fn();
 
 vi.mock('src/features/AccountDetails/api/AccountDetailsIncomes', () => ({
   useDetailsIncomes: () => ({
     add_account_income: addAccountIncomeMock,
     delete_account_income: deleteAccountIncomeMock,
     edit_account_income: editAccountIncomeMock,
-    get_account_incomes: getAccountIncomesMock,
+    get_account_incomes: getAccountIncomesMock
   })
-}))
+}));
 
 describe('accountDetailsIncomesSlice > default state', () => {
   it('Should initially set income to empty Array', () => {
@@ -64,7 +64,9 @@ describe('accountDetailsIncomesSlice > addAccountIncome', () => {
   });
 
   it('Add Account Incomes to store', async () => {
-    addAccountIncomeMock.mockResolvedValueOnce(mockAddAccountDetailsIncomesResponse)
+    addAccountIncomeMock.mockResolvedValueOnce(
+      mockAddAccountDetailsIncomesResponse
+    );
 
     await testStore.dispatch(
       addAccountIncome({ account_id: 1, data: mockAddAccountDetailsIncomes })
@@ -76,7 +78,7 @@ describe('accountDetailsIncomesSlice > addAccountIncome', () => {
   });
 
   it('Do not add Account Incomes to store', async () => {
-    addAccountIncomeMock.mockRejectedValueOnce({})
+    addAccountIncomeMock.mockRejectedValueOnce({});
 
     await testStore.dispatch(
       addAccountIncome({ account_id: 1, data: mockAddAccountDetailsIncomes })
@@ -113,7 +115,7 @@ describe('accountDetailsIncomesSlice > getAccountIncomes', () => {
   });
 
   it('Get Incomes from Store', async () => {
-    getAccountIncomesMock.mockResolvedValueOnce(mockGetAccountIncomes)
+    getAccountIncomesMock.mockResolvedValueOnce(mockGetAccountIncomes);
 
     await testStore.dispatch(
       getAccountIncomes({ account_id: 1, date: mockDate })
@@ -125,7 +127,7 @@ describe('accountDetailsIncomesSlice > getAccountIncomes', () => {
   });
 
   it('Do not get Incomes from Store', async () => {
-    getAccountIncomesMock.mockRejectedValueOnce({})
+    getAccountIncomesMock.mockRejectedValueOnce({});
 
     await testStore.dispatch(
       getAccountIncomes({ account_id: 1, date: mockDate })
@@ -166,7 +168,7 @@ describe('accountDetailsIncomesSlice > editAccountIncome', () => {
       date: '2023-05-29T11:04:20.338Z'
     };
 
-    editAccountIncomeMock.mockResolvedValueOnce(mockEditAccountIncomeResponse)
+    editAccountIncomeMock.mockResolvedValueOnce(mockEditAccountIncomeResponse);
 
     expect(testStore.getState().accountDetailsIncomes.incomes[0]).toMatchObject(
       storeValue
@@ -182,7 +184,7 @@ describe('accountDetailsIncomesSlice > editAccountIncome', () => {
   it('Do not Get Edited Account Incomes from Store', async () => {
     //given
     const testStore = setupStore();
-    editAccountIncomeMock.mockRejectedValueOnce({})
+    editAccountIncomeMock.mockRejectedValueOnce({});
 
     const mockAddAccountIncome = {
       title: 'Test',
@@ -216,7 +218,7 @@ describe('accountDetailsIncomesSlice > deleteAccountIncome', () => {
       }
     });
 
-    deleteAccountIncomeMock.mockRejectedValueOnce({})
+    deleteAccountIncomeMock.mockRejectedValueOnce({});
 
     expect(testStore.getState().accountDetailsIncomes.incomes[0]).toMatchObject(
       storeValue
@@ -244,7 +246,7 @@ describe('accountDetailsIncomesSlice > deleteAccountIncome', () => {
         isLoading: false
       }
     });
-    deleteAccountIncomeMock.mockResolvedValueOnce(storeValue)
+    deleteAccountIncomeMock.mockResolvedValueOnce(storeValue);
 
     expect(testStore.getState().accountDetailsIncomes.incomes[0]).toMatchObject(
       storeValue
