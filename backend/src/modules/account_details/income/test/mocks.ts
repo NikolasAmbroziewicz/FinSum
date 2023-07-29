@@ -1,13 +1,4 @@
-const mockDate = new Date('2020-12-12');
-
-export const userWithToken = {
-  userId: 1,
-  email: 'niko@test.com',
-  iat: 12,
-  exp: 12,
-  refreshToken: '',
-  accessToken: '',
-};
+export const mockDate = new Date('2020-12-12');
 
 export const addedIncomeInput = {
   amount: '8021.12',

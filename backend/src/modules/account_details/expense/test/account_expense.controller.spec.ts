@@ -6,7 +6,7 @@ import { AccountExpenseService } from '../account_expense.service';
 
 let controller: AccountExpenses;
 
-import { mockExpense, mockExpenseInput, userWithToken } from './mocks';
+import { mockExpense, mockExpenseInput, mockDate } from './mocks';
 
 // Functions
 const addExpenseMock = jest.fn();
@@ -62,7 +62,7 @@ describe('AccountExpenseController > methods > getExpenses', () => {
   it('should return expenses', async () => {
     getExpenseMock.mockReturnValueOnce([mockExpense, mockExpense]);
 
-    const controllerMethod = await controller.getExpense('10');
+    const controllerMethod = await controller.getExpense('10', mockDate);
 
     expect(controllerMethod).toEqual([mockExpense, mockExpense]);
   });

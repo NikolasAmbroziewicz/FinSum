@@ -8,15 +8,11 @@ import Loading from 'src/shared/components/Loading/Loading';
 import BaseTable from 'src/shared/components/Table/BaseTable';
 import ListElement from 'src/shared/components/List/ListElement';
 import ListElementMobile from 'src/shared/components/List/ListElementMobile';
-import ListElementAction from 'src/shared/components/List/ListElementAction';
 
-import IncomeForm from './IncomeForm';
+import IncomeListAction from './IncomeListAction';
 
-import { useIncome } from 'src/features/Income/hooks/useIncome';
 import { useScreen } from 'src/shared/hooks/useScreen';
-import { useModal } from 'src/shared/components/Modals/hooks/useModal';
 
-import { IncomeSchemaType } from 'src/features/Income/validators';
 import { Position } from 'src/shared/components/Headers/Header.types';
 import { LoadingPosition } from 'src/shared/components/Loading/types';
 
@@ -29,13 +25,6 @@ const IncomeList: React.FC<IIncomeList> = ({ startDate }) => {
   const loading = useSelector(getLoadingStatus);
 
   const { isMobileScreen } = useScreen();
-  const { isOpen: isEditOpen, handleOpenModal: handleEditOpen } = useModal();
-  const { isOpen: isDeleteOpen, handleOpenModal: handleDeleteOpen } =
-    useModal();
-
-  const { handleDeleteIncome } = useIncome({
-    onClose: handleDeleteOpen
-  });
 
   return (
     <div className="h-full">
@@ -56,23 +45,7 @@ const IncomeList: React.FC<IIncomeList> = ({ startDate }) => {
                   amount={element.amount}
                   date={element.date}
                 >
-                  <ListElementAction<IncomeSchemaType>
-                    element={element}
-                    isDeleteModalOpen={isDeleteOpen}
-                    handleDeleteModal={handleDeleteOpen}
-                    isEditModalOpen={isEditOpen}
-                    handleEditModal={handleEditOpen}
-                    handleDeleteElement={handleDeleteIncome}
-                    titleDeleteModal="Delete Income"
-                    titleEditModal="EditModal"
-                    contentEditModal={
-                      <IncomeForm
-                        onClose={handleEditOpen}
-                        editForm={true}
-                        income={element}
-                      />
-                    }
-                  />
+                  <IncomeListAction income={element} />
                 </ListElementMobile>
               ))}
             </div>
@@ -89,23 +62,7 @@ const IncomeList: React.FC<IIncomeList> = ({ startDate }) => {
                   amount={element.amount}
                   date={element.date}
                 >
-                  <ListElementAction<IncomeSchemaType>
-                    element={element}
-                    isDeleteModalOpen={isDeleteOpen}
-                    handleDeleteModal={handleDeleteOpen}
-                    isEditModalOpen={isEditOpen}
-                    handleEditModal={handleEditOpen}
-                    handleDeleteElement={handleDeleteIncome}
-                    titleDeleteModal="Delete Income"
-                    titleEditModal="EditModal"
-                    contentEditModal={
-                      <IncomeForm
-                        onClose={handleEditOpen}
-                        editForm={true}
-                        income={element}
-                      />
-                    }
-                  />
+                  <IncomeListAction income={element} />
                 </ListElement>
               ))}
             </BaseTable>

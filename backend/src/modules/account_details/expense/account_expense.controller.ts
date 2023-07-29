@@ -8,19 +8,20 @@ import {
   Query,
 } from '@nestjs/common';
 
-import { GetCurrentUser } from '../../../common/decorators/getCurrentUser.decorator';
 import { AccountExpenseService } from './account_expense.service';
 
 import { AccountExpenseDto } from './account_expense.dto';
-import { UserWithTokens } from '../../auth/auth.type';
 
 @Controller('account-expense')
 export class AccountExpenses {
   constructor(private accountExpensesService: AccountExpenseService) {}
 
   @Get('v1/get-expenses')
-  getExpense(@Query('account_id') account_id: string) {
-    return this.accountExpensesService.getExpenses(account_id);
+  getExpense(
+    @Query('account_id') account_id: string,
+    @Query('date') date: Date  
+  ) {
+    return this.accountExpensesService.getExpenses(account_id, date);
   }
 
   @Post('v1/add-expense')

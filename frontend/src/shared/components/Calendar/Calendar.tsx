@@ -1,26 +1,19 @@
-import { forwardRef } from 'react';
+import CalendarInput from './CalenderInput';
+import DatePicker from 'react-datepicker';
 
 import { MdArrowForwardIos, MdArrowBackIos } from 'react-icons/md';
-
-import DatePicker from 'react-datepicker';
-// import 'react-datepicker/dist/react-datepicker.css';
-
-const CustomInput = forwardRef(({ value, onClick }: any, ref: any) => (
-  <button
-    className="text-gray-600 hover:text-black"
-    onClick={onClick}
-    ref={ref}
-  >
-    {value}
-  </button>
-));
 
 interface ICalendar {
   startDate: Date;
   setStartDate: (date: Date) => void;
+  yearCalendar?: boolean;
 }
 
-const Calendar: React.FC<ICalendar> = ({ setStartDate, startDate }) => {
+const Calendar: React.FC<ICalendar> = ({
+  setStartDate,
+  startDate,
+  yearCalendar = true
+}) => {
   const handleIncreaseYear = () => {
     const nextYear = startDate.getFullYear() + 1;
 
@@ -33,22 +26,53 @@ const Calendar: React.FC<ICalendar> = ({ setStartDate, startDate }) => {
     setStartDate(new Date(startDate.setFullYear(previoiusYear)));
   };
 
+  const handleIncreaseMonth = () => {
+    const nextMonth = startDate.getMonth() + 1;
+
+    setStartDate(new Date(startDate.setMonth(nextMonth)));
+  };
+
+  const handleDecreaseMonth = () => {
+    const previousMonth = startDate.getMonth() - 1;
+
+    setStartDate(new Date(startDate.setMonth(previousMonth)));
+  };
+
   return (
     <div className="flex items-center">
       <div className="flex mx-2">
-        <DatePicker
-          selected={startDate}
-          onChange={(date: Date) => setStartDate(date)}
-          showYearPicker
-          dateFormat="yyyy"
-          customInput={<CustomInput />}
-        />
+        {yearCalendar ? (
+          <DatePicker
+            selected={startDate}
+            onChange={(date: Date) => setStartDate(date)}
+            showYearPicker={yearCalendar}
+            dateFormat="yyyy"
+            customInput={<CalendarInput />}
+          />
+        ) : (
+          <DatePicker
+            selected={startDate}
+            onChange={(date: Date) => setStartDate(date)}
+            showYearPicker={yearCalendar}
+            dateFormat="MM/yyyy"
+            customInput={<CalendarInput />}
+            showMonthYearPicker
+            showFullMonthYearPicker
+            showFourColumnMonthYearPicker
+          />
+        )}
       </div>
       <div className="flex">
-        <button onClick={handleDecreaseYear} data-test="iconBack">
+        <button
+          onClick={yearCalendar ? handleDecreaseYear : handleDecreaseMonth}
+          data-test="iconBack"
+        >
           <MdArrowBackIos className="text-gray-600 cursor-pointer hover:text-black" />
         </button>
-        <button onClick={handleIncreaseYear} data-test="iconForward">
+        <button
+          onClick={yearCalendar ? handleIncreaseYear : handleIncreaseMonth}
+          data-test="iconForward"
+        >
           <MdArrowForwardIos className="text-gray-600 cursor-pointer hover:text-black" />
         </button>
       </div>

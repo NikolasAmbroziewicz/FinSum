@@ -14,16 +14,24 @@ import AccountExpensesList from './AccountExpensesList';
 
 import { useModal } from 'src/shared/components/Modals/hooks/useModal';
 
-const AccountExpense = () => {
+interface IAccountExpense {
+  startDate: Date;
+}
+
+const AccountExpense: React.FC<IAccountExpense> = ({ startDate }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { handleOpenModal, isOpen } = useModal();
   const params = useParams();
 
   useEffect(() => {
-    dispatch(getAccountExpenses(Number(params['accountId'])));
-
+    dispatch(
+      getAccountExpenses({
+        account_id: Number(params['accountId']),
+        date: startDate
+      })
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [startDate]);
 
   return (
     <div>
@@ -31,7 +39,10 @@ const AccountExpense = () => {
         <H2>Expenses</H2>
         <BaseButton handler={handleOpenModal}>Add Expense</BaseButton>
       </div>
-      <AccountExpensesList account_id={Number(params['accountId'])} />
+      <AccountExpensesList
+        account_id={Number(params['accountId'])}
+        date={startDate}
+      />
       <BaseModal
         isOpen={isOpen}
         onClose={handleOpenModal}
@@ -41,6 +52,7 @@ const AccountExpense = () => {
             onClose={handleOpenModal}
             editForm={false}
             account_id={Number(params['accountId'])}
+            date={startDate}
           />
         }
       />

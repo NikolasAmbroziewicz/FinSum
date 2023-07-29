@@ -4,7 +4,7 @@ import { ForbiddenException } from '@nestjs/common';
 import { AccountExpenseService } from '../account_expense.service';
 import { PrismaService } from '../../../../prisma/prisma.service';
 
-import { mockExpense, mockExpenseInput, userWithToken } from './mocks';
+import { mockExpense, mockExpenseInput, mockDate } from './mocks';
 
 // Functions
 const createExpenseMock = jest.fn();
@@ -21,8 +21,8 @@ beforeEach(async () => {
       {
         provide: PrismaService,
         useValue: {
+          $queryRawUnsafe: getExpenseMock,
           expense: {
-            findMany: getExpenseMock,
             create: createExpenseMock,
             delete: deleteExpsenseMock,
             update: editExpenseMock,
@@ -63,7 +63,7 @@ describe('AccountExpenseService > methods > getExpense', () => {
   it('Should return all expenses', async () => {
     getExpenseMock.mockResolvedValueOnce([mockExpense, mockExpense]);
 
-    const serviceMethod = await service.getExpenses('10');
+    const serviceMethod = await service.getExpenses('10', mockDate);
 
     expect(serviceMethod).toEqual([mockExpense, mockExpense]);
   });

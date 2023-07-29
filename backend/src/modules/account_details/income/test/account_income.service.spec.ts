@@ -7,7 +7,7 @@ import { PrismaService } from '../../../../prisma/prisma.service';
 import {
   addedIncome,
   addedIncomeInput,
-  userWithToken,
+  mockDate, 
   editIncome,
   editIncomeInput,
 } from './mocks';
@@ -27,9 +27,9 @@ beforeEach(async () => {
       {
         provide: PrismaService,
         useValue: {
+          $queryRawUnsafe: findManyIncomeMock,
           cash: {
             create: createIncomeMock,
-            findMany: findManyIncomeMock,
             delete: deleteIncomeMock,
             update: updateIncomeMock,
           },
@@ -69,7 +69,7 @@ describe('AccountIncomeService > methods > getIncome', () => {
   it('Should return List of Incomes for specyfic user', async () => {
     findManyIncomeMock.mockResolvedValue([addedIncome, addedIncome]);
 
-    const serviceMethod = await service.getIncomes('10');
+    const serviceMethod = await service.getIncomes('10', mockDate);
 
     expect(serviceMethod).toEqual([addedIncome, addedIncome]);
   });

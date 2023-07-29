@@ -18,12 +18,18 @@ import {
   editAccountExpense
 } from 'src/store/AccountsDetails/expenses/AccountDetailsExpensesSlice';
 
+import { getAccountSummary } from 'src/store/AccountsDetails/summary/AccountDetailsSummarySlice';
+
 interface IUseAccountExpense {
   onClose?: () => void;
+  date: Date;
+  account_id: number;
 }
 
 export const useAccountExpense = ({
-  onClose = undefined
+  onClose = undefined,
+  date,
+  account_id
 }: IUseAccountExpense) => {
   const dispatch = useDispatch<AppDispatch>();
   const { handleNotification } = useNotificationContext();
@@ -41,11 +47,9 @@ export const useAccountExpense = ({
     }
   });
 
-  const handleAddExpense = (
-    value: AccountDetailsExpenseSchemaType,
-    account_id: number
-  ) => {
-    dispatch(addAccountExpense({ data: value, account_id: account_id }));
+  const handleAddExpense = async (value: AccountDetailsExpenseSchemaType) => {
+    await dispatch(addAccountExpense({ data: value, account_id: account_id }));
+    await dispatch(getAccountSummary({ date: date, account_id: account_id }));
 
     if (onClose) {
       onClose();
@@ -53,8 +57,9 @@ export const useAccountExpense = ({
     }
   };
 
-  const handleEditExpense = (value: AccountDetailsExpenseSchemaType) => {
-    dispatch(editAccountExpense(value));
+  const handleEditExpense = async (value: AccountDetailsExpenseSchemaType) => {
+    await dispatch(editAccountExpense(value));
+    await dispatch(getAccountSummary({ date: date, account_id: account_id }));
 
     if (onClose) {
       onClose();
@@ -62,8 +67,10 @@ export const useAccountExpense = ({
     }
   };
 
-  const handleDeleteExpense = (value: number) => {
-    dispatch(deleteAccountExpense(value));
+  const handleDeleteExpense = async (value: number) => {
+    await dispatch(deleteAccountExpense(value));
+    await dispatch(getAccountSummary({ date: date, account_id: account_id }));
+
     if (onClose) {
       onClose();
       handleNotification('Income has been Added.', SnackbarType.success);

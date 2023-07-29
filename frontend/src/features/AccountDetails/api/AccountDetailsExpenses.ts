@@ -51,13 +51,16 @@ export const useDetailsExpenses = () => {
       .then((res) => res.data);
   };
 
-  const get_account_expenses = async (account_id: number) => {
+  const get_account_expenses = async (account_id: number, date: Date) => {
     return apiBase()
-      .get(`/account-expense/v1/get-expenses?account_id=${account_id}`, {
-        headers: {
-          ...authHeader
+      .get(
+        `/account-expense/v1/get-expenses?account_id=${account_id}&date=${date}`,
+        {
+          headers: {
+            ...authHeader
+          }
         }
-      })
+      )
       .then((res) => res.data);
   };
 

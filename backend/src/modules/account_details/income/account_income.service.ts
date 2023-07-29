@@ -4,22 +4,22 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { AccountIncomeDto } from './account_income.dto';
 
-import { UserWithTokens } from '../../auth/auth.type';
-
 @Injectable()
 export class AccountIncomeService {
   constructor(private prisma: PrismaService) {}
 
-  async getIncomes(account_id: string) {
+  async getIncomes(account_id: string, date: Date) {
     const parsedAccountId = Number(account_id);
+    const currentMonth = new Date(date).getMonth()
+    const currentYear = new Date(date).getFullYear()
 
-    const allIncomes = await this.prisma.cash.findMany({
-      where: {
-        account: {
-          id: parsedAccountId,
-        },
-      },
-    });
+    const allIncomes = await this.prisma.$queryRawUnsafe(`
+      SELECT *
+      FROM cash
+      WHERE cash.account_id = ${parsedAccountId} AND
+        EXTRACT('MONTH' FROM cash.date) = ${currentMonth + 1} AND
+        EXTRACT('YEAR' FROM cash.date) = ${currentYear}
+    `)
 
     return allIncomes;
   }

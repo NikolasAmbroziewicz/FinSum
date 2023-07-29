@@ -1,5 +1,3 @@
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
 import { describe, expect, it, vi } from 'vitest';
 
 import { setupStore, StoreType } from '../../main';
@@ -19,6 +17,21 @@ vi.mock('src/shared/hooks/useLocalStorage', () => ({
   })
 }));
 
+// mocks
+const addAccountIncomeMock = vi.fn();
+const editAccountIncomeMock = vi.fn();
+const deleteAccountIncomeMock = vi.fn();
+const getAccountIncomesMock = vi.fn();
+
+vi.mock('src/features/AccountDetails/api/AccountDetailsIncomes', () => ({
+  useDetailsIncomes: () => ({
+    add_account_income: addAccountIncomeMock,
+    delete_account_income: deleteAccountIncomeMock,
+    edit_account_income: editAccountIncomeMock,
+    get_account_incomes: getAccountIncomesMock
+  })
+}));
+
 describe('accountDetailsIncomesSlice > default state', () => {
   it('Should initially set income to empty Array', () => {
     const state = setupStore().getState().accountDetailsIncomes;
@@ -32,7 +45,6 @@ describe('accountDetailsIncomesSlice > default state', () => {
 });
 
 describe('accountDetailsIncomesSlice > addAccountIncome', () => {
-  let mock: any;
   let testStore: StoreType;
 
   const mockAddAccountDetailsIncomes = {
@@ -51,18 +63,10 @@ describe('accountDetailsIncomesSlice > addAccountIncome', () => {
     testStore = setupStore();
   });
 
-  beforeAll(() => {
-    mock = new MockAdapter(axios);
-  });
-
-  afterEach(() => {
-    mock.reset();
-  });
-
   it('Add Account Incomes to store', async () => {
-    mock
-      .onPost('http://localhost:8080/account-income/v1/add-income?account_id=1')
-      .reply(200, mockAddAccountDetailsIncomes);
+    addAccountIncomeMock.mockResolvedValueOnce(
+      mockAddAccountDetailsIncomesResponse
+    );
 
     await testStore.dispatch(
       addAccountIncome({ account_id: 1, data: mockAddAccountDetailsIncomes })
@@ -74,9 +78,7 @@ describe('accountDetailsIncomesSlice > addAccountIncome', () => {
   });
 
   it('Do not add Account Incomes to store', async () => {
-    mock
-      .onPost('http://localhost:8080/account-income/v1/add-income?account_id=1')
-      .networkErrorOnce();
+    addAccountIncomeMock.mockRejectedValueOnce({});
 
     await testStore.dispatch(
       addAccountIncome({ account_id: 1, data: mockAddAccountDetailsIncomes })
@@ -89,7 +91,8 @@ describe('accountDetailsIncomesSlice > addAccountIncome', () => {
 });
 
 describe('accountDetailsIncomesSlice > getAccountIncomes', () => {
-  let mock: any;
+  const mockDate = new Date('2023-04-19');
+
   let testStore: StoreType;
 
   const mockGetAccountIncomes = [
@@ -111,20 +114,12 @@ describe('accountDetailsIncomesSlice > getAccountIncomes', () => {
     testStore = setupStore();
   });
 
-  beforeAll(() => {
-    mock = new MockAdapter(axios);
-  });
-
-  afterEach(() => {
-    mock.reset();
-  });
-
   it('Get Incomes from Store', async () => {
-    mock
-      .onGet('http://localhost:8080/account-income/v1/get-incomes?account_id=1')
-      .reply(200, mockGetAccountIncomes);
+    getAccountIncomesMock.mockResolvedValueOnce(mockGetAccountIncomes);
 
-    await testStore.dispatch(getAccountIncomes(1));
+    await testStore.dispatch(
+      getAccountIncomes({ account_id: 1, date: mockDate })
+    );
 
     expect(testStore.getState().accountDetailsIncomes.incomes).toEqual(
       mockGetAccountIncomes
@@ -132,27 +127,17 @@ describe('accountDetailsIncomesSlice > getAccountIncomes', () => {
   });
 
   it('Do not get Incomes from Store', async () => {
-    mock
-      .onGet('http://localhost:8080/account-income/v1/get-incomes?account_id=1')
-      .networkErrorOnce();
+    getAccountIncomesMock.mockRejectedValueOnce({});
 
-    await testStore.dispatch(getAccountIncomes(1));
+    await testStore.dispatch(
+      getAccountIncomes({ account_id: 1, date: mockDate })
+    );
 
     expect(testStore.getState().accountDetailsIncomes.incomes).toEqual([]);
   });
 });
 
 describe('accountDetailsIncomesSlice > editAccountIncome', () => {
-  let mock: any;
-
-  beforeAll(() => {
-    mock = new MockAdapter(axios);
-  });
-
-  afterEach(() => {
-    mock.reset();
-  });
-
   it('Get edited Account Incomes from Store', async () => {
     //given
     const storeValue = {
@@ -183,11 +168,7 @@ describe('accountDetailsIncomesSlice > editAccountIncome', () => {
       date: '2023-05-29T11:04:20.338Z'
     };
 
-    mock
-      .onPut(
-        `http://localhost:8080/account-income/v1/edit-income?income_id=123`
-      )
-      .reply(200, mockEditAccountIncomeResponse);
+    editAccountIncomeMock.mockResolvedValueOnce(mockEditAccountIncomeResponse);
 
     expect(testStore.getState().accountDetailsIncomes.incomes[0]).toMatchObject(
       storeValue
@@ -203,9 +184,8 @@ describe('accountDetailsIncomesSlice > editAccountIncome', () => {
   it('Do not Get Edited Account Incomes from Store', async () => {
     //given
     const testStore = setupStore();
-    mock
-      .onPut('http://localhost:8080/account-income/v1/edit-income?income_id=1')
-      .networkErrorOnce();
+    editAccountIncomeMock.mockRejectedValueOnce({});
+
     const mockAddAccountIncome = {
       title: 'Test',
       currency: 'USD',
@@ -222,16 +202,6 @@ describe('accountDetailsIncomesSlice > editAccountIncome', () => {
 });
 
 describe('accountDetailsIncomesSlice > deleteAccountIncome', () => {
-  let mock: any;
-
-  beforeAll(() => {
-    mock = new MockAdapter(axios);
-  });
-
-  afterEach(() => {
-    mock.reset();
-  });
-
   it('Should not delete Account Income from store', async () => {
     //given
     const storeValue = {
@@ -248,11 +218,7 @@ describe('accountDetailsIncomesSlice > deleteAccountIncome', () => {
       }
     });
 
-    mock
-      .onDelete(
-        'http://localhost:8080/account-income/v1/delete-income?income_id=123'
-      )
-      .networkErrorOnce();
+    deleteAccountIncomeMock.mockRejectedValueOnce({});
 
     expect(testStore.getState().accountDetailsIncomes.incomes[0]).toMatchObject(
       storeValue
@@ -280,12 +246,7 @@ describe('accountDetailsIncomesSlice > deleteAccountIncome', () => {
         isLoading: false
       }
     });
-
-    mock
-      .onDelete(
-        'http://localhost:8080/account-income/v1/delete-income?income_id=123'
-      )
-      .reply(200, storeValue);
+    deleteAccountIncomeMock.mockResolvedValueOnce(storeValue);
 
     expect(testStore.getState().accountDetailsIncomes.incomes[0]).toMatchObject(
       storeValue

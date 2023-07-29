@@ -5,7 +5,12 @@ export const useDate = () => {
     return moment(date).format('ll');
   };
 
+  const dateMonthYear = (date: Date) => {
+    return moment(date).format('MMMM YYYY');
+  };
+
   return {
-    dateFormat
+    dateFormat,
+    dateMonthYear
   };
 };

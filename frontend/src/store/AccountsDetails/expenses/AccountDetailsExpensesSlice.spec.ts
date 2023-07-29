@@ -1,5 +1,3 @@
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
 import { describe, expect, it, vi } from 'vitest';
 
 import { setupStore, StoreType } from '../../main';
@@ -19,6 +17,21 @@ vi.mock('src/shared/hooks/useLocalStorage', () => ({
   })
 }));
 
+// mocks
+const addAccountExpenseMock = vi.fn();
+const editAccountExpenseMock = vi.fn();
+const deleteAccountExpenseMock = vi.fn();
+const getAccountExpensesMock = vi.fn();
+
+vi.mock('src/features/AccountDetails/api/AccountDetailsExpenses', () => ({
+  useDetailsExpenses: () => ({
+    add_account_expense: addAccountExpenseMock,
+    delete_account_expense: deleteAccountExpenseMock,
+    edit_account_expense: editAccountExpenseMock,
+    get_account_expenses: getAccountExpensesMock
+  })
+}));
+
 describe('accountDetailsExpensesSlice > default state', () => {
   it('Should initially set income to empty Array', () => {
     const state = setupStore().getState().accountDetailsExpenses;
@@ -32,7 +45,6 @@ describe('accountDetailsExpensesSlice > default state', () => {
 });
 
 describe('accountDetailsExpensesSlice > addAccountExpense', () => {
-  let mock: any;
   let testStore: StoreType;
 
   const mockAddAccountDetailsExpenses = {
@@ -51,20 +63,10 @@ describe('accountDetailsExpensesSlice > addAccountExpense', () => {
     testStore = setupStore();
   });
 
-  beforeAll(() => {
-    mock = new MockAdapter(axios);
-  });
-
-  afterEach(() => {
-    mock.reset();
-  });
-
   it('Add Account Expenses to store', async () => {
-    mock
-      .onPost(
-        'http://localhost:8080/account-expense/v1/add-expense?account_id=1'
-      )
-      .reply(200, mockAddAccountDetailsExpenses);
+    addAccountExpenseMock.mockResolvedValueOnce(
+      mockAddAccountDetailsExpensesResponse
+    );
 
     await testStore.dispatch(
       addAccountExpense({ account_id: 1, data: mockAddAccountDetailsExpenses })
@@ -76,11 +78,7 @@ describe('accountDetailsExpensesSlice > addAccountExpense', () => {
   });
 
   it('Do not add Account Expenses to store', async () => {
-    mock
-      .onPost(
-        'http://localhost:8080/account-expense/v1/add-expense?account_id=1'
-      )
-      .networkErrorOnce();
+    addAccountExpenseMock.mockRejectedValueOnce({});
 
     await testStore.dispatch(
       addAccountExpense({ account_id: 1, data: mockAddAccountDetailsExpenses })
@@ -93,7 +91,7 @@ describe('accountDetailsExpensesSlice > addAccountExpense', () => {
 });
 
 describe('accountDetailsExpensesSlice > getAccountExpenses', () => {
-  let mock: any;
+  const mockDate = new Date('2023-04-19');
   let testStore: StoreType;
 
   const mockGetAccountExpenses = [
@@ -115,22 +113,12 @@ describe('accountDetailsExpensesSlice > getAccountExpenses', () => {
     testStore = setupStore();
   });
 
-  beforeAll(() => {
-    mock = new MockAdapter(axios);
-  });
-
-  afterEach(() => {
-    mock.reset();
-  });
-
   it('Get Expenses from Store', async () => {
-    mock
-      .onGet(
-        'http://localhost:8080/account-expense/v1/get-expenses?account_id=1'
-      )
-      .reply(200, mockGetAccountExpenses);
+    getAccountExpensesMock.mockResolvedValueOnce(mockGetAccountExpenses);
 
-    await testStore.dispatch(getAccountExpenses(1));
+    await testStore.dispatch(
+      getAccountExpenses({ account_id: 1, date: mockDate })
+    );
 
     expect(testStore.getState().accountDetailsExpenses.expenses).toEqual(
       mockGetAccountExpenses
@@ -138,29 +126,17 @@ describe('accountDetailsExpensesSlice > getAccountExpenses', () => {
   });
 
   it('Do not get Expenses from Store', async () => {
-    mock
-      .onGet(
-        'http://localhost:8080/account-expense/v1/get-expenses?account_id=1'
-      )
-      .networkErrorOnce();
+    getAccountExpensesMock.mockRejectedValueOnce(mockGetAccountExpenses);
 
-    await testStore.dispatch(getAccountExpenses(1));
+    await testStore.dispatch(
+      getAccountExpenses({ account_id: 1, date: mockDate })
+    );
 
     expect(testStore.getState().accountDetailsExpenses.expenses).toEqual([]);
   });
 });
 
 describe('accountDetailsExpensesSlice > editAccountExpense', () => {
-  let mock: any;
-
-  beforeAll(() => {
-    mock = new MockAdapter(axios);
-  });
-
-  afterEach(() => {
-    mock.reset();
-  });
-
   it('Get edited Account Expenses from Store', async () => {
     //given
     const storeValue = {
@@ -191,11 +167,7 @@ describe('accountDetailsExpensesSlice > editAccountExpense', () => {
       date: '2023-05-29T11:04:20.338Z'
     };
 
-    mock
-      .onPut(
-        `http://localhost:8080/account-expense/v1/edit-expense?expense_id=123`
-      )
-      .reply(200, mockEditAccountExpenseResponse);
+    editAccountExpenseMock.mockResolvedValue(mockEditAccountExpenseResponse);
 
     expect(
       testStore.getState().accountDetailsExpenses.expenses[0]
@@ -211,11 +183,8 @@ describe('accountDetailsExpensesSlice > editAccountExpense', () => {
   it('Do not Get Edited Account Expenses from Store', async () => {
     //given
     const testStore = setupStore();
-    mock
-      .onPut(
-        'http://localhost:8080/account-expense/v1/edit-expense?expense_id=1'
-      )
-      .networkErrorOnce();
+    editAccountExpenseMock.mockRejectedValueOnce({});
+
     const mockAddIncome = {
       title: 'Test',
       currency: 'USD',
@@ -232,16 +201,6 @@ describe('accountDetailsExpensesSlice > editAccountExpense', () => {
 });
 
 describe('accountDetailsExpensesSlice > deleteAccountExpense', () => {
-  let mock: any;
-
-  beforeAll(() => {
-    mock = new MockAdapter(axios);
-  });
-
-  afterEach(() => {
-    mock.reset();
-  });
-
   it('Should not delete AccountExpense from Store', async () => {
     //given
     const storeValue = {
@@ -258,11 +217,7 @@ describe('accountDetailsExpensesSlice > deleteAccountExpense', () => {
       }
     });
 
-    mock
-      .onDelete(
-        'http://localhost:8080/account-expense/v1/delete-expense?expense_id=123'
-      )
-      .networkErrorOnce();
+    deleteAccountExpenseMock.mockRejectedValueOnce({});
 
     expect(
       testStore.getState().accountDetailsExpenses.expenses[0]
@@ -291,11 +246,7 @@ describe('accountDetailsExpensesSlice > deleteAccountExpense', () => {
       }
     });
 
-    mock
-      .onDelete(
-        'http://localhost:8080/account-expense/v1/delete-expense?expense_id=123'
-      )
-      .reply(200, storeValue);
+    deleteAccountExpenseMock.mockResolvedValueOnce(storeValue);
 
     expect(
       testStore.getState().accountDetailsExpenses.expenses[0]
