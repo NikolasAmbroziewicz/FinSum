@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { useLocalStorage } from 'src/shared/hooks/useLocalStorage';
 
-import { useAuthApi } from 'src/features/Auth/api/authApi';
+import { refresh_token, sign_up, sign_in } from 'src/features/Auth/api/authApi';
 import {
   loginSchemaType,
   registerSchemaType
@@ -23,9 +23,8 @@ export const signUpUser = createAsyncThunk(
   'user/register',
   async (data: registerSchemaType) => {
     const { setToLocalStorage } = useLocalStorage();
-    const { signUp } = useAuthApi();
 
-    const res: UserStore = await signUp(data);
+    const res: UserStore = await sign_up(data);
     setToLocalStorage('user', res.tokens);
 
     return res;
@@ -36,9 +35,8 @@ export const signInUser = createAsyncThunk(
   'user/login',
   async (data: loginSchemaType) => {
     const { setToLocalStorage } = useLocalStorage();
-    const { signIn } = useAuthApi();
 
-    const res: UserStore = await signIn(data);
+    const res: UserStore = await sign_in(data);
     setToLocalStorage('user', res.tokens);
 
     return res;
@@ -49,10 +47,8 @@ export const refreshTokens = createAsyncThunk(
   'user/refreshTokens',
   async () => {
     const { setToLocalStorage } = useLocalStorage();
-    const { refreshToken } = useAuthApi();
 
-    const res = await refreshToken();
-
+    const res = await refresh_token();
     setToLocalStorage('user', res);
 
     return {
