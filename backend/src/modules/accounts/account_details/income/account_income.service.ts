@@ -1,7 +1,7 @@
 import { Injectable, ForbiddenException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
-import { PrismaService } from '../../../prisma/prisma.service';
+import { PrismaService } from '../../../../prisma/prisma.service';
 import { AccountIncomeDto } from './account_income.dto';
 
 @Injectable()

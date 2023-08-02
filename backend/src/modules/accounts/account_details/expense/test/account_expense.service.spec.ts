@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ForbiddenException } from '@nestjs/common';
 
 import { AccountExpenseService } from '../account_expense.service';
-import { PrismaService } from '../../../../prisma/prisma.service';
+import { PrismaService } from '../../../../../prisma/prisma.service';
 
 import { mockExpense, mockExpenseInput, mockDate } from './mocks';
 

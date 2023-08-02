@@ -1,10 +1,9 @@
 import { Injectable, ForbiddenException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
-import { PrismaService } from '../../../prisma/prisma.service';
+import { PrismaService } from '../../../../prisma/prisma.service';
 
 import { AccountExpenseDto } from './account_expense.dto';
-import { UserWithTokens } from '../../auth/auth.type';
 
 @Injectable()
 export class AccountExpenseService {

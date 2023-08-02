@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AccountSummaryService } from '../account_summary.service';
 
-import { PrismaService } from '../../../../prisma/prisma.service';
+import { PrismaService } from '../../../../../prisma/prisma.service';
 
 import { accountSummaryMock, mockDate } from './mocks'
 
