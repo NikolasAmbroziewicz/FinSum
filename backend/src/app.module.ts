@@ -9,7 +9,7 @@ import { AccessTokenGuards } from './common/guards/accessToken.guards';
 import { TokensModule } from './modules/tokens/tokens.module';
 import { IncomeModule } from './modules/income/income.module';
 import { AccountsModule } from './modules/accounts/accounts.module';
-import { CryptoCurrencyModule } from './modules/crypto_currency/crypto_currency.module';
+import { CryptoAccountsModule } from './modules/crypto_currency/crypto_accounts.module'
 
 @Module({
   imports: [
@@ -19,7 +19,7 @@ import { CryptoCurrencyModule } from './modules/crypto_currency/crypto_currency.
     TokensModule,
     IncomeModule,
     AccountsModule,
-    CryptoCurrencyModule,
+    CryptoAccountsModule,
   ],
   providers: [
     {
