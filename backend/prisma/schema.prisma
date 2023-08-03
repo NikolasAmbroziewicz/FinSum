@@ -124,7 +124,7 @@ model stock {
 }
 model cryptocurrency_wallet {
   id Int @id @default(autoincrement())
-  name String
+  title String
 
   user user @relation(fields: [user_id], references: [id])
   user_id Int
