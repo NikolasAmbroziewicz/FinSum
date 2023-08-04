@@ -93,9 +93,9 @@ describe('CryptoAccountsController > methods > deleteAccount', () => {
   })
 })
 
-describe('CryptoAccountsController > methods > deleteAccount', () => {
+describe('CryptoAccountsController > methods > editAccount', () => {
   it('Should be defined', () => {
-    expect(controller.deleteAccount).toBeDefined()
+    expect(controller.editAccount).toBeDefined()
   })
 
   it('Should return Edited Account', async () => {
