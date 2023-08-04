@@ -6,13 +6,12 @@ import {
   Get,
   Put,
   Query,
-  ForbiddenException
 } from '@nestjs/common';
 
 import { CryptoAccountsService }  from './crypto_accounts.service'
 import { GetCurrentUser } from '../../common/decorators/getCurrentUser.decorator';
 
-import { CyrptoAccountDto } from './crypto_accounts.dto'
+import { CryptoAccountDto } from './crypto_accounts.dto'
 import { UserWithTokens } from '../auth/auth.type';
 
 @Controller('crypto-accounts')
@@ -21,7 +20,7 @@ export class CryptoAccountsController {
 
   @Post('v1/add-crypto-account')
   addAccount(
-    @Body() account: CyrptoAccountDto,
+    @Body() account: CryptoAccountDto,
     @GetCurrentUser() user: UserWithTokens,
   ) {
     return this.cryptoAccountsService.addAccount(account, user)
@@ -43,7 +42,7 @@ export class CryptoAccountsController {
 
   @Put('v1/edit-account')
   editAccount(
-    @Body() account: CyrptoAccountDto,
+    @Body() account: CryptoAccountDto,
     @Query('id') id: string,
   ) {
     return this.cryptoAccountsService.editAccount(account, id)

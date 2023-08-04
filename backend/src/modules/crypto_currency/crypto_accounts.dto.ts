@@ -1,6 +1,6 @@
 import { IsString } from 'class-validator'
 
-export class CyrptoAccountDto {
+export class CryptoAccountDto {
   @IsString()
   title: string
 }

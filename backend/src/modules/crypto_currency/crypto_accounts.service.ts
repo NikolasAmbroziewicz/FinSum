@@ -2,8 +2,7 @@ import { Injectable, ForbiddenException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
 import { PrismaService } from '../../prisma/prisma.service';
-import { CyrptoAccountDto } from './crypto_accounts.dto';
-
+import { CryptoAccountDto } from './crypto_accounts.dto';
 
 import { UserWithTokens } from '../auth/auth.type';
 
@@ -12,7 +11,7 @@ export class CryptoAccountsService {
   constructor(private prisma: PrismaService) {}
 
   async addAccount(
-    account: CyrptoAccountDto,
+    account: CryptoAccountDto,
     user: UserWithTokens
   ) {
     const { email } = user
@@ -72,7 +71,7 @@ export class CryptoAccountsService {
   }
 
   async editAccount(
-    account: CyrptoAccountDto,
+    account: CryptoAccountDto,
     id: string,
   ){
     try {
