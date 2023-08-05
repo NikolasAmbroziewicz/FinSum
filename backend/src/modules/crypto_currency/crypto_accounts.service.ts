@@ -67,7 +67,6 @@ export class CryptoAccountsService {
         }
       }
     }
-    
   }
 
   async editAccount(
