@@ -58,44 +58,60 @@ export class CryptoDetailsService {
   async deleteCryptoCurrency(
     crypto_currency_id: string
   ) {
-    const parsed_currency_number = Number(crypto_currency_id)
+    try {
+      const parsed_currency_number = Number(crypto_currency_id)
 
-    const deleted_currency = this.prisma.cryptocurrency.delete({
-      where: {
-        id: parsed_currency_number
+      const deleted_currency = this.prisma.cryptocurrency.delete({
+        where: {
+          id: parsed_currency_number
+        }
+      })
+  
+      return deleted_currency
+    } catch (e: any) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        if (e.code === 'P2025') {
+          throw new ForbiddenException('Account Does not exist');
+        }
       }
-    })
-
-    return deleted_currency
+    }
   }
 
   async editCryptoCurrency(
     crypto_currency: CryptoDetailsDto,
     crypto_currency_id: string
   ) {
-    const { name, amount, ticker, price_bought, price_sold, date_bought, date_sold, stock_name } = crypto_currency
+    try {
+      const { name, amount, ticker, price_bought, price_sold, date_bought, date_sold, stock_name } = crypto_currency
     
-    const parsed_crypto_currency_id = Number(crypto_currency_id)
-
-    const parsed_bought_date = new Date(date_bought)
-    const parsed_sold_date = new Date(date_sold)
-
-    const edited_currency = this.prisma.cryptocurrency.update({
-      data: {
-        name: name,
-        amount: amount,
-        ticker: ticker,
-        price_bought: price_bought,
-        price_sold: price_sold,
-        date_bought: parsed_bought_date,
-        date_sold: parsed_sold_date,
-        stock_name: stock_name,
-      },
-      where: {
-        id: parsed_crypto_currency_id
+      const parsed_crypto_currency_id = Number(crypto_currency_id)
+  
+      const parsed_bought_date = new Date(date_bought)
+      const parsed_sold_date = new Date(date_sold)
+  
+      const edited_currency = this.prisma.cryptocurrency.update({
+        data: {
+          name: name,
+          amount: amount,
+          ticker: ticker,
+          price_bought: price_bought,
+          price_sold: price_sold,
+          date_bought: parsed_bought_date,
+          date_sold: parsed_sold_date,
+          stock_name: stock_name,
+        },
+        where: {
+          id: parsed_crypto_currency_id
+        }
+      })
+  
+      return edited_currency
+    } catch (e: any) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        if (e.code === 'P2025') {
+          throw new ForbiddenException('Account Does not exist');
+        }
       }
-    })
-
-    return edited_currency
+    }
   }
 }

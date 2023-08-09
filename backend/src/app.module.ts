@@ -6,10 +6,13 @@ import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './modules/auth/auth.module';
 
 import { AccessTokenGuards } from './common/guards/accessToken.guards';
+
 import { TokensModule } from './modules/tokens/tokens.module';
 import { IncomeModule } from './modules/income/income.module';
 import { AccountsModule } from './modules/accounts/accounts.module';
 import { CryptoAccountsModule } from './modules/crypto_currency/crypto_accounts.module'
+import { ElasticSearchModule } from './modules/elastic_search/elastic_search.module';
+import { ExternalCryptoApiModule } from './modules/external_crypto_api/external_crypto_api.module';
 
 @Module({
   imports: [
@@ -20,6 +23,8 @@ import { CryptoAccountsModule } from './modules/crypto_currency/crypto_accounts.
     IncomeModule,
     AccountsModule,
     CryptoAccountsModule,
+    ElasticSearchModule,
+    ExternalCryptoApiModule,
   ],
   providers: [
     {
