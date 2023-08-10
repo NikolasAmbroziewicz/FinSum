@@ -1,10 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import {
-  // add_account,
-  // edit_income,
-  // delete_account,
-  // get_accounts
   useAccountApi
 } from 'src/features/Accounts/api/AccountsApi';
 

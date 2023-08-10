@@ -5,11 +5,11 @@ import { describe, expect, it, vi } from 'vitest';
 import { setupStore, StoreType } from '../main';
 
 import {
-  addAccount,
-  getAccounts,
-  editAccount,
-  deleteAccount
-} from './AccountsSlice';
+  addCryptoAccounts,
+  editCryptoAccounts,
+  deleteCryptoAccounts,
+  getCryptoAccounts,
+} from './CryptoAccountSlice';
 
 vi.mock('src/shared/hooks/useLocalStorage', () => ({
   useLocalStorage: () => ({
@@ -19,7 +19,7 @@ vi.mock('src/shared/hooks/useLocalStorage', () => ({
     })
   })
 }));
-describe('AccountsSlice > default state', () => {
+describe('CryptoAccountsSlice > default state', () => {
   it('Should initially set account to empty Array', () => {
     const state = setupStore().getState().accounts;
     expect(state.accounts).toEqual([]);
@@ -31,7 +31,7 @@ describe('AccountsSlice > default state', () => {
   });
 });
 
-describe('AccountsSlice > addAccount', () => {
+describe('CryptoAccountsSlice > addAccount', () => {
   let mock: any;
   let testStore: StoreType;
 
@@ -51,17 +51,16 @@ describe('AccountsSlice > addAccount', () => {
     // given
     const mockAddAccount = {
       title: 'Test Account',
-      currency: 'USD'
     };
     mock
-      .onPost('http://localhost:8080/accounts/v1/add-account')
+      .onPost('http://localhost:8080/crypto-accounts/v1/add-crypto-account')
       .reply(200, mockAddAccount);
 
     // then
-    await testStore.dispatch(addAccount(mockAddAccount));
+    await testStore.dispatch(addCryptoAccounts(mockAddAccount));
 
     // expect
-    expect(testStore.getState().accounts.accounts[0]).toMatchObject(
+    expect(testStore.getState().cryptoAccounts.accounts[0]).toMatchObject(
       mockAddAccount
     );
   });
@@ -70,21 +69,20 @@ describe('AccountsSlice > addAccount', () => {
     // given
     const mockAddAccount = {
       title: 'Test Account',
-      currency: 'USD'
     };
     mock
-      .onPost('http://localhost:8080/accounts/v1/add-account')
+      .onPost('http://localhost:8080/crypto-accounts/v1/add-crypto-account')
       .networkErrorOnce();
 
     // then
-    await testStore.dispatch(addAccount(mockAddAccount));
+    await testStore.dispatch(addCryptoAccounts(mockAddAccount));
 
     // expect
-    expect(testStore.getState().accounts.accounts).toMatchObject([]);
+    expect(testStore.getState().cryptoAccounts.accounts).toMatchObject([]);
   });
 });
 
-describe('AccountsSlice > getAccounts', () => {
+describe('CryptoAccountsSlice > getAccounts', () => {
   let mock: any;
   let testStore: StoreType;
 
@@ -104,17 +102,16 @@ describe('AccountsSlice > getAccounts', () => {
     // given
     const mockAddAccount = {
       title: 'Test Account',
-      currency: 'USD'
     };
     mock
-      .onGet('http://localhost:8080/accounts/v1/get-accounts')
+      .onGet('http://localhost:8080/crypto-accounts/v1/get-crypto-accounts')
       .reply(200, [mockAddAccount]);
 
     // then
-    await testStore.dispatch(getAccounts());
+    await testStore.dispatch(getCryptoAccounts());
 
     // expect
-    expect(testStore.getState().accounts.accounts[0]).toMatchObject(
+    expect(testStore.getState().cryptoAccounts.accounts[0]).toMatchObject(
       mockAddAccount
     );
   });
@@ -122,22 +119,21 @@ describe('AccountsSlice > getAccounts', () => {
   it('Do not Get Account from Store', async () => {
     // given
     mock
-      .onGet('http://localhost:8080/accounts/v1/get-accounts')
+      .onGet('http://localhost:8080/crypto-accounts/v1/get-crypto-accounts')
       .networkErrorOnce();
 
     // then
-    await testStore.dispatch(getAccounts());
+    await testStore.dispatch(getCryptoAccounts());
 
     // expect
-    expect(testStore.getState().accounts.accounts).toMatchObject([]);
+    expect(testStore.getState().cryptoAccounts.accounts).toMatchObject([]);
   });
 });
 
-describe('AccountsSlice > editAccounts', () => {
+describe('CryptoAccountsSlice > editAccounts', () => {
   const mockEditedValue = {
     id: 1,
     title: 'Test Account 1',
-    currency: 'PLN'
   };
 
   let mock: any;
@@ -155,11 +151,10 @@ describe('AccountsSlice > editAccounts', () => {
     const storeValue = {
       id: 1,
       title: 'Test Account',
-      currency: 'USD'
     };
 
     const testStore = setupStore({
-      accounts: {
+      cryptoAccounts: {
         accounts: [storeValue],
         isLoading: false
       }
@@ -167,15 +162,15 @@ describe('AccountsSlice > editAccounts', () => {
 
     // then
     mock
-      .onPut(`http://localhost:8080/accounts/v1/edit-account?id=1`)
+      .onPut(`http://localhost:8080/crypto-accounts/v1/edit-account?id=1`)
       .reply(200, mockEditedValue);
 
     //expect
-    expect(testStore.getState().accounts.accounts[0]).toMatchObject(storeValue);
+    expect(testStore.getState().cryptoAccounts.accounts[0]).toMatchObject(storeValue);
 
-    await testStore.dispatch(editAccount(mockEditedValue));
+    await testStore.dispatch(editCryptoAccounts(mockEditedValue));
 
-    expect(testStore.getState().accounts.accounts[0]).toMatchObject(
+    expect(testStore.getState().cryptoAccounts.accounts[0]).toMatchObject(
       mockEditedValue
     );
   });
@@ -186,16 +181,16 @@ describe('AccountsSlice > editAccounts', () => {
 
     // then
     mock
-      .onPut(`http://localhost:8080/accounts/v1/edit-account?id=1`)
+      .onPut(`http://localhost:8080/crypto-accounts/v1/edit-account?id=1`)
       .networkErrorOnce();
 
     // expect
-    await testStore.dispatch(editAccount(mockEditedValue));
-    expect(testStore.getState().accounts.accounts).toMatchObject([]);
+    await testStore.dispatch(editCryptoAccounts(mockEditedValue));
+    expect(testStore.getState().cryptoAccounts.accounts).toMatchObject([]);
   });
 });
 
-describe('AccountsSlice > deleteAccounts', () => {
+describe('CryptoAccountsSlice > deleteAccounts', () => {
   let mock: any;
   beforeAll(() => {
     mock = new MockAdapter(axios);
@@ -210,11 +205,10 @@ describe('AccountsSlice > deleteAccounts', () => {
     const storeValue = {
       id: 1,
       title: 'Test Account',
-      currency: 'USD'
     };
 
     const testStore = setupStore({
-      accounts: {
+      cryptoAccounts: {
         accounts: [storeValue],
         isLoading: false
       }
@@ -222,15 +216,15 @@ describe('AccountsSlice > deleteAccounts', () => {
 
     // then
     mock
-      .onDelete(`http://localhost:8080/accounts/v1/delete-account?id=1`)
+      .onDelete(`http://localhost:8080/crypto-accounts/v1/delete-account?id=1`)
       .reply(200, storeValue);
 
     //expect
-    expect(testStore.getState().accounts.accounts[0]).toMatchObject(storeValue);
+    expect(testStore.getState().cryptoAccounts.accounts[0]).toMatchObject(storeValue);
 
-    await testStore.dispatch(deleteAccount(1));
+    await testStore.dispatch(deleteCryptoAccounts(1));
 
-    expect(testStore.getState().accounts.accounts).toMatchObject([]);
+    expect(testStore.getState().cryptoAccounts.accounts).toMatchObject([]);
   });
 
   it('Should not return empty store after Account removed', async () => {
@@ -238,11 +232,10 @@ describe('AccountsSlice > deleteAccounts', () => {
     const storeValue = {
       id: 1,
       title: 'Test Account',
-      currency: 'USD'
     };
 
     const testStore = setupStore({
-      accounts: {
+      cryptoAccounts: {
         accounts: [storeValue],
         isLoading: false
       }
@@ -250,14 +243,14 @@ describe('AccountsSlice > deleteAccounts', () => {
 
     // then
     mock
-      .onDelete(`http://localhost:8080/accounts/v1/delete-account?id=1`)
+      .onDelete(`http://localhost:8080/crypto-accounts/v1/delete-account?id=1`)
       .networkErrorOnce();
 
     //expect
-    expect(testStore.getState().accounts.accounts[0]).toMatchObject(storeValue);
+    expect(testStore.getState().cryptoAccounts.accounts[0]).toMatchObject(storeValue);
 
-    await testStore.dispatch(deleteAccount(1));
+    await testStore.dispatch(deleteCryptoAccounts(1));
 
-    expect(testStore.getState().accounts.accounts[0]).toMatchObject(storeValue);
+    expect(testStore.getState().cryptoAccounts.accounts[0]).toMatchObject(storeValue);
   });
 });
