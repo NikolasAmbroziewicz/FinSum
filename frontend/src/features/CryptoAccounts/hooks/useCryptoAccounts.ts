@@ -33,7 +33,6 @@ export const useCryptoAccounts = ({ onClose }: IUseCryptoAccounts) => {
     formState: { errors },
     handleSubmit,
     setValue,
-    getValues
   } = useForm<CryptoAccountSchemaType>({
     resolver: zodResolver(cryptoAccountSchema)
   })
@@ -72,7 +71,6 @@ export const useCryptoAccounts = ({ onClose }: IUseCryptoAccounts) => {
     handleSubmit,
     errors,
     register,
-    setValue,
-    getValues
+    setValue
   }
 }

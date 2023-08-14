@@ -29,6 +29,7 @@ const BaseModal: React.FC<IBaseModal> = ({
           className={`${
             isOpen ? 'fixed' : 'none'
           } inset-0 z-100 overflow-x-hidden overflow-y-auto bg-sky-500/[.2] z-[2]`}
+          onClick={(e) => e.stopPropagation()}
         >
           <div
             className="fixed bg-white smplus:max-w-[600px] rounded-md 
@@ -38,7 +39,10 @@ const BaseModal: React.FC<IBaseModal> = ({
           >
             <div className="flex justify-between p-4 border-b-[1px]">
               <H2 position={Position.left}>{title}</H2>
-              <button onClick={onClose}>
+              <button onClick={(e) => {
+                e.stopPropagation()
+                onClose()
+                }}>
                 <AiOutlineClose className="text-gray-600 text-xl hover:text-black" />
               </button>
             </div>

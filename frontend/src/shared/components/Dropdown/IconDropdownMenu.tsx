@@ -30,7 +30,10 @@ const IconDropdownMenu = forwardRef<IIconDropdownMenuRef, IIconDropdownMenu>(
       <>
         <button
           className="flex justify-end"
-          onClick={handleMenuOpen}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleMenuOpen();
+          }}
           data-test="drop-down-menu-toggler"
         >
           <BiDotsVerticalRounded className="text-xl cursor-pointer" />
@@ -41,7 +44,11 @@ const IconDropdownMenu = forwardRef<IIconDropdownMenuRef, IIconDropdownMenu>(
               <li
                 key={element.id}
                 className="flex items-center text-gray-700 px-4 py-2 text-base cursor-pointer hover:bg-slate-100"
-                onClick={element.handler}
+                onClick={
+                  (e) => {
+                    e.stopPropagation();
+                    element.handler && element.handler()
+                  }}
               >
                 {element.icon}
                 <span className="ml-2">{element.content}</span>

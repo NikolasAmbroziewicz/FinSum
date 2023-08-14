@@ -38,6 +38,7 @@ const AccountExpenseListAction: React.FC<IAccountExpenseListAction> = ({
       handleDeleteElement={handleDeleteExpense}
       titleDeleteModal="Delete Expense"
       titleEditModal="Edit Expense"
+      contentDeleteModal='Do you want Delete this Expense?'
       contentEditModal={
         <AccountExpenseForm
           onClose={handleEditOpen}

@@ -79,7 +79,11 @@ const AccountDetailsSummary: React.FC<IAccountDetailsSummary> = ({
       </div>
       <div className={`flex ${mobileScreen()} max-w-[600px] m-auto`}>
         <div className="max-w-[300px]">
-          <Doughnut data={data} />
+          {
+            summary.total_expense !== 0 && summary.total_income !== 0 && (
+              <Doughnut data={data} />    
+            )
+          }
         </div>
       </div>
     </div>
