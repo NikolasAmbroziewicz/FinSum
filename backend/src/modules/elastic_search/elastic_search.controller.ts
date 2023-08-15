@@ -16,7 +16,7 @@ export class ElasticSearchController {
   ) {}
 
 
-  @Get('fetch-and-index-crypto-options')
+  @Get('v1/fetch-and-index-crypto-options')
   async fetchAndIndexCryptoOptions() {
     try {
       this.index_name = 'crypto_options'
@@ -33,7 +33,7 @@ export class ElasticSearchController {
     }
   }
 
-  @Get('search-crypto-options')
+  @Get('v1/search-crypto-options')
   async searchCryptoOptions(
     @Query('q') query: string,
     @Query('sort') sort: string
