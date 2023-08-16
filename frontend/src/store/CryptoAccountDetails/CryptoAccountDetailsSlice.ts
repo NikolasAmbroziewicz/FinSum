@@ -19,7 +19,7 @@ export const addCryptoCurrency = createAsyncThunk(
   }
 )
 
-export const getAllCryptoCurrency = createAsyncThunk(
+export const getCryptoCurrency = createAsyncThunk(
   'cryptoAccountDetails/getCryptoCurrency',
   async (account_id: number) => {
     const { get_all_crypto_currency } = useCryptoAccountsDetailsApi()
@@ -63,14 +63,14 @@ const cryptoAccountDetailsSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(getAllCryptoCurrency.fulfilled, (state, action) => {
+      .addCase(getCryptoCurrency.fulfilled, (state, action) => {
         state.cryptoCurrency = action.payload
         state.isLoading = false
       })
-      .addCase(getAllCryptoCurrency.pending, (state) => {
+      .addCase(getCryptoCurrency.pending, (state) => {
         state.isLoading = true
       })
-      .addCase(getAllCryptoCurrency.rejected, (state) => {
+      .addCase(getCryptoCurrency.rejected, (state) => {
         state.isLoading = false
       })
       .addCase(addCryptoCurrency.fulfilled, (state, action) => {
@@ -80,7 +80,7 @@ const cryptoAccountDetailsSlice = createSlice({
       .addCase(addCryptoCurrency.pending, (state) => {
         state.isLoading = true
       })
-      .addCase(addCryptoCurrency.fulfilled, (state) => {
+      .addCase(addCryptoCurrency.rejected, (state) => {
         state.isLoading = false
       })
       .addCase(deleteCryptoCurrency.fulfilled, (state, action) => {
@@ -113,5 +113,8 @@ const cryptoAccountDetailsSlice = createSlice({
       });
   }
 })
+
+export const getAllCryptoCurrency = (state: RootState) => state.cryptoAccountDetails.cryptoCurrency
+export const getLoadingStatus = (state: RootState) => state.cryptoAccountDetails.isLoading
 
 export default cryptoAccountDetailsSlice.reducer;
