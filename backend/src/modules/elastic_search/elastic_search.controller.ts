@@ -24,7 +24,13 @@ export class ElasticSearchController {
       const crypto_response = await this.externalCryptoApiService.fetchDataFromApi()
 
       for (const data of crypto_response.data.data) {
-        await this.elasticSearchService.indexDocument(this.index_name, data.id.toString(), data);
+        await this.elasticSearchService.indexDocument(this.index_name, data.id.toString(), {
+          id: data.id,
+          rank: data.rank,
+          name: data.name,
+          symbol: data.symbol,
+          slug: data.slug
+        });
       }
 
       return 'Data indexed Successfully.'
