@@ -40,7 +40,8 @@ export const useCryptoCurrency = ({
   } = useForm<CryptoCurrencyDetailsSchemaType>({
     resolver: zodResolver(cryptoCurrencyDetailsSchema),
     defaultValues: {
-      date_bought: new Date()
+      date_bought: new Date(),
+      date_sold: undefined
     }
   })
 

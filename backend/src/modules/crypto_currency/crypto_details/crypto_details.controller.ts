@@ -21,7 +21,6 @@ export class CryptoDetailsController {
     @Body() crypto_currency: CryptoDetailsDto,
     @Query('account_id') account_id: string
   ){
-    console.log(account_id)
     return this.cryptoDetailsService.addCryptoCurrency(crypto_currency, account_id)
   }
 
