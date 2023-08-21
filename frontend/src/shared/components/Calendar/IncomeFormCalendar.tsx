@@ -10,12 +10,12 @@ const CustomInput = forwardRef(({ value, onClick }: any, ref: any) => (
     onClick={onClick}
     ref={ref}
   >
-    {value}
+    {value === '' ? 'Date' : value}
   </button>
 ));
 
 interface IIncomeFormCalendar {
-  date: Date;
+  date: Date | undefined;
   setDate: (date: Date) => void;
 }
 
