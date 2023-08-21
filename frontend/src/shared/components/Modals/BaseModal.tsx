@@ -33,9 +33,9 @@ const BaseModal: React.FC<IBaseModal> = ({
         >
           <div
             className="fixed bg-white smplus:max-w-[600px] rounded-md 
-                        top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+                        top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/4
                         sm:w-[calc(100%_-_1rem)]
-                        smplus:top-1/3 smplus:left-1/2 smplus:-translate-x-1/2 smplus:-translate-y-1/2"
+                        smplus:top-1/4 smplus:left-1/2 smplus:-translate-x-1/2 smplus:-translate-y-1/4"
           >
             <div className="flex justify-between p-4 border-b-[1px]">
               <H2 position={Position.left}>{title}</H2>
