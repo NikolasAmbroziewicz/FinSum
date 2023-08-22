@@ -41,7 +41,7 @@ export const useCryptoCurrency = ({
     resolver: zodResolver(cryptoCurrencyDetailsSchema),
     defaultValues: {
       date_bought: new Date(),
-      date_sold: undefined
+      date_sold: null,
     }
   })
 
