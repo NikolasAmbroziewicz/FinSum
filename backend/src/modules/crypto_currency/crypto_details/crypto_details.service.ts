@@ -15,8 +15,11 @@ export class CryptoDetailsService {
     const { name, amount, ticker, price_bought, price_sold, date_bought, date_sold, stock_name } = crypto_currency
 
     const parsed_account_number = Number(account_id)
-    
     const parsed_bought_date = new Date(date_bought)
+
+    const price_sold_value = price_sold  ? price_sold : null
+    const date_sold_value = date_sold ? new Date(date_sold): null
+    const stock_name_value = stock_name ? stock_name : ''
 
     const added_currency = this.prisma.cryptocurrency.create({
       data: {
@@ -24,10 +27,10 @@ export class CryptoDetailsService {
         amount: amount,
         ticker: ticker,
         price_bought: price_bought,
-        price_sold: price_sold,
+        price_sold: price_sold_value,
         date_bought: parsed_bought_date,
-        date_sold: date_sold,
-        stock_name: stock_name,
+        date_sold: date_sold_value,
+        stock_name: stock_name_value,
         cryptocurrency_wallet: {
           connect: {
             id: parsed_account_number

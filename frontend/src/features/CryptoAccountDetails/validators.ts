@@ -1,9 +1,9 @@
-import { date, object, TypeOf, number, string } from 'zod'
+import { date, object, TypeOf, number, string, z } from 'zod'
 
 export const cryptoCurrencyDetailsSchema = object({
   id: number().optional(),
   name: string().min(1, 'Name is Required'),
-  symbol: string().min(1, 'Ticker is Required'),
+  ticker: string().min(1, 'Ticker is Required'),
   amount: string()
     .refine((val) => !Number.isNaN(parseInt(val, 10)), {
       message: 'Amount is required'
@@ -18,21 +18,23 @@ export const cryptoCurrencyDetailsSchema = object({
     .refine((val) => parseInt(val, 10) >= 0, {
       message: 'Price Bought can not be negative'
     }),
-  price_sold: string().optional()
-    .refine((val) => (val && parseInt(val, 10) >= 0), {
-      message: 'Price Sold can not be negative'
-    }),
+  price_sold: string()
+    .optional(),
   date_bought: date({
     required_error: 'Please select a date and time'
   }),
-  date_sold: date({
-    required_error: 'Please select a date and time'
-  }),
+  date_sold: date().nullable().optional(),
   stock_name: string().optional()
 })
-.refine((data) => (data.date_bought < data.date_sold), {
-  message: "Date Sold cannot be earlier than start date.",
-  path: ["date_sold"],
+.superRefine((data, ctx) => {
+  if (data.date_sold === null) {
+    return true
+  } else if (data.date_sold && (data.date_bought > data.date_sold)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: 'Sell Date Must be before Buy Date',
+      path: ['date_sold']
+    })
+  }
 })
-
 export type CryptoCurrencyDetailsSchemaType = TypeOf<typeof cryptoCurrencyDetailsSchema>
