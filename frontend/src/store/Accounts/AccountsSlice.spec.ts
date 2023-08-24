@@ -3,6 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { describe, expect, it, vi } from 'vitest';
 
 import { setupStore, StoreType } from '../main';
+
 import {
   addAccount,
   getAccounts,

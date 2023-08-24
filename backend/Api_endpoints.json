@@ -467,7 +467,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8080/accounts/v1/get-accounts?id=65",
+							"raw": "http://localhost:8080/accounts/v1/delete-account?id=15",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -476,12 +476,12 @@
 							"path": [
 								"accounts",
 								"v1",
-								"get-accounts"
+								"delete-account"
 							],
 							"query": [
 								{
 									"key": "id",
-									"value": "65"
+									"value": "15"
 								}
 							]
 						}
@@ -510,7 +510,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8080/accounts/v1/get-accounts?id=65",
+							"raw": "http://localhost:8080/accounts/v1/edit-account?id=65",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -519,7 +519,7 @@
 							"path": [
 								"accounts",
 								"v1",
-								"get-accounts"
+								"edit-account"
 							],
 							"query": [
 								{
@@ -625,7 +625,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/account-expense/v1/get-expenses?account_id=6",
+									"raw": "http://localhost:8080/account-expense/v1/get-expenses?account_id=6&date=2023-04-19T09:54:50.12",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -640,6 +640,10 @@
 										{
 											"key": "account_id",
 											"value": "6"
+										},
+										{
+											"key": "date",
+											"value": "2023-04-19T09:54:50.12"
 										}
 									]
 								}
@@ -769,7 +773,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"amount\": \"8021\",\n    \"currency\": \"USD\",\n    \"title\": \"Work\",\n    \"date\": \"2023-04-19T09:54:50.12\"\n}",
+									"raw": "{\n    \"amount\": \"8021\",\n    \"title\": \"Work\",\n    \"date\": \"2023-04-19T09:54:50.12\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -777,7 +781,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/account-income/v1/add-income?acount_id=13",
+									"raw": "http://localhost:8080/account-income/v1/add-income?account_id=13",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -790,7 +794,7 @@
 									],
 									"query": [
 										{
-											"key": "acount_id",
+											"key": "account_id",
 											"value": "13"
 										}
 									]
@@ -820,7 +824,7 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:8080/account-income/v1/get-incomes?acount_id=13",
+									"raw": "http://localhost:8080/account-income/v1/get-incomes?account_id=13&date=2023-04-19T09:54:50.12",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -833,8 +837,12 @@
 									],
 									"query": [
 										{
-											"key": "acount_id",
+											"key": "account_id",
 											"value": "13"
+										},
+										{
+											"key": "date",
+											"value": "2023-04-19T09:54:50.12"
 										}
 									]
 								}
@@ -842,7 +850,7 @@
 							"response": []
 						},
 						{
-							"name": "DeleteExpense",
+							"name": "DeleteIncome",
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -937,6 +945,436 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Summary",
+					"item": [
+						{
+							"name": "GetSummary",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-refresh-token",
+										"value": "{{refreshToken}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/account-summary/v1/get-summary?account_id=13&date=2023-04-19T09:54:50.12",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"account-summary",
+										"v1",
+										"get-summary"
+									],
+									"query": [
+										{
+											"key": "account_id",
+											"value": "13"
+										},
+										{
+											"key": "date",
+											"value": "2023-04-19T09:54:50.12"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "CryptoCurrency",
+			"item": [
+				{
+					"name": "crypto_details",
+					"item": [
+						{
+							"name": "AddCryptoCurrency",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-refresh-token",
+										"value": "{{refreshToken}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Bitcoin\",\n    \"ticker\": \"BTC\",\n    \"amount\": \"1.1\",\n    \"price_bought\": \"10000\",\n    \"date_bought\": \"2023-04-19T09:54:50.12\",\n    \"stock_name\": \"Binance\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/crypto-details/v1/add-crypto-currency?account_id=3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"crypto-details",
+										"v1",
+										"add-crypto-currency"
+									],
+									"query": [
+										{
+											"key": "account_id",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetCryproCurrency",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-refresh-token",
+										"value": "{{refreshToken}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/crypto-details/v1/get-crypto-currency?account_id=3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"crypto-details",
+										"v1",
+										"get-crypto-currency"
+									],
+									"query": [
+										{
+											"key": "account_id",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteCryptoCurrency",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "x-refresh-token",
+										"value": "{{refreshToken}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/crypto-details/v1/delete-crypto-currency?crypto_currency_id=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"crypto-details",
+										"v1",
+										"delete-crypto-currency"
+									],
+									"query": [
+										{
+											"key": "crypto_currency_id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "EditCryptoCurrency",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-refresh-token",
+										"value": "{{refreshToken}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 3,\n    \"name\": \"Bitcoin\",\n    \"amount\": \"1.1\",\n    \"ticker\": \"BTC\",\n    \"price_bought\": \"10000\",\n    \"price_sold\": \"100001\",\n    \"date_bought\": \"2023-04-19T07:54:50.120Z\",\n    \"date_sold\": \"2023-04-19T07:54:50.120Z\",\n    \"stock_name\": \"Binance\",\n    \"cryptocurrency_wallet_id\": 3\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/crypto-details/v1/edit-crypto-currency?crypto_currency_id=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"crypto-details",
+										"v1",
+										"edit-crypto-currency"
+									],
+									"query": [
+										{
+											"key": "crypto_currency_id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CreateCryptoAccount",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-refresh-token",
+								"value": "{{refreshToken}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Long Term\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/crypto-accounts/v1/add-crypto-account",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"crypto-accounts",
+								"v1",
+								"add-crypto-account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCryptoAccounts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-refresh-token",
+								"value": "{{refreshToken}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/crypto-accounts/v1/get-crypto-accounts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"crypto-accounts",
+								"v1",
+								"get-crypto-accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCryptoAccount",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-refresh-token",
+								"value": "{{refreshToken}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/crypto-accounts/v1/delete-account?id=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"crypto-accounts",
+								"v1",
+								"delete-account"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EditCryptoAccount",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-refresh-token",
+								"value": "{{refreshToken}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Long Ter 12m\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/crypto-accounts/v1/edit-account?id=4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"crypto-accounts",
+								"v1",
+								"edit-account"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

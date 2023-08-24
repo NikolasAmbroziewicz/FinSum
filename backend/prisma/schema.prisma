@@ -124,7 +124,7 @@ model stock {
 }
 model cryptocurrency_wallet {
   id Int @id @default(autoincrement())
-  name String
+  title String
 
   user user @relation(fields: [user_id], references: [id])
   user_id Int
@@ -135,12 +135,12 @@ model cryptocurrency_wallet {
 model cryptocurrency {
   id           Int      @id @default(autoincrement())
   name         String   @db.VarChar(40)
-  amount        Decimal @db.Decimal()
+  amount       Decimal @db.Decimal()
   ticker       String   @db.VarChar(20)
   price_bought Decimal  @db.Decimal()
-  price_sold   Decimal  @db.Decimal()
+  price_sold   Decimal?  @db.Decimal()
   date_bought  DateTime @db.Timestamp() @default(now())
-  date_sold    DateTime @db.Timestamp()
+  date_sold    DateTime? @db.Timestamp()
   stock_name   String   @db.VarChar(40)
 
   cryptocurrency_wallet cryptocurrency_wallet @relation(fields: [cryptocurrency_wallet_id], references: [id], onDelete: Cascade)

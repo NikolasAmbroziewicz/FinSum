@@ -15,6 +15,7 @@ interface IListElementAction<T> {
   element: T;
   titleDeleteModal: string;
   titleEditModal: string;
+  contentDeleteModal: string;
   isDeleteModalOpen: boolean;
   isEditModalOpen: boolean;
   handleDeleteElement: (value: number) => void;
@@ -29,6 +30,7 @@ export default function ListElementAction<
   element,
   titleDeleteModal,
   titleEditModal,
+  contentDeleteModal,
   isDeleteModalOpen,
   isEditModalOpen,
   handleDeleteModal,
@@ -77,7 +79,7 @@ export default function ListElementAction<
           title={titleDeleteModal}
           content={
             <span className="text-gray-600 mx-4">
-              Do you want do delete this Income?
+              { contentDeleteModal }
             </span>
           }
           action={

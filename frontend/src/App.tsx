@@ -13,6 +13,7 @@ import AccountsPage from './pages/Accounts/AccountsPage';
 import AccountDetailsPage from './pages/AccountDetails/AccountDetails';
 import StocksPage from './pages/Stocks/StocksPage';
 import CryptocurrencyPage from './pages/Cryptocurrency/CryptocurrencyPage';
+import CryptoAccountDetailsPage from './pages/CryptoAccountDetailsPage/CryptoAccountDetailsPage';
 import MetalsPage from './pages/Metals/MetalsPage';
 import IncomePage from './pages/Income/IncomePage';
 
@@ -42,14 +43,24 @@ function App() {
             </BaseNavLayout>
           }
         />
-        <Route
-          path="cryptocurrency"
-          element={
-            <BaseNavLayout>
-              <CryptocurrencyPage />
-            </BaseNavLayout>
-          }
-        />
+        <Route path="cryptocurrency">
+          <Route
+            index
+            element={
+              <BaseNavLayout>
+                <CryptocurrencyPage />
+              </BaseNavLayout>
+            }
+          />
+          <Route
+            path=':accountId'
+            element={
+              <BaseNavLayout>
+                <CryptoAccountDetailsPage />
+              </BaseNavLayout>
+            }
+          />
+        </Route>
         <Route
           path="metals"
           element={

@@ -14,13 +14,13 @@ import { supportedCurrency } from 'src/shared/data/SupportedCurrencies';
 interface IAccountsForm {
   onClose: () => void;
   editForm?: boolean;
-  income?: AccountSchemaType;
+  account?: AccountSchemaType;
 }
 
 const AccountsForm: React.FC<IAccountsForm> = ({
   onClose,
   editForm,
-  income
+  account
 }) => {
   const {
     handleAddAccounts,
@@ -33,10 +33,10 @@ const AccountsForm: React.FC<IAccountsForm> = ({
   } = useAccount({ onClose: onClose });
 
   useEffect(() => {
-    if (editForm && income) {
-      setValue('id', income?.id);
-      setValue('title', income.title);
-      setValue('currency', income.currency, { shouldValidate: true });
+    if (editForm && account) {
+      setValue('id', account?.id);
+      setValue('title', account.title);
+      setValue('currency', account.currency, { shouldValidate: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

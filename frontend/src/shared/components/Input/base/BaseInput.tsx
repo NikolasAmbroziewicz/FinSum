@@ -9,6 +9,7 @@ export interface IBaseInput {
   formHandler?: UseFormRegisterReturn;
   value?: string;
   error?: boolean;
+  step?: string,
 }
 
 const BaseInput: React.FC<IBaseInput> = ({
@@ -18,7 +19,8 @@ const BaseInput: React.FC<IBaseInput> = ({
   changeHandler,
   formHandler,
   value,
-  error
+  error,
+  step = '1'
 }) => {
   const borderClass = () => {
     return error ? 'border-rose-400' : 'border-slate-300';
@@ -36,6 +38,8 @@ const BaseInput: React.FC<IBaseInput> = ({
         placeholder={placeholder}
         value={value}
         onChange={changeHandler}
+        step={step}
+        min={0}
         {...formHandler}
       />
     </>

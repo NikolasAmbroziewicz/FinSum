@@ -29,7 +29,8 @@ const IncomeListAction: React.FC<IIncomeListAction> = ({ income }) => {
       handleEditModal={handleEditOpen}
       handleDeleteElement={handleDeleteIncome}
       titleDeleteModal="Delete Income"
-      titleEditModal="EditModal"
+      titleEditModal="Edit Income"
+      contentDeleteModal='Do you want Delete this Income?'
       contentEditModal={
         <IncomeForm onClose={handleEditOpen} editForm={true} income={income} />
       }
