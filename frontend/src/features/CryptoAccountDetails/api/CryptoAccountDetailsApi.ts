@@ -10,7 +10,7 @@ export const useCryptoAccountsDetailsApi = () => {
   ) => {
     return apiBase()
       .post(
-        `/crypto-details/v1/add-crypto-currency?account_id=${account_id}`,
+        `/crypto-details/v1/add-crypto-currency/${account_id}`,
         {
           ...data
         },
@@ -28,7 +28,7 @@ export const useCryptoAccountsDetailsApi = () => {
   ) => {
     return apiBase()
       .get(
-        `/crypto-details/v1/get-crypto-currency?account_id=${account_id}`,
+        `/crypto-details/v1/get-crypto-currency/${account_id}`,
         {
           headers: {
             ...authHeader
@@ -44,7 +44,7 @@ export const useCryptoAccountsDetailsApi = () => {
   ) => {
     return apiBase()
       .delete(
-        `/crypto-details/v1/delete-crypto-currency?crypto_currency_id=${crypto_currency_id}`,
+        `/crypto-details/v1/delete-crypto-currency/${crypto_currency_id}`,
         {
           headers: {
             ...authHeader
@@ -59,7 +59,7 @@ export const useCryptoAccountsDetailsApi = () => {
   ) => {
     return apiBase()
       .put(
-        `/crypto-details/v1/edit-crypto-currency?crypto_currency_id=${data.id}`,
+        `/crypto-details/v1/edit-crypto-currency/${data.id}`,
         {
           ...data
         },

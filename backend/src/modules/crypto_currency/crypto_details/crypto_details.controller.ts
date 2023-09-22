@@ -3,9 +3,9 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   Post,
-  Put,
-  Query
+  Put
 } from '@nestjs/common';
 
 import { CryptoDetailsService } from './crypto_details.service'
@@ -16,32 +16,32 @@ import { CryptoDetailsDto } from './crypto_details.dto'
 export class CryptoDetailsController {
   constructor(private cryptoDetailsService: CryptoDetailsService) {}
 
-  @Post('v1/add-crypto-currency')
+  @Post('v1/add-crypto-currency/:account_id')
   addCryptoCurrency(
     @Body() crypto_currency: CryptoDetailsDto,
-    @Query('account_id') account_id: string
+    @Param('account_id') account_id: string
   ){
     return this.cryptoDetailsService.addCryptoCurrency(crypto_currency, account_id)
   }
 
-  @Get('v1/get-crypto-currency')
+  @Get('v1/get-crypto-currency/:account_id')
   getCryptoCurrency(
-    @Query('account_id') account_id: string,
+    @Param('account_id') account_id: string,
   ) {
     return this.cryptoDetailsService.getCryptoCurrency(account_id)
   }
 
-  @Delete('v1/delete-crypto-currency')
+  @Delete('v1/delete-crypto-currency/:crypto_currency_id')
   deleteCryptoCurrency(
-    @Query('crypto_currency_id') crypto_currency_id: string
+    @Param('crypto_currency_id') crypto_currency_id: string
   ) {
     return this.cryptoDetailsService.deleteCryptoCurrency(crypto_currency_id)
   }
 
-  @Put('v1/edit-crypto-currency')
+  @Put('v1/edit-crypto-currency:crypto_currency_id')
   editCryptoCurrency(
     @Body() crypto_currency: CryptoDetailsDto,
-    @Query('crypto_currency_id') crypto_currency_id: string
+    @Param('crypto_currency_id') crypto_currency_id: string
   ) {
     return this.cryptoDetailsService.editCryptoCurrency(crypto_currency, crypto_currency_id)
   }

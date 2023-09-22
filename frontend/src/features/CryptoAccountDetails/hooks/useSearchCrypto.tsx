@@ -29,7 +29,7 @@ export const useSearchCrypto = () => {
 
   const handleInput = (event: ChangeEvent) => {
     setInputValue((event.target as HTMLInputElement).value)
-    debouncedChangeHandler((event.target as HTMLInputElement).value)
+    debouncedChangeHandler((event.target as HTMLInputElement).value.toLocaleLowerCase())
   }
 
   const debouncedChangeHandler = debounce(handleSearchCrypto, 300)
