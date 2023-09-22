@@ -43,7 +43,7 @@ export type CryptoCurrencySummary = {
   avgPrice: string,
   amount: string,
   currentPrice: string,
-  gainLost: string,
+  procent: string,
 }
 
 export type CryptoCurrencyDetailsSchemaType = TypeOf<typeof cryptoCurrencyDetailsSchema>

@@ -2,11 +2,20 @@ import { Injectable, ForbiddenException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
 import { PrismaService } from '../../../prisma/prisma.service';
+import { ExternalCryptoApiService } from '../../external_crypto_api/external_crypto_api.service'
+
+import { MathCalculation } from '../../../common/utils/math_calculation'
+
 import { CryptoDetailsDto } from './crypto_details.dto'
+import { SummaryCryptoInfo } from './types'
 
 @Injectable()
 export class CryptoDetailsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private externalCryptoApiService: ExternalCryptoApiService,
+    private mathCalculation: MathCalculation
+  ) {}
 
   async addCryptoCurrency(
     crypto_currency: CryptoDetailsDto,
@@ -121,6 +130,24 @@ export class CryptoDetailsService {
   async getCryptoCurrencySummary(
     account_id: string
   ) {
-    return 'hello' + account_id
+    const cryptoCurrencySummary: SummaryCryptoInfo[] = await this.prisma.$queryRawUnsafe(`
+      SELECT 
+        name, 
+        SUM(price_bought * amount) / SUM(amount) as avgPrice,
+        SUM(amount) as amount
+      FROM cryptocurrency
+      WHERE cryptocurrency.cryptocurrency_wallet_id=${account_id}
+      GROUP BY name
+    `) 
+
+    const coinsListData = await this.externalCryptoApiService.fetchCryptoCurrencyByName('bitcoin,ethereum')
+
+    return cryptoCurrencySummary.map((coin) => ({
+      coinName: coin.name,
+      amount: Number(coin.amount),
+      avgPrice: Number(coin.avgprice),
+      currentPrice: coinsListData[coin.name],
+      procent: this.mathCalculation.countProcent(coinsListData[coin.name], coin.avgprice)
+    }))
   }
 }
