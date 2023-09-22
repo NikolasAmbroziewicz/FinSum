@@ -54,6 +54,19 @@ export const useCryptoAccountsDetailsApi = () => {
       .then((res) => res.data)
   }
 
+  const get_crypto_currency_summary = (account_id: number,) => {
+    return apiBase()
+      .get(
+        `/crypto-details/v1/get-crypto-currency-summary/${account_id}`,
+        {
+          headers: {
+            ...authHeader
+          }
+        }
+      )
+      .then((res) => res.data)
+  }
+
   const edit_crypto_currency = async (
     data:CryptoCurrencyDetailsSchemaType
   ) => {
@@ -87,10 +100,13 @@ export const useCryptoAccountsDetailsApi = () => {
   }
 
   return {
+    // Common api
     add_crypto_currency,
     delete_crypto_currency,
     edit_crypto_currency,
     get_all_crypto_currency,
+    get_crypto_currency_summary,
+    // Search
     get_all_crypto_options
   }
 }

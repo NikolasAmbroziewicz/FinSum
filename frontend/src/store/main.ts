@@ -5,13 +5,17 @@ import {
 } from '@reduxjs/toolkit';
 
 import UserReducer from './User/userSlice';
+
 import IncomesReducer from './Incomes/IncomesSlice';
+
 import AccountsReducer from './Accounts/AccountsSlice';
+
 import AccountDetailsIncomesReducer from './AccountsDetails/incomes/AccountDetailsIncomesSlice';
 import AccountDetailsExpensesReducer from './AccountsDetails/expenses/AccountDetailsExpensesSlice';
 import AccountDetailsSummaryReducer from './AccountsDetails/summary/AccountDetailsSummarySlice';
+
 import CryptoAccountReducer from './CryptoAccount/CryptoAccountSlice';
-import CryptoAccountDetailsReducer from './CryptoAccountDetails/CryptoAccountDetailsSlice';
+import CryptoAccountDetailsSummary from './CryptoAccountDetails/summary/CryptoAccountDetailsSummary';
 
 const rootReducer = combineReducers({
   auth: UserReducer,
@@ -21,7 +25,7 @@ const rootReducer = combineReducers({
   accountDetailsExpenses: AccountDetailsExpensesReducer,
   accountDetailsSummary: AccountDetailsSummaryReducer,
   cryptoAccounts: CryptoAccountReducer,
-  cryptoAccountDetails: CryptoAccountDetailsReducer
+  cryptoAccountDetailsSummary: CryptoAccountDetailsSummary
 });
 
 export function setupStore(preloadedState?: PreloadedState<RootState>) {

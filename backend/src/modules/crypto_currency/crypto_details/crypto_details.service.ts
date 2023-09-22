@@ -117,4 +117,10 @@ export class CryptoDetailsService {
       }
     }
   }
+
+  async getCryptoCurrencySummary(
+    account_id: string
+  ) {
+    return 'hello' + account_id
+  }
 }

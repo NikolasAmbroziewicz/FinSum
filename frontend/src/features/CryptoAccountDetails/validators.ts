@@ -37,4 +37,13 @@ export const cryptoCurrencyDetailsSchema = object({
     })
   }
 })
+
+export type CryptoCurrencySummary = {
+  coinName: string,
+  avgPrice: string,
+  amount: string,
+  currentPrice: string,
+  gainLost: string,
+}
+
 export type CryptoCurrencyDetailsSchemaType = TypeOf<typeof cryptoCurrencyDetailsSchema>

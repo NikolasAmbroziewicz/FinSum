@@ -38,11 +38,18 @@ export class CryptoDetailsController {
     return this.cryptoDetailsService.deleteCryptoCurrency(crypto_currency_id)
   }
 
-  @Put('v1/edit-crypto-currency:crypto_currency_id')
+  @Put('v1/edit-crypto-currency/:crypto_currency_id')
   editCryptoCurrency(
     @Body() crypto_currency: CryptoDetailsDto,
     @Param('crypto_currency_id') crypto_currency_id: string
   ) {
     return this.cryptoDetailsService.editCryptoCurrency(crypto_currency, crypto_currency_id)
+  }
+
+  @Get('v1/get-crypto-currency-summary/:account_id')
+  getCryptoCurrencySummary(
+    @Param('account_id') account_id: string
+  ) {
+    return this.cryptoDetailsService.getCryptoCurrencySummary(account_id)
   }
 }
