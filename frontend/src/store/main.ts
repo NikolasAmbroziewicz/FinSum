@@ -15,7 +15,9 @@ import AccountDetailsExpensesReducer from './AccountsDetails/expenses/AccountDet
 import AccountDetailsSummaryReducer from './AccountsDetails/summary/AccountDetailsSummarySlice';
 
 import CryptoAccountReducer from './CryptoAccount/CryptoAccountSlice';
-import CryptoAccountDetailsSummary from './CryptoAccountDetails/summary/CryptoAccountDetailsSummary';
+
+import CryptoAccountDetails from './CryptoAccountDetails/CryptoAccountDetailsSlice';
+import CryptoAccountDetailsSummary from './CryptoAccountDetails/summary/CryptoAccountDetailsSummarySlice';
 
 const rootReducer = combineReducers({
   auth: UserReducer,
@@ -25,6 +27,7 @@ const rootReducer = combineReducers({
   accountDetailsExpenses: AccountDetailsExpensesReducer,
   accountDetailsSummary: AccountDetailsSummaryReducer,
   cryptoAccounts: CryptoAccountReducer,
+  cryptoAccountDetails:CryptoAccountDetails,
   cryptoAccountDetailsSummary: CryptoAccountDetailsSummary
 });
 

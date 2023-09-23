@@ -13,11 +13,11 @@ import {
 import { useNotificationContext } from 'src/context/NotificationContext';
 import { SnackbarType } from 'src/shared/components/Snackbar/type';
 
-// import {
-//   addCryptoCurrency,
-//   editCryptoCurrency,
-//   deleteCryptoCurrency
-// } from 'src/store/CryptoAccountDetails/CryptoAccountDetailsSlice'
+import {
+  addCryptoCurrency,
+  editCryptoCurrency,
+  deleteCryptoCurrency
+} from 'src/store/CryptoAccountDetails/CryptoAccountDetailsSlice'
 
 interface IUseCryptoCurrency {
   onClose?: () => void,
@@ -46,7 +46,7 @@ export const useCryptoCurrency = ({
   })
 
   const handleAddCryptoCurrency = async (value: CryptoCurrencyDetailsSchemaType) => {
-    // await dispatch(addCryptoCurrency({ data: value, account_id: accountId}))
+    await dispatch(addCryptoCurrency({ data: value, account_id: accountId}))
 
     if(onClose) {
       onClose()
@@ -55,7 +55,7 @@ export const useCryptoCurrency = ({
   }
 
   const handleEditCryptoCurrency = async (value: CryptoCurrencyDetailsSchemaType) => {
-    // await dispatch(editCryptoCurrency(value))
+    await dispatch(editCryptoCurrency(value))
 
     if(onClose) {
       onClose()
@@ -64,7 +64,7 @@ export const useCryptoCurrency = ({
   }
 
   const handleDeleteCryptoCurrency = async (value: number) => {
-    // await dispatch(deleteCryptoCurrency(value))
+    await dispatch(deleteCryptoCurrency(value))
 
     if(onClose) {
       onClose()
