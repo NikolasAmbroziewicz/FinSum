@@ -41,7 +41,7 @@ const cryptoAccountDetailsSummarySlice = createSlice({
   }
 })
 
-export const getAllSummaryCryptoCurrency = (state: RootState) => state.accountDetailsSummary.details
-export const getLoadingStatus = (state: RootState) => state.accountDetailsSummary.isLoading
+export const getAllSummaryCryptoCurrency = (state: RootState) => state.cryptoAccountDetailsSummary.currency
+export const getLoadingStatus = (state: RootState) => state.cryptoAccountDetailsSummary.isLoading
 
 export default cryptoAccountDetailsSummarySlice.reducer
