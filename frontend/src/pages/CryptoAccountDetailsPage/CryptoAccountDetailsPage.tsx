@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+
+import { AppDispatch } from 'src/store/main';
 
 import H2 from 'src/shared/components/Headers/H2';
 import BaseButton from 'src/shared/components/Button/base/BaseButton';
@@ -11,10 +14,21 @@ import CryptoCurrencyList from 'src/features/CryptoAccountDetails/components/Cry
 
 import { useModal } from 'src/shared/components/Modals/hooks/useModal';
 
+import { fetchAllCryptoCurrency } from 'src/store/CryptoAccountDetails/CryptoAccountDetailsSlice'
+import { getCryptoCurrencySummary } from 'src/store/CryptoAccountDetails/summary/CryptoAccountDetailsSummarySlice'
+
 const CryptoAccountDetailsPage = () => {
+  const dispatch = useDispatch<AppDispatch>()
   const [startDate, setStartDate] = useState(new Date());
   const params = useParams();
   const { handleOpenModal, isOpen } = useModal();
+
+  useEffect(() => {
+    dispatch(fetchAllCryptoCurrency(Number(params['accountId'])))
+    dispatch(getCryptoCurrencySummary(Number(params['accountId'])))
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div>

@@ -39,6 +39,7 @@ export const cryptoCurrencyDetailsSchema = object({
 })
 
 export type CryptoCurrencySummary = {
+  id: number,
   coinName: string,
   avgPrice: string,
   amount: string,

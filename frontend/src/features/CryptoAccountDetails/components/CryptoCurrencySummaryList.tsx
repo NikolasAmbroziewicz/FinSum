@@ -42,19 +42,18 @@ const CryptoCurrencySummaryList = () => {
                 headers={['Coin Name', 'Avg Price', 'Amount', 'Current Price', 'Gain/Lost', '']}
                 headerWidth={['1/2', '150px', '130px', '150px', '60px', '60px', '60px']}
               >
-                <CryptoCurrencySummaryListElement
-                  item={{
-                    coinName: 'Bitcoin',
-                    avgPrice: '123',
-                    amount: '123',
-                    currentPrice: '12451',
-                    procent: '12%'
-                  }}
-                >
-                  <div>
-      
-                  </div>
-                </CryptoCurrencySummaryListElement>
+                {
+                  cryptoCurrency.map((item) => (
+                    <CryptoCurrencySummaryListElement
+                      key={item.id}
+                      item={item}
+                    >
+                      <div>
+          
+                      </div>
+                    </CryptoCurrencySummaryListElement>
+                  ))
+                }
               </BaseTable>
             )
           ) : (

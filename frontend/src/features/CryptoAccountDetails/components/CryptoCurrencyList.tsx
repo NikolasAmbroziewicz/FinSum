@@ -43,23 +43,19 @@ const CryptoCurrencyHistoryList = () => {
                 headers={['Coin Name', 'Ticker', 'Amount', 'Price Bought', 'Price Sold', 'Date Bought', 'Date Sold', 'Stock Name', '']}
                 headerWidth={['1/2', '80px', '80px', '140px', '120px', '140px', '140px', '140px', '60px']}
               >
-                <CryptoCurrencyListElement 
-                  item={{
-                    id: 123,
-                    name: 'Bitcoin',
-                    amount: '12',
-                    ticker: 'BTC',
-                    price_bought: '123',
-                    price_sold:'123',
-                    date_bought: new Date(),
-                    date_sold: new Date(),
-                    stock_name: 'Binance'
-                  }}
-                >
-                  <div>
-      
-                  </div>
-                </CryptoCurrencyListElement>
+                {
+                  cryptoCurrency.map((item) => (
+                    <CryptoCurrencyListElement
+                      key={item.id}
+                      item={item}
+                    >
+                      <div>
+        
+                      </div>
+                    </CryptoCurrencyListElement>
+                  ))
+                }
+
               </BaseTable>
             )
           ) : (
