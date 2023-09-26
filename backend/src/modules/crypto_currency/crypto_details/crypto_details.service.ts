@@ -131,23 +131,25 @@ export class CryptoDetailsService {
     account_id: string
   ) {
     const cryptoCurrencySummary: SummaryCryptoInfo[] = await this.prisma.$queryRawUnsafe(`
-      SELECT 
+      SELECT
         name, 
         SUM(price_bought * amount) / SUM(amount) as avgPrice,
         SUM(amount) as amount
       FROM cryptocurrency
       WHERE cryptocurrency.cryptocurrency_wallet_id=${account_id}
       GROUP BY name
-    `) 
+    `)
 
-    const coinsListData = await this.externalCryptoApiService.fetchCryptoCurrencyByName('bitcoin,ethereum')
+    const coinsListNames = cryptoCurrencySummary.map((coin) => coin.name.toLocaleLowerCase()).join(',')
+    const coinsListData = await this.externalCryptoApiService.fetchCryptoCurrencyByName(coinsListNames)
 
     return cryptoCurrencySummary.map((coin) => ({
+      id: Math.random(),
       coinName: coin.name,
       amount: Number(coin.amount),
-      avgPrice: Number(coin.avgprice),
-      currentPrice: coinsListData[coin.name],
-      procent: this.mathCalculation.countProcent(coinsListData[coin.name], coin.avgprice)
+      avgPrice: Number(coin.avgprice).toFixed(2),
+      currentPrice: coinsListData[coin.name].toFixed(2),
+      procent: this.mathCalculation.countProcent(coinsListData[coin.name], coin.avgprice).toFixed(2)
     }))
   }
 }
