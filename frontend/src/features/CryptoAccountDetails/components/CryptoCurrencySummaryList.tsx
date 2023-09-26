@@ -47,11 +47,7 @@ const CryptoCurrencySummaryList = () => {
                     <CryptoCurrencySummaryListElement
                       key={item.id}
                       item={item}
-                    >
-                      <div>
-          
-                      </div>
-                    </CryptoCurrencySummaryListElement>
+                    />
                   ))
                 }
               </BaseTable>

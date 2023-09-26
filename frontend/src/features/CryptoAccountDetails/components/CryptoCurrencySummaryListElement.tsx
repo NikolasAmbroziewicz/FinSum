@@ -4,12 +4,10 @@ import { CryptoCurrencySummary } from 'src/features/CryptoAccountDetails/validat
 
 interface ICryptoCurrencySummaryListElement {
   item: CryptoCurrencySummary
-  children: JSX.Element
 }
 
 const CryptoCurrencySummaryListElement: React.FC<ICryptoCurrencySummaryListElement> = ({
   item,
-  children
 }) => {
   const { coinName, avgPrice, amount, currentPrice, procent } = item
   const { isTabletScreen } = useScreen();
@@ -18,14 +16,17 @@ const CryptoCurrencySummaryListElement: React.FC<ICryptoCurrencySummaryListEleme
     return isTabletScreen() ? 'px-2 py-1' : 'px-4 py-2';
   };
 
+  const procentColor = () => {
+    return procent.startsWith('-') ? 'text-red-600' : 'text-green-600'
+  }
+
   return (
     <tr className="border-b-2 border-gray-100">
       <td className={`${tableHeaderStyles()} text-gray-600`}>{coinName}</td>
       <td className={`${tableHeaderStyles()} text-gray-600`}>{avgPrice}</td>
       <td className={`${tableHeaderStyles()} text-gray-600`}>{amount}</td>
       <td className={`${tableHeaderStyles()} text-gray-600`}>{currentPrice}</td>
-      <td className={`${tableHeaderStyles()} text-gray-600`}>{procent}</td>
-      <td className={`${tableHeaderStyles()}`}>{children}</td>
+      <td className={`${tableHeaderStyles()} ${procentColor()}`}>{procent}</td>
     </tr>
   )
 }

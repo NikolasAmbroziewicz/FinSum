@@ -37,7 +37,9 @@ const CryptoAccountDetailsPage = () => {
         <BaseButton handler={handleOpenModal}>Add Crypto Currency</BaseButton>
       </div>
       <CryptoCurrencySummaryList />
-      <CryptoCurrencyList />
+      <CryptoCurrencyList 
+        accountId={Number(params['accountId'])}
+      />
       <BaseModal 
         isOpen={isOpen}
         onClose={handleOpenModal}

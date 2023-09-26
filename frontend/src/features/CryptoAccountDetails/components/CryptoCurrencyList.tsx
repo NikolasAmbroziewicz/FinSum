@@ -12,13 +12,20 @@ import BaseTable from 'src/shared/components/Table/BaseTable';
 import Loading from 'src/shared/components/Loading/Loading';
 
 import CryptoCurrencyListElement from './CryptoCurrencyListElement';
+import CryptoCurrencyListAction from './CryptoCurrencyListAction';
 
 import { useScreen } from 'src/shared/hooks/useScreen';
 
 import { Position } from 'src/shared/components/Headers/Header.types'
 import { LoadingPosition } from 'src/shared/components/Loading/types';
 
-const CryptoCurrencyHistoryList = () => {
+interface ICryptoCurrencyList {
+  accountId: number
+}
+
+const CryptoCurrencyList: React.FC<ICryptoCurrencyList> = ({
+  accountId
+}) => {
   const cryptoCurrency = useSelector(getAllCryptoCurrency);
   const loading = useSelector(getLoadingStatus);
 
@@ -49,9 +56,10 @@ const CryptoCurrencyHistoryList = () => {
                       key={item.id}
                       item={item}
                     >
-                      <div>
-        
-                      </div>
+                      <CryptoCurrencyListAction 
+                        cryptoCurrency={item}
+                        accountId={accountId}
+                      />
                     </CryptoCurrencyListElement>
                   ))
                 }
@@ -67,4 +75,4 @@ const CryptoCurrencyHistoryList = () => {
   )
 }
 
-export default CryptoCurrencyHistoryList
+export default CryptoCurrencyList
