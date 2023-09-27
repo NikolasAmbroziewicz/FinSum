@@ -7,6 +7,7 @@ import InputLabel from 'src/shared/components/Input/label/InputLabel';
 
 import { useCryptoCurrency } from '../hooks/useCryptoCurrency'
 import { CryptoCurrencyDetailsSchemaType } from '../validators'
+import { useEffect } from 'react';
 
 interface ICryptoCurrencyForm {
   onClose: () => void,
@@ -16,6 +17,7 @@ interface ICryptoCurrencyForm {
 }
 
 const CryptoCurrencyForm: React.FC<ICryptoCurrencyForm> = ({
+  cryptoCurrency,
   onClose,
   editForm = false,
   accountId,
@@ -32,6 +34,27 @@ const CryptoCurrencyForm: React.FC<ICryptoCurrencyForm> = ({
     onClose: onClose,
     accountId: accountId
   })
+
+  useEffect(() => {
+    if(editForm && cryptoCurrency) {
+      handleSetNameValue(cryptoCurrency.name)
+      handleSetTickerValue(cryptoCurrency.ticker)
+      setValue('id', cryptoCurrency.id)
+      setValue('date_bought',new Date( cryptoCurrency.date_bought))
+      setValue('stock_name', cryptoCurrency.stock_name)
+      setValue('amount', cryptoCurrency.amount)
+      setValue('price_bought', cryptoCurrency.price_bought)
+
+      if(cryptoCurrency.date_sold) {
+        setValue('date_sold', new Date(cryptoCurrency.date_sold))
+      }
+
+      if (cryptoCurrency.price_sold !== null) {
+        setValue('price_sold', cryptoCurrency.price_sold)
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleDateBoughtValue = (val: Date) => {
     setValue('date_bought', val, { shouldValidate: true });
@@ -58,10 +81,11 @@ const CryptoCurrencyForm: React.FC<ICryptoCurrencyForm> = ({
       className="flex flex-col gap-4 w-screen mx-4"
     >
       <FormElement value="Crypto Currency" error={errors.name?.message || errors.ticker?.message}>
-        <SearchDropdownMenu 
+        <SearchDropdownMenu
           error={!!errors.name?.message || !!errors.ticker?.message}
           setName={handleSetNameValue}
           setTicker={handleSetTickerValue}
+          defaultValue={cryptoCurrency?.name}
         
         />
       </FormElement>

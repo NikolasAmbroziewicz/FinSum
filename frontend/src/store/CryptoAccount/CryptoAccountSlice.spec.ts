@@ -216,7 +216,7 @@ describe('CryptoAccountsSlice > deleteAccounts', () => {
 
     // then
     mock
-      .onDelete(`http://localhost:8080/crypto-accounts/v1/delete-account?id=1`)
+      .onDelete(`http://localhost:8080/crypto-accounts/v1/delete-account/1`)
       .reply(200, storeValue);
 
     //expect
@@ -243,7 +243,7 @@ describe('CryptoAccountsSlice > deleteAccounts', () => {
 
     // then
     mock
-      .onDelete(`http://localhost:8080/crypto-accounts/v1/delete-account?id=1`)
+      .onDelete(`http://localhost:8080/crypto-accounts/v1/delete-account/1`)
       .networkErrorOnce();
 
     //expect

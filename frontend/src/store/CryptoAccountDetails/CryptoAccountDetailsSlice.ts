@@ -52,6 +52,17 @@ export const editCryptoCurrency = createAsyncThunk(
   }
 )
 
+export const fetchAllCryptoCurrency = createAsyncThunk(
+  'cryptoAccountDetails/fetchAllCryptoCurrency',
+  async (account_id: number) => {
+    const { get_all_crypto_currency } = useCryptoAccountsDetailsApi()
+
+    const res: CryptoCurrencyDetailsSchemaType[] = await get_all_crypto_currency(account_id)
+
+    return res
+  }
+)
+
 const initialState: CryptoAccountDetailsState = {
   cryptoCurrency: [],
   isLoading: false
@@ -110,7 +121,17 @@ const cryptoAccountDetailsSlice = createSlice({
       })
       .addCase(editCryptoCurrency.rejected, (state) => {
         state.isLoading = false;
-      });
+      })
+      .addCase(fetchAllCryptoCurrency.fulfilled, (state, action) => {
+        state.cryptoCurrency = action.payload
+        state.isLoading = false
+      })
+      .addCase(fetchAllCryptoCurrency.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(fetchAllCryptoCurrency.rejected, (state) => {
+        state.isLoading = false
+      })
   }
 })
 

@@ -15,7 +15,7 @@ const CustomInput = forwardRef(({ value, onClick }: any, ref: any) => (
 ));
 
 interface IIncomeFormCalendar {
-  date: Date | undefined;
+  date: Date | undefined | null;
   setDate: (date: Date) => void;
 }
 

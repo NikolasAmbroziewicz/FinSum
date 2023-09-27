@@ -19,6 +19,10 @@ import {
   deleteCryptoCurrency
 } from 'src/store/CryptoAccountDetails/CryptoAccountDetailsSlice'
 
+import {
+  getCryptoCurrencySummary
+} from 'src/store/CryptoAccountDetails/summary/CryptoAccountDetailsSummarySlice'
+
 interface IUseCryptoCurrency {
   onClose?: () => void,
   accountId: number
@@ -47,6 +51,7 @@ export const useCryptoCurrency = ({
 
   const handleAddCryptoCurrency = async (value: CryptoCurrencyDetailsSchemaType) => {
     await dispatch(addCryptoCurrency({ data: value, account_id: accountId}))
+    await dispatch(getCryptoCurrencySummary(accountId))
 
     if(onClose) {
       onClose()
@@ -56,6 +61,7 @@ export const useCryptoCurrency = ({
 
   const handleEditCryptoCurrency = async (value: CryptoCurrencyDetailsSchemaType) => {
     await dispatch(editCryptoCurrency(value))
+    await dispatch(getCryptoCurrencySummary(accountId))
 
     if(onClose) {
       onClose()
@@ -65,6 +71,7 @@ export const useCryptoCurrency = ({
 
   const handleDeleteCryptoCurrency = async (value: number) => {
     await dispatch(deleteCryptoCurrency(value))
+    await dispatch(getCryptoCurrencySummary(accountId))
 
     if(onClose) {
       onClose()

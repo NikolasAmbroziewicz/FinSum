@@ -4,8 +4,8 @@ import {
   Delete,
   Post,
   Get,
+  Param,
   Put,
-  Query,
 } from '@nestjs/common';
 
 import { CryptoAccountsService }  from './crypto_accounts.service'
@@ -33,9 +33,9 @@ export class CryptoAccountsController {
     return this.cryptoAccountsService.getAccounts(user)
   }
 
-  @Delete('v1/delete-account')
+  @Delete('v1/delete-account/:id')
   deleteAccount(
-    @Query('id') id: string,
+    @Param('id') id: string,
   ) {
     return this.cryptoAccountsService.deleteAccount(id)
   }
@@ -43,7 +43,7 @@ export class CryptoAccountsController {
   @Put('v1/edit-account')
   editAccount(
     @Body() account: CryptoAccountDto,
-    @Query('id') id: string,
+    @Param('id') id: string,
   ) {
     return this.cryptoAccountsService.editAccount(account, id)
   }

@@ -17,4 +17,20 @@ export class ExternalCryptoApiService {
       }
     })
   }
+
+  async fetchCryptoCurrencyByName(name: string) {
+    const coinData = await this.httpService.axiosRef.get(`https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest?slug=${name}`, {
+      headers: {
+        'X-CMC_PRO_API_KEY': this.configService.get<string>('API_CRYPTO_KEY')
+      }
+    }).then((res) => res.data.data)
+
+    const coinsData = {}
+
+    for (const [_, value] of Object.entries(coinData)) {
+      coinsData[value['name']] = value['quote']['USD'].price
+    }
+
+    return coinsData
+  }
 }
