@@ -99,7 +99,10 @@ export class CryptoDetailsService {
       const parsed_crypto_currency_id = Number(crypto_currency_id)
   
       const parsed_bought_date = new Date(date_bought)
-      const parsed_sold_date = new Date(date_sold)
+
+      const price_sold_value = price_sold  ? price_sold : null
+      const date_sold_value = date_sold ? new Date(date_sold): null
+      const stock_name_value = stock_name ? stock_name : ''
   
       const edited_currency = this.prisma.cryptocurrency.update({
         data: {
@@ -107,10 +110,10 @@ export class CryptoDetailsService {
           amount: amount,
           ticker: ticker,
           price_bought: price_bought,
-          price_sold: price_sold,
+          price_sold: price_sold_value,
           date_bought: parsed_bought_date,
-          date_sold: parsed_sold_date,
-          stock_name: stock_name,
+          date_sold: date_sold_value,
+          stock_name: stock_name_value,
         },
         where: {
           id: parsed_crypto_currency_id
@@ -140,16 +143,20 @@ export class CryptoDetailsService {
       GROUP BY name
     `)
 
-    const coinsListNames = cryptoCurrencySummary.map((coin) => coin.name.toLocaleLowerCase()).join(',')
-    const coinsListData = await this.externalCryptoApiService.fetchCryptoCurrencyByName(coinsListNames)
-
-    return cryptoCurrencySummary.map((coin) => ({
-      id: Math.random(),
-      coinName: coin.name,
-      amount: Number(coin.amount),
-      avgPrice: Number(coin.avgprice).toFixed(2),
-      currentPrice: coinsListData[coin.name].toFixed(2),
-      procent: this.mathCalculation.countProcent(coinsListData[coin.name], coin.avgprice).toFixed(2)
-    }))
+    if(cryptoCurrencySummary.length > 0) {
+      const coinsListNames = cryptoCurrencySummary.map((coin) => coin.name.toLocaleLowerCase()).join(',')
+      const coinsListData = await this.externalCryptoApiService.fetchCryptoCurrencyByName(coinsListNames)
+  
+      return cryptoCurrencySummary.map((coin) => ({
+        id: Math.random(),
+        coinName: coin.name,
+        amount: Number(coin.amount),
+        avgPrice: Number(coin.avgprice).toFixed(2),
+        currentPrice: coinsListData[coin.name].toFixed(2),
+        procent: this.mathCalculation.countProcent(coinsListData[coin.name], coin.avgprice).toFixed(2)
+      }))
+    } else {
+      return cryptoCurrencySummary
+    }
   }
 }

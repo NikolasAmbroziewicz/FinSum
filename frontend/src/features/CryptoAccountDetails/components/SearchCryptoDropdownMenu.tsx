@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import BaseInput from 'src/shared/components/Input/base/BaseInput'
 import Loading from 'src/shared/components/Loading/Loading'
@@ -11,10 +11,11 @@ import { LoadingSize } from 'src/shared/components/Loading/types'
 interface ISearchDropdownMenu {
   error: boolean,
   setName: (value: string) => void
-  setTicker: (value: string) => void
+  setTicker: (value: string) => void,
+  defaultValue?: string
 }
 
-const SearchCryptoDropdownMenu: React.FC<ISearchDropdownMenu> = ({ error, setName, setTicker }) => {
+const SearchCryptoDropdownMenu: React.FC<ISearchDropdownMenu> = ({ error, setName, setTicker, defaultValue = '' }) => {
   const {
     cryptoOptions,
     handleInput,
@@ -31,6 +32,10 @@ const SearchCryptoDropdownMenu: React.FC<ISearchDropdownMenu> = ({ error, setNam
     setTicker(value.symbol)
     setMenuOpen(false)
   }
+
+  useEffect(() => {
+    setInputValue(defaultValue)
+  }, [])
 
   return (
     <div className="relative">
