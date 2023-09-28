@@ -12,7 +12,8 @@ import BaseTable from 'src/shared/components/Table/BaseTable';
 import Loading from 'src/shared/components/Loading/Loading';
 
 import CryptoCurrencyListElement from './CryptoCurrencyListElement';
-import CryptoCurrencyListAction from './CryptoCurrencyListAction';
+import CryptoCurrencyListAction from '../CryptoCurrencyListAction';
+import CryptoCurrencyListElementMobile from './CryptoCurrencyListElementMobile';
 
 import { useScreen } from 'src/shared/hooks/useScreen';
 
@@ -33,7 +34,7 @@ const CryptoCurrencyList: React.FC<ICryptoCurrencyList> = ({
   
   return (
     <div className="h-full my-4">
-      <div className="mt-4 h-full">
+      <div className="flex flex-col gap-2 mt-4 h-full">
         <H3 position={Position.left}>
           Wallet History
         </H3>
@@ -42,9 +43,16 @@ const CryptoCurrencyList: React.FC<ICryptoCurrencyList> = ({
             <Loading position={LoadingPosition.start} />
           ) : cryptoCurrency.length !== 0 ? (
             isMobileScreen() ? (
-              <div>
-                Mobile Screen
-              </div>
+              cryptoCurrency.map((item) => (
+                <CryptoCurrencyListElementMobile 
+                  item={item}
+                >
+                  <CryptoCurrencyListAction 
+                    cryptoCurrency={item}
+                    accountId={accountId}
+                  />
+                </CryptoCurrencyListElementMobile>
+              ))
             ) : (
               <BaseTable
                 headers={['Coin Name', 'Ticker', 'Amount', 'Price Bought', 'Price Sold', 'Date Bought', 'Date Sold', 'Stock Name', '']}

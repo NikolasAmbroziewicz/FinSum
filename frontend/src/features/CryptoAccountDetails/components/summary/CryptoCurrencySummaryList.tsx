@@ -7,6 +7,7 @@ import {
 
 import H3 from 'src/shared/components/Headers/H3';
 import CryptoCurrencySummaryListElement from './CryptoCurrencySummaryListElement';
+import CryptoCurrencySummaryListElementMobile from './CryptoCurrencySummaryListElementMobile';
 
 import NotFound from 'src/shared/components/NotFound/NotFound';
 import BaseTable from 'src/shared/components/Table/BaseTable';
@@ -25,7 +26,7 @@ const CryptoCurrencySummaryList = () => {
 
   return (
     <div className="h-full my-4">
-      <div className="mt-4 h-full">
+      <div className="flex flex-col gap-2 mt-4 h-full">
         <H3 position={Position.left}>
           Crypto Currency Summary
         </H3>
@@ -34,13 +35,15 @@ const CryptoCurrencySummaryList = () => {
             <Loading position={LoadingPosition.start} />
           ) :  cryptoCurrency.length !== 0 ? (
             isMobileScreen() ? (
-              <div>
-                Mobile Screen
-              </div>
+              cryptoCurrency.map((item) => (
+                <CryptoCurrencySummaryListElementMobile 
+                  item={item}
+                />
+              ))
             ) : (
               <BaseTable
-                headers={['Coin Name', 'Avg Price', 'Amount', 'Current Price', 'Gain/Lost', '']}
-                headerWidth={['1/2', '150px', '130px', '150px', '60px', '60px', '60px']}
+                headers={['Coin Name', 'Avg Price', 'Amount', 'Current Price', 'Gain/Lost']}
+                headerWidth={['1/2', '150px', '150px', '150px', '120px']}
               >
                 {
                   cryptoCurrency.map((item) => (
