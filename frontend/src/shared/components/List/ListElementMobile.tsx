@@ -14,7 +14,6 @@ interface IListElementMobile {
 
 const ListElementMobile: React.FC<IListElementMobile> = ({
   amount,
-  currency,
   date,
   title,
   children
@@ -22,7 +21,7 @@ const ListElementMobile: React.FC<IListElementMobile> = ({
   const { dateFormat } = useDate();
 
   const displayAmount = () => {
-    return `${amount} ${currency && currency}`;
+    return `${amount} USD`;
   };
 
   const displayDate = () => {

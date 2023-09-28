@@ -9,8 +9,8 @@ import BaseButton from 'src/shared/components/Button/base/BaseButton';
 import BaseModal from 'src/shared/components/Modals/BaseModal';
 
 import CryptoCurrencyForm from 'src/features/CryptoAccountDetails/components/CryptoCurrencyForm';
-import CryptoCurrencySummaryList from 'src/features/CryptoAccountDetails/components/CryptoCurrencySummaryList';
-import CryptoCurrencyList from 'src/features/CryptoAccountDetails/components/CryptoCurrencyList'
+import CryptoCurrencySummaryList from 'src/features/CryptoAccountDetails/components/summary/CryptoCurrencySummaryList';
+import CryptoCurrencyList from 'src/features/CryptoAccountDetails/components/details/CryptoCurrencyList'
 
 import { useModal } from 'src/shared/components/Modals/hooks/useModal';
 

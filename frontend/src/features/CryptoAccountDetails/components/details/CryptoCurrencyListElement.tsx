@@ -3,7 +3,6 @@ import { useScreen } from 'src/shared/hooks/useScreen';
 
 import { CryptoCurrencyDetailsSchemaType } from 'src/features/CryptoAccountDetails/validators'
 
-
 interface ICryptoCurrencyListElement {
   item: CryptoCurrencyDetailsSchemaType,
   children: JSX.Element
