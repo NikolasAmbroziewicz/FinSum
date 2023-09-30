@@ -153,7 +153,8 @@ export class CryptoDetailsService {
         amount: Number(coin.amount),
         avgPrice: Number(coin.avgprice).toFixed(2),
         currentPrice: coinsListData[coin.name].toFixed(2),
-        procent: this.mathCalculation.countProcent(coinsListData[coin.name], coin.avgprice).toFixed(2)
+        procent: this.mathCalculation.countProcent(coinsListData[coin.name], coin.avgprice).toFixed(2),
+        value: Number(Number(coin.amount) * coinsListData[coin.name].toFixed(2))
       }))
     } else {
       return cryptoCurrencySummary
