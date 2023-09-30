@@ -40,7 +40,7 @@ export class CryptoAccountsController {
     return this.cryptoAccountsService.deleteAccount(id)
   }
 
-  @Put('v1/edit-account')
+  @Put('v1/edit-account/:id')
   editAccount(
     @Body() account: CryptoAccountDto,
     @Param('id') id: string,

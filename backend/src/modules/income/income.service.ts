@@ -5,7 +5,7 @@ import { PrismaService } from '../../prisma/prisma.service';
 
 import { IcomeDto } from './income.dto';
 
-import { IncomeResponse } from './income.type';
+import { IncomeResponse, IncomesByMonth } from './income.type';
 import { UserWithTokens } from '../auth/auth.type';
 
 @Injectable()
@@ -108,5 +108,39 @@ export class IncomeService {
         }
       }
     }
+  }
+
+  async getIncomesByMonths(user: UserWithTokens, date: Date) {
+    const { userId, email } = user;
+    const current_year = new Date(date).getFullYear();
+
+    const incomesGrouped: IncomesByMonth[] = await this.prisma.$queryRawUnsafe(`
+      SELECT SUM(amount) , currency ,date_part('month',date) as month
+      FROM income
+      WHERE user_id=${userId} AND date_part('year', date)=${current_year}
+      GROUP BY month, currency
+      ORDER BY month
+    `)
+
+    const month_by_year = {}
+
+    incomesGrouped.map((income) => {
+      if (month_by_year[income.month] === undefined) {
+        month_by_year[income.month] = [{
+          "currency": income.currency,
+          "sum": Number(income.sum)
+        }]
+      } else {
+        month_by_year[income.month] = [
+          ...month_by_year[income.month], 
+          {
+            "currency": income.currency,
+            "amount": Number(income.sum)
+          }
+        ]
+      }
+    })
+
+    return month_by_year
   }
 }
