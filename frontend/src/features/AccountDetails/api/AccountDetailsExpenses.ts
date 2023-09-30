@@ -10,7 +10,7 @@ export const useDetailsExpenses = () => {
   ) => {
     return apiBase()
       .post(
-        `/account-expense/v1/add-expense?account_id=${account_id}`,
+        `/account-expense/v1/add-expense/${account_id}`,
         {
           ...data
         },
@@ -28,7 +28,7 @@ export const useDetailsExpenses = () => {
   ) => {
     return apiBase()
       .put(
-        `/account-expense/v1/edit-expense?expense_id=${data.id}`,
+        `/account-expense/v1/edit-expense/${data.id}`,
         {
           ...data
         },
@@ -43,7 +43,7 @@ export const useDetailsExpenses = () => {
 
   const delete_account_expense = async (expense_id: number) => {
     return apiBase()
-      .delete(`/account-expense/v1/delete-expense?expense_id=${expense_id}`, {
+      .delete(`/account-expense/v1/delete-expense/${expense_id}`, {
         headers: {
           ...authHeader
         }
@@ -54,7 +54,7 @@ export const useDetailsExpenses = () => {
   const get_account_expenses = async (account_id: number, date: Date) => {
     return apiBase()
       .get(
-        `/account-expense/v1/get-expenses?account_id=${account_id}&date=${date}`,
+        `/account-expense/v1/get-expenses/${account_id}?date=${date}`,
         {
           headers: {
             ...authHeader

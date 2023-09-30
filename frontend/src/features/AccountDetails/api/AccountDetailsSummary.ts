@@ -6,7 +6,7 @@ export const useAccountDetailsSummary = () => {
   const get_summary_account = (account_id: number, date: Date) => {
     return apiBase()
       .get(
-        `/account-summary/v1/get-summary?account_id=${account_id}&date=${date}`,
+        `/account-summary/v1/get-summary/${account_id}?date=${date}`,
         {
           headers: {
             ...authHeader
