@@ -19,6 +19,8 @@ import CryptoAccountReducer from './CryptoAccount/CryptoAccountSlice';
 import CryptoAccountDetails from './CryptoAccountDetails/CryptoAccountDetailsSlice';
 import CryptoAccountDetailsSummary from './CryptoAccountDetails/summary/CryptoAccountDetailsSummarySlice';
 
+import DashboardSliceReducer from './Dashboard/DashboardSlice';
+
 const rootReducer = combineReducers({
   auth: UserReducer,
   income: IncomesReducer,
@@ -28,7 +30,8 @@ const rootReducer = combineReducers({
   accountDetailsSummary: AccountDetailsSummaryReducer,
   cryptoAccounts: CryptoAccountReducer,
   cryptoAccountDetails:CryptoAccountDetails,
-  cryptoAccountDetailsSummary: CryptoAccountDetailsSummary
+  cryptoAccountDetailsSummary: CryptoAccountDetailsSummary,
+  dashBoard: DashboardSliceReducer
 });
 
 export function setupStore(preloadedState?: PreloadedState<RootState>) {
