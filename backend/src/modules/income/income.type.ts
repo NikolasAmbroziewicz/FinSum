@@ -14,3 +14,7 @@ export type IncomesByMonth = {
   currency: string,
   month: number
 }
+
+export type AvailableCurrency = {
+  currency: string
+}

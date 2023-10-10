@@ -5,7 +5,7 @@ import { PrismaService } from '../../prisma/prisma.service';
 
 import { IcomeDto } from './income.dto';
 
-import { IncomeResponse, IncomesByMonth } from './income.type';
+import { IncomeResponse, IncomesByMonth, AvailableCurrency } from './income.type';
 import { UserWithTokens } from '../auth/auth.type';
 
 @Injectable()
@@ -111,13 +111,32 @@ export class IncomeService {
   }
 
   async getIncomesByMonths(user: UserWithTokens, date: Date) {
-    const { userId, email } = user;
-    const current_year = new Date(date).getFullYear();
+    const { userId } = user;
+    const currentYear = new Date(date).getFullYear();
 
+    return {
+      'available_currency': await this.formatAvailableCurrency(userId, currentYear),
+      'details': await this.formatIncomesGrouped(userId, currentYear)
+    }
+  }
+
+  private async formatAvailableCurrency(userId: number, currentYear: number) {
+    const currency: AvailableCurrency[] = await this.prisma.$queryRawUnsafe(`
+      SELECT DISTINCT currency
+      FROM income
+      WHERE user_id=${userId} AND date_part('year', date)=${currentYear}
+    `)
+
+    return currency.map((val) => {
+      return val['currency']
+    })
+  }
+
+  private async formatIncomesGrouped(userId: number, currentYear: number) {
     const incomesGrouped: IncomesByMonth[] = await this.prisma.$queryRawUnsafe(`
       SELECT SUM(amount) , currency ,date_part('month',date) as month
       FROM income
-      WHERE user_id=${userId} AND date_part('year', date)=${current_year}
+      WHERE user_id=${userId} AND date_part('year', date)=${currentYear}
       GROUP BY month, currency
       ORDER BY month
     `)

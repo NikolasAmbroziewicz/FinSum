@@ -8,7 +8,7 @@ import { useAccountDetailsSummary } from 'src/features/AccountDetails/api/Accoun
 import { useCryptoAccountsDetailsApi } from 'src/features/CryptoAccountDetails/api/CryptoAccountDetailsApi'
 import { RootState } from '../main';
 
-const getAccountsDetails = createAsyncThunk(
+export const getAccountsDetails = createAsyncThunk(
   'dashboard/getAccountsDetails',
   async ({account_id, date}: {account_id: number, date: Date}) => {
     const { get_account_summary_by_month } = useAccountDetailsSummary()
@@ -19,7 +19,7 @@ const getAccountsDetails = createAsyncThunk(
   } 
 )
 
-const getIncomeDetails = createAsyncThunk(
+export const getIncomeDetails = createAsyncThunk(
   'dashbord/getIncomesDetails',
   async (date: Date) => {
     const { get_income_by_months } = useIncomeApi()
@@ -30,7 +30,7 @@ const getIncomeDetails = createAsyncThunk(
   }
 )
 
-const getCryptoCurrencyDetails = createAsyncThunk(
+export const getCryptoCurrencyDetails = createAsyncThunk(
   'dashboard/getCryptoCurrencyDetails',
   async (account_id: number) => {
     const { get_crypto_currency_summary } = await useCryptoAccountsDetailsApi()
@@ -48,7 +48,10 @@ const initialState: DashboardSlice = {
   },
   income: {
     isLoading: false,
-    incomes: {}
+    incomes: {
+      available_currency: [],
+      details: {}
+    }
   },
   cryptoCurrency: {
     isLoading: false,
