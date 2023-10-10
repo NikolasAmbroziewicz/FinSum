@@ -15,7 +15,10 @@ type IncomeDetails = {
 }
 
 export interface IncomeDetailsSummary {
-  [item: number]: IncomeDetails
+  available_currency: string[]
+  details: {
+    [item: number]: IncomeDetails[]
+  }
 }
 
 export interface DashboardSlice {

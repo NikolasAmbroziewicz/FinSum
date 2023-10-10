@@ -154,7 +154,7 @@ export class IncomeService {
           ...month_by_year[income.month], 
           {
             "currency": income.currency,
-            "amount": Number(income.sum)
+            "sum": Number(income.sum)
           }
         ]
       }
