@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { DashboardSlice, IncomeDetailsSummary, AccountDetailsSummary } from './types'
+import isEmpty from 'lodash/isEmpty'
+
+import { DashboardSlice } from './types'
 import { CryptoCurrencySummary } from 'src/features/CryptoAccountDetails/validators'
 
 import { useIncomeApi } from 'src/features/Income/api/incomeApi'
@@ -75,6 +77,7 @@ const dashboardSlice = createSlice({
       state.accountDetails.isLoading = false
     })
     builder.addCase(getIncomeDetails.fulfilled, (state, action) => {
+      console.log('incomes', action.payload)
       state.income.incomes = action.payload
       state.income.isLoading = false
     })  
@@ -102,6 +105,7 @@ export const getAccountsDetailsLoading = (state: RootState) => state.dashBoard.a
 
 export const getIncomeDetailsList = (state: RootState) => state.dashBoard.income.incomes
 export const getIncomeDetailsLoading = (state: RootState) => state.dashBoard.income.isLoading
+export const isIncomeDetailsEmpty = (state: RootState) => isEmpty(state.dashBoard.income.incomes.details)
 
 export const getCryptoCurrencyDetailsList = (state: RootState) => state.dashBoard.cryptoCurrency.cryptoSummary
 export const getCryptoCurrencyDetailsLoading = (state: RootState) => state.dashBoard.cryptoCurrency.isLoading

@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { AppDispatch } from 'src/store/main';
 
+import Loading from "src/shared/components/Loading/Loading";
 import Calendar from 'src/shared/components/Calendar/Calendar';
 import H4 from "src/shared/components/Headers/H4"
+import NotFound from 'src/shared/components/NotFound/NotFound';
 
-import { getIncomeDetails, getIncomeDetailsList } from 'src/store/Dashboard/DashboardSlice'
+import { getIncomeDetails, getIncomeDetailsList, getIncomeDetailsLoading, isIncomeDetailsEmpty } from 'src/store/Dashboard/DashboardSlice'
 
+import { LoadingPosition } from "src/shared/components/Loading/types";
 import { Position } from 'src/shared/components/Headers/Header.types'
 
 import {
@@ -44,7 +47,10 @@ const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 const IncomesPanel = () => {
   const [date, setDate] = useState(new Date())
   const dispatch = useDispatch<AppDispatch>();
+
   const incomesList = useSelector(getIncomeDetailsList)
+  const incomesLoading = useSelector(getIncomeDetailsLoading)
+  const incomeDetailsEmpty = useSelector(isIncomeDetailsEmpty)
 
   useEffect(() => {
     dispatch(
@@ -70,41 +76,49 @@ const IncomesPanel = () => {
     return value
   }
 
-  const dataMemo = useMemo(() => {
-    return {
-      labels,
-      datasets: incomesList.available_currency.map((val) => {
-        return {
-          label: val,
-          data: getData(val),
-          backgroundColor: chartsColors[val],
-        }
-      })
-    }
-  }, [incomesList])
-
   return (
-    <div className="flex flex-col bg-red-100">
+    <div className="flex flex-col border-1 border-solid border border-slate-300 p-2">
       <div className="flex justify-between align-top p-2">
         <H4 styles="p-2" position={Position.left}>Incomes Panel</H4>
         <Calendar startDate={date} setStartDate={setDate} yearCalendar={true} />
       </div>
-      <div>
-        <Bar options={{
-            responsive: true,
-            plugins: {
-              legend: {
-                position: 'top' as const,
+      {
+        incomesLoading ? (
+          <Loading />
+        ) : (
+          incomeDetailsEmpty ? (
+            <div className="m-auto">
+              <NotFound text="No Data Found" />
+            </div>
+          ) : (
+            <Bar 
+            options={{
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'top' as const,
+                },
+                title: {
+                  display: false,
+                  text: 'Chart.js Bar Chart',
+                },
               },
-              title: {
-                display: true,
-                text: 'Chart.js Bar Chart',
-              },
-            },
-          }} 
-          data={dataMemo} 
-        />
-      </div>
+            }} 
+            data={{
+              labels,
+              datasets: incomesList.available_currency.map((val) => {
+                return {
+                  label: val,
+                  data: getData(val),
+                  backgroundColor: chartsColors[val],
+                }
+              })
+            }} 
+          />
+        )
+          )
+
+      }
     </div>
   )
 }
