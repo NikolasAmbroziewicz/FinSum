@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from 'react-redux';
 
 import { AppDispatch } from 'src/store/main';
@@ -10,7 +10,6 @@ import NotFound from 'src/shared/components/NotFound/NotFound';
 
 import { getIncomeDetails, getIncomeDetailsList, getIncomeDetailsLoading, isIncomeDetailsEmpty } from 'src/store/Dashboard/DashboardSlice'
 
-import { LoadingPosition } from "src/shared/components/Loading/types";
 import { Position } from 'src/shared/components/Headers/Header.types'
 
 import {
@@ -42,7 +41,7 @@ const chartsColors: {
   'CHF': 'rgba(255, 99, 132, 0.5)',
   'GBP': 'rgba(255, 99, 132, 0.5)'
 }
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 const IncomesPanel = () => {
   const [date, setDate] = useState(new Date())
@@ -82,43 +81,45 @@ const IncomesPanel = () => {
         <H4 styles="p-2" position={Position.left}>Incomes Panel</H4>
         <Calendar startDate={date} setStartDate={setDate} yearCalendar={true} />
       </div>
-      {
-        incomesLoading ? (
-          <Loading />
-        ) : (
-          incomeDetailsEmpty ? (
-            <div className="m-auto">
-              <NotFound text="No Data Found" />
-            </div>
+        {
+          incomesLoading ? (
+            <Loading />
           ) : (
-            <Bar 
-            options={{
-              responsive: true,
-              plugins: {
-                legend: {
-                  position: 'top' as const,
-                },
-                title: {
-                  display: false,
-                  text: 'Chart.js Bar Chart',
-                },
-              },
-            }} 
-            data={{
-              labels,
-              datasets: incomesList.available_currency.map((val) => {
-                return {
-                  label: val,
-                  data: getData(val),
-                  backgroundColor: chartsColors[val],
-                }
-              })
-            }} 
-          />
-        )
+            incomeDetailsEmpty ? (
+              <div className="m-auto">
+                <NotFound text="No Data Found" />
+              </div>
+            ) : (
+              <div className="flex justify-center">
+                <Bar
+                  className="max-w-2xl"
+                  options={{
+                    responsive: true,
+                    plugins: {
+                      legend: {
+                        position: 'top' as const,
+                      },
+                      title: {
+                        display: false,
+                        text: 'Chart.js Bar Chart',
+                      },
+                    },
+                  }} 
+                  data={{
+                    labels,
+                    datasets: incomesList.available_currency.map((val) => {
+                      return {
+                        label: val,
+                        data: getData(val),
+                        backgroundColor: chartsColors[val],
+                      }
+                    })
+                  }} 
+                />
+              </div>
+            )
           )
-
-      }
+        }
     </div>
   )
 }

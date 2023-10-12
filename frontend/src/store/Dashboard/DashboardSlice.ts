@@ -77,7 +77,6 @@ const dashboardSlice = createSlice({
       state.accountDetails.isLoading = false
     })
     builder.addCase(getIncomeDetails.fulfilled, (state, action) => {
-      console.log('incomes', action.payload)
       state.income.incomes = action.payload
       state.income.isLoading = false
     })  
