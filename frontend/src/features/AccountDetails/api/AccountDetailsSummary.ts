@@ -26,6 +26,7 @@ export const useAccountDetailsSummary = () => {
           }
         }
       )
+      .then((res) => res.data)
   } 
 
   return {
