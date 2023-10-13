@@ -90,32 +90,34 @@ const IncomesPanel = () => {
                 <NotFound text="No Data Found" />
               </div>
             ) : (
-              <div className="flex justify-center">
-                <Bar
-                  className="max-w-2xl"
-                  options={{
-                    responsive: true,
-                    plugins: {
-                      legend: {
-                        position: 'top' as const,
+              <div className="flex justify-center h-full">
+                <div className="h-full w-full">
+                  <Bar
+                    className="max-w-2xl"
+                    options={{
+                      responsive: true,
+                      plugins: {
+                        legend: {
+                          position: 'top' as const,
+                        },
+                        title: {
+                          display: false,
+                          text: 'Chart.js Bar Chart',
+                        },
                       },
-                      title: {
-                        display: false,
-                        text: 'Chart.js Bar Chart',
-                      },
-                    },
-                  }} 
-                  data={{
-                    labels,
-                    datasets: incomesList.available_currency.map((val) => {
-                      return {
-                        label: val,
-                        data: getData(val),
-                        backgroundColor: chartsColors[val],
-                      }
-                    })
-                  }} 
-                />
+                    }} 
+                    data={{
+                      labels,
+                      datasets: incomesList.available_currency.map((val) => {
+                        return {
+                          label: val,
+                          data: getData(val),
+                          backgroundColor: chartsColors[val],
+                        }
+                      })
+                    }} 
+                  />
+                </div>
               </div>
             )
           )
