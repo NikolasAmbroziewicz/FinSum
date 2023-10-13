@@ -1,6 +1,6 @@
 import { CryptoCurrencySummary } from 'src/features/CryptoAccountDetails/validators'
 
-type AccountsDetails = {
+export type AccountsDetails = {
   cash: string,
   expense: string
 }

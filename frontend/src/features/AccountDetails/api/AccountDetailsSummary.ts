@@ -19,7 +19,7 @@ export const useAccountDetailsSummary = () => {
   const get_account_summary_by_month = async (account_id: number, date: Date) => {
     return apiBase()
       .get(
-        `/account-summary/v1/get-summary/${account_id}?date=${date}`,
+        `/account-summary/v1/get-summary-by-month/${account_id}?date=${date}`,
         {
           headers: {
             ...authHeader

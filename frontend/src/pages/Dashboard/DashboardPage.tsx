@@ -2,7 +2,7 @@ import H1 from "src/shared/components/Headers/H1";
 import H2 from "src/shared/components/Headers/H2";
 
 import IncomesPanel from "src/features/Dashboard/components/IncomesPanel";
-import ExpenesePanel from "src/features/Dashboard/components/ExpensesPanel";
+import AccountPanel from "src/features/Dashboard/components/AccountPanel";
 import CryptoCurrencyPanel from "src/features/Dashboard/components/CryptoCurrencyPanel";
 import NetWorthPanel from "src/features/Dashboard/components/NetWorthPanel";
 
@@ -17,7 +17,7 @@ const DashboardPage = () => {
         smplus:grid-cols-2 smplus:auto-rows-max smplus:h-full smplus:grid-rows-2
       ">
         <IncomesPanel />
-        <ExpenesePanel />
+        <AccountPanel />
         <CryptoCurrencyPanel />
         <NetWorthPanel />
       </div>

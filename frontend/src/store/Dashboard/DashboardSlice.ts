@@ -35,7 +35,7 @@ export const getIncomeDetails = createAsyncThunk(
 export const getCryptoCurrencyDetails = createAsyncThunk(
   'dashboard/getCryptoCurrencyDetails',
   async (account_id: number) => {
-    const { get_crypto_currency_summary } = await useCryptoAccountsDetailsApi()
+    const { get_crypto_currency_summary } = useCryptoAccountsDetailsApi()
 
     const res: CryptoCurrencySummary[] = await get_crypto_currency_summary(account_id)
 
@@ -67,6 +67,7 @@ const dashboardSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder.addCase(getAccountsDetails.fulfilled, (state, action) => {
+      console.log(action.payload)
       state.accountDetails.accountDetails = action.payload
       state.accountDetails.isLoading = false
     })
