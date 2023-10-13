@@ -11,6 +11,7 @@ import { useIncome } from '../hooks/useIncome';
 
 import { supportedCurrency } from 'src/shared/data/SupportedCurrencies';
 import { IncomeSchemaType } from '../validators';
+import { DropdownContent } from 'src/shared/components/Dropdown/types';
 
 interface IIncomeForm {
   onClose: () => void;
@@ -29,8 +30,8 @@ const IncomeForm: React.FC<IIncomeForm> = ({ onClose, editForm, income }) => {
     getValues
   } = useIncome({ onClose });
 
-  const handleValue = (val: string) => {
-    setValue('currency', val, { shouldValidate: true });
+  const handleValue = (val: DropdownContent) => {
+    setValue('currency', val.content, { shouldValidate: true });
   };
 
   const handleDateValue = (val: Date) => {

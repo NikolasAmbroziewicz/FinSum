@@ -4,14 +4,14 @@ import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
 
 import { DropdownContent } from './types';
 
-interface IBaseDropdownMenu {
+interface IButtonDropdownMenu {
   dropdownContent: DropdownContent[];
   error: boolean;
-  handleValue: (value: string) => void;
+  handleValue: (value: DropdownContent) => void;
   value: string;
 }
 
-const BaseDropdownMenu: React.FC<IBaseDropdownMenu> = ({
+const ButtonDropdownMenu: React.FC<IButtonDropdownMenu> = ({
   dropdownContent,
   error,
   handleValue,
@@ -23,7 +23,7 @@ const BaseDropdownMenu: React.FC<IBaseDropdownMenu> = ({
     setMenuOpen(true);
   };
 
-  const handleClick = (val: string) => {
+  const handleClick = (val: DropdownContent) => {
     setMenuOpen(false);
     handleValue(val);
   };
@@ -63,7 +63,7 @@ const BaseDropdownMenu: React.FC<IBaseDropdownMenu> = ({
             <li
               key={element.id}
               className="text-gray-700 block px-4 py-2 text-base cursor-pointer hover:bg-slate-100"
-              onClick={() => handleClick(element.content)}
+              onClick={() => handleClick(element)}
             >
               {element.content}
             </li>
@@ -74,4 +74,4 @@ const BaseDropdownMenu: React.FC<IBaseDropdownMenu> = ({
   );
 };
 
-export default BaseDropdownMenu;
+export default ButtonDropdownMenu;

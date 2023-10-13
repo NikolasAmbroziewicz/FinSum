@@ -10,6 +10,7 @@ import ButtonDropdownMenu from 'src/shared/components/Dropdown/ButtonDropdownMen
 import { AccountSchemaType } from '../validators';
 
 import { supportedCurrency } from 'src/shared/data/SupportedCurrencies';
+import { DropdownContent } from 'src/shared/components/Dropdown/types';
 
 interface IAccountsForm {
   onClose: () => void;
@@ -41,8 +42,8 @@ const AccountsForm: React.FC<IAccountsForm> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleValue = (val: string) => {
-    setValue('currency', val, { shouldValidate: true });
+  const handleValue = (val: DropdownContent) => {
+    setValue('currency', val.content, { shouldValidate: true });
   };
 
   return (

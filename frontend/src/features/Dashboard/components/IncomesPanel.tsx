@@ -90,8 +90,7 @@ const IncomesPanel = () => {
                 <NotFound text="No Data Found" />
               </div>
             ) : (
-              <div className="flex justify-center h-full">
-                <div className="h-full w-full">
+              <div className="flex justify-center min-h-[35vh]">
                   <Bar
                     className="max-w-2xl"
                     options={{
@@ -117,7 +116,6 @@ const IncomesPanel = () => {
                       })
                     }} 
                   />
-                </div>
               </div>
             )
           )

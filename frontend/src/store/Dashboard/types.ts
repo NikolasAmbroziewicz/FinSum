@@ -2,7 +2,7 @@ import { CryptoCurrencySummary } from 'src/features/CryptoAccountDetails/validat
 
 type AccountsDetails = {
   cash: string,
-  expesne: string
+  expense: string
 }
 
 export interface AccountDetailsSummary {
