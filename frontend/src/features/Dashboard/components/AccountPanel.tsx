@@ -121,7 +121,7 @@ const AccountPanel = () => {
         accountDetailsLoading ? (
           <Loading />
         ) : (
-          <div className="flex justify-center min-h-[35vh]">
+          <div className="flex justify-center max-h-[35vh]">
             <Bar 
               className='max-w-2xl'
               options={{
