@@ -45,6 +45,7 @@ export type CryptoCurrencySummary = {
   amount: string,
   currentPrice: string,
   procent: string,
+  value: number
 }
 
 export type CryptoCurrencyDetailsSchemaType = TypeOf<typeof cryptoCurrencyDetailsSchema>

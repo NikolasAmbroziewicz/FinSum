@@ -8,3 +8,13 @@ export type IncomeResponse = {
   date: Date;
   user_id: number;
 };
+
+export type IncomesByMonth = {
+  sum: string,
+  currency: string,
+  month: number
+}
+
+export type AvailableCurrency = {
+  currency: string
+}

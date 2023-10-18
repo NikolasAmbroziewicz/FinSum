@@ -7,7 +7,7 @@ export const useDetailsIncomes = () => {
   const get_account_incomes = async (account_id: number, date: Date) => {
     return apiBase()
       .get(
-        `/account-income/v1/get-incomes?account_id=${account_id}&date=${date}`,
+        `/account-income/v1/get-incomes/${account_id}?date=${date}`,
         {
           headers: {
             ...authHeader
@@ -23,7 +23,7 @@ export const useDetailsIncomes = () => {
   ) => {
     return apiBase()
       .post(
-        `/account-income/v1/add-income?account_id=${account_id}`,
+        `/account-income/v1/add-income/${account_id}`,
         {
           ...data
         },
@@ -39,7 +39,7 @@ export const useDetailsIncomes = () => {
   const edit_account_income = async (data: AccountDetailsIncomeSchemaType) => {
     return apiBase()
       .put(
-        `/account-income/v1/edit-income?income_id=${data.id}`,
+        `/account-income/v1/edit-income/${data.id}`,
         {
           ...data
         },
@@ -54,7 +54,7 @@ export const useDetailsIncomes = () => {
 
   const delete_account_income = async (income_id: number) => {
     return apiBase()
-      .delete(`/account-income/v1/delete-income?income_id=${income_id}`, {
+      .delete(`/account-income/v1/delete-income/${income_id}`, {
         headers: {
           ...authHeader
         }

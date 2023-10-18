@@ -31,7 +31,7 @@ model income {
   title     String   @db.VarChar(50)
   amount   Decimal  @db.Decimal()
   currency String   @db.VarChar(10)
-  date DateTime @db.Timestamp() @default(now())
+  date DateTime @db.Date() @default(now())
 
   user     user     @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id Int  @db.Integer

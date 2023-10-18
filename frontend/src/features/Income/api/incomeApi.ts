@@ -56,10 +56,21 @@ export const useIncomeApi = () => {
       .then((res) => res.data);
   };
 
+  const get_income_by_months = async (date: Date) => {
+    return apiBase()
+      .get(`/income/v1/get-incomes-by-months?date=${date}`, {
+        headers: {
+          ...authHeader
+        }
+      })
+      .then((res) => res.data)
+  }
+
   return {
     add_income,
     delete_income,
     edit_income,
+    get_income_by_months,
     get_income
   };
 };

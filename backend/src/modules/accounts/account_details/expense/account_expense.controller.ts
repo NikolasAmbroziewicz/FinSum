@@ -5,6 +5,7 @@ import {
   Get,
   Post,
   Put,
+  Param,
   Query,
 } from '@nestjs/common';
 
@@ -16,31 +17,31 @@ import { AccountExpenseDto } from './account_expense.dto';
 export class AccountExpenses {
   constructor(private accountExpensesService: AccountExpenseService) {}
 
-  @Get('v1/get-expenses')
+  @Get('v1/get-expenses/:account_id')
   getExpense(
-    @Query('account_id') account_id: string,
+    @Param('account_id') account_id: string,
     @Query('date') date: Date  
   ) {
     return this.accountExpensesService.getExpenses(account_id, date);
   }
 
-  @Post('v1/add-expense')
+  @Post('v1/add-expense/:account_id')
   addExpense(
     @Body() expense: AccountExpenseDto,
-    @Query('account_id') account_id: string,
+    @Param('account_id') account_id: string,
   ) {
     return this.accountExpensesService.addExpense(expense, account_id);
   }
 
-  @Delete('v1/delete-expense')
-  deleteExpense(@Query('expense_id') expense_id: string) {
+  @Delete('v1/delete-expense/:expense_id')
+  deleteExpense(@Param('expense_id') expense_id: string) {
     return this.accountExpensesService.deleteExpense(expense_id);
   }
 
-  @Put('v1/edit-expense')
+  @Put('v1/edit-expense/:expense_id')
   editExpense(
     @Body() expense: AccountExpenseDto,
-    @Query('expense_id') expense_id: string,
+    @Param('expense_id') expense_id: string,
   ) {
     return this.accountExpensesService.editExpense(expense, expense_id);
   }

@@ -39,7 +39,7 @@ const Calendar: React.FC<ICalendar> = ({
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center justify-end">
       <div className="flex mx-2">
         {yearCalendar ? (
           <DatePicker

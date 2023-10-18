@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "income" ALTER COLUMN "date" SET DATA TYPE DATE;

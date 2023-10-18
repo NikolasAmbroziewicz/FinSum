@@ -17,14 +17,14 @@ import { UserWithTokens } from '../auth/auth.type';
 
 @Controller('income')
 export class IncomeController {
-  constructor(private financeService: IncomeService) {}
+  constructor(private incomeService: IncomeService) {}
 
   @Post('v1/add-income')
   addIncome(
     @Body() income: IcomeDto,
     @GetCurrentUser() user: UserWithTokens,
   ): Promise<IncomeResponse> {
-    return this.financeService.addIncome(income, user);
+    return this.incomeService.addIncome(income, user);
   }
 
   @Get('v1/get-income')
@@ -32,16 +32,24 @@ export class IncomeController {
     @GetCurrentUser() user: UserWithTokens,
     @Query('date') date: Date,
   ): Promise<IncomeResponse[]> {
-    return this.financeService.getIncome(user, date);
+    return this.incomeService.getIncome(user, date);
   }
 
   @Delete('v1/delete-income')
   deleteIncome(@Query('id') id: number): Promise<IncomeResponse> {
-    return this.financeService.deleteIncome(Number(id));
+    return this.incomeService.deleteIncome(Number(id));
   }
 
   @Put('v1/edit-income')
   editIncome(@Body() income: IcomeDto, @Query('id') id: number) {
-    return this.financeService.editIncome(income, Number(id));
+    return this.incomeService.editIncome(income, Number(id));
   }
+
+  @Get('v1/get-incomes-by-months')
+  getIncomesByMonths(
+    @Query('date') date: Date,
+    @GetCurrentUser() user: UserWithTokens,
+  ) {
+    return this.incomeService.getIncomesByMonths(user, date)
+  } 
 }

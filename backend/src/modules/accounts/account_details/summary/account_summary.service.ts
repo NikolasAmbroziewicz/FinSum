@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 
 import { PrismaService } from '../../../../prisma/prisma.service';
 
+import { DataGrouped } from './types'
+
 @Injectable()
 export class AccountSummaryService {
   constructor(private prisma: PrismaService) {}
@@ -40,5 +42,60 @@ export class AccountSummaryService {
         currency: accountInfo[0].currency,
       }
     }
+  }
+
+  async getSummaryByMonth(account_id: string, date: Date) {
+    
+    const current_year = new Date(date).getFullYear();
+
+    const cash_groupped: DataGrouped[] = await this.prisma.$queryRawUnsafe(`
+      SELECT SUM(amount), date_part('month',date) as month
+      FROM cash
+      WHERE cash.account_id=${account_id} AND date_part('year', date)=${current_year}
+      GROUP BY month
+      ORDER BY month
+    `)
+
+    const expense_grouped: DataGrouped[] = await this.prisma.$queryRawUnsafe(`
+      SELECT SUM(amount), date_part('month',date) as month
+      FROM expense
+      WHERE expense.account_id=${account_id} AND date_part('year', date)=${current_year}
+      GROUP BY month
+      ORDER BY month
+    `)
+
+    return this.formattedSummaryByMonthResponse(cash_groupped, expense_grouped)
+  }
+
+  private formattedSummaryByMonthResponse(cash: DataGrouped[], expense: DataGrouped[]) {
+    const month_by_year = {}
+
+    cash.forEach((cash) => {
+      if(month_by_year[cash.month] === undefined) {
+        month_by_year[cash.month] = {
+          cash: cash.sum
+        }
+      } else {
+        month_by_year[cash.month] = {
+          ...month_by_year[cash.month],
+          cash: cash.sum
+        }
+      }
+    })
+
+    expense.forEach((expense) => {
+      if(month_by_year[expense.month] === undefined) {
+        month_by_year[expense.month] = {
+          expense: expense.sum
+        }
+      } else {
+        month_by_year[expense.month] = {
+          ...month_by_year[expense.month],
+          expense: expense.sum
+        }
+      }
+    })
+
+    return month_by_year
   }
 }

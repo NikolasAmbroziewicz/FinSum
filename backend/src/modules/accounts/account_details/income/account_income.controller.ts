@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   Post,
   Put,
   Query,
@@ -16,31 +17,31 @@ import { AccountIncomeDto } from './account_income.dto';
 export class AccountIncome {
   constructor(private accountIncomeService: AccountIncomeService) {}
 
-  @Get('v1/get-incomes')
+  @Get('v1/get-incomes/:account_id')
   getIncomes(
-    @Query('account_id') account_id: string,
+    @Param('account_id') account_id: string,
     @Query('date') date: Date  
   ) {
     return this.accountIncomeService.getIncomes(account_id, date);
   }
 
-  @Post('v1/add-income')
+  @Post('v1/add-income/:account_id')
   addIncome(
     @Body() income: AccountIncomeDto,
-    @Query('account_id') account_id: string,
+    @Param('account_id') account_id: string,
   ) {
     return this.accountIncomeService.addIncome(income, account_id);
   }
 
-  @Delete('v1/delete-income')
-  deleteIncome(@Query('income_id') income_id: string) {
+  @Delete('v1/delete-income/:income_id')
+  deleteIncome(@Param('income_id') income_id: string) {
     return this.accountIncomeService.deleteIncome(income_id);
   }
 
-  @Put('v1/edit-income')
+  @Put('v1/edit-income/:income_id')
   editIncome(
     @Body() income: AccountIncomeDto,
-    @Query('income_id') income_id: string,
+    @Param('income_id') income_id: string,
   ) {
     return this.accountIncomeService.editIncome(income, income_id);
   }
