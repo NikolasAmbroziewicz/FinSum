@@ -27,19 +27,19 @@ Demo: URL HERE
 
 Tech: React, Typescript, React Hooks ,Tailwind, Redux.
 
-How To Setup: [Steps](docs/1_frontend.md)
+How To Setup: [Steps](docs/setup/1_frontend.md)
 
 ### Data Base:
 
 Tech: PostgreSQL, Elastic Search
 
-How to Setup: [Steps](docs/3_database.md)
+How to Setup: [Steps](docs/setup/3_database.md)
 
 ### Backend
 
 Tech: NestJS, Typescript, PrismaORM
 
-How to Setup: [steps](docs/2_backend.md)
+How to Setup: [steps](docs/setup/2_backend.md)
 
 ## Author
 Nikolas Ambroziewicz
