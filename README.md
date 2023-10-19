@@ -1,98 +1,48 @@
-# FinSUM
-FinSUM is a Aplication to help you track yu
+# FinSum
+FinSum is an App which can help you to manage your Financial Assets and Financial Data.
 
-## Frontend
-React App
+Demo: URL HERE
 
-Install Dependency
+### Current Features:
 
-```bash
-cd frontend
-yarn
-```
+1. Adding Incomes
+2. Accounts allows you to create and track Incomes and Expenses for Holidays, Invesments etc. You can also:
+    - Add Incomes 
+    - Add Expenses
+    - Chose which Currency you would like to use.
+    - Can See Incomes and Expenses in Previous Months and Years
+3. Adding your Crypto Currency Invesmtents to your Wallet:
+    - Can find almost all CryptoCurrency on the market our App is integrated with External API so we are up to date with all new coins
+    - Can Add Price and Amount of coins which you have bought
+    - Can Track return of your Investments
+    - Can also all additional info to coins ex. where this coin is located (Private Wallet, Stock etc).
 
-Start the App
+### Feature Functionality:
+1. Adding Stock and Bonds to your wallet
+2. Adding Silver and Gold Coin to your portfoltion and see current price on different sites.
 
-```bash
-yarn dev
-```
+## How to use this app
 
-## Backend
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+### Frontend: 
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Tech: React, Typescript, React Hooks ,Tailwind, Redux.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+How To Setup: [Steps](docs/1_frontend.md)
 
-## Description
+### Data Base:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Tech: PostgreSQL, Elastic Search
 
-## Installation
+How to Setup: [Steps](docs/3_database.md)
 
-```bash
-$ yarn install
-```
+### Backend
 
-## Running the app
+Tech: NestJS, Typescript, PrismaORM
 
-```bash
-# development
-$ yarn run start
+How to Setup: [steps](docs/2_backend.md)
 
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
-
-
+## Author
+Nikolas Ambroziewicz
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
